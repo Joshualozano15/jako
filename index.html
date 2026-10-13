@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A. Pascua C. Construction</title>
+<style>
+:root{--o:#e11d2e;--bg:#f4f5f7;--card:#fff;--ink:#0b0b0f;--mut:#7a8494;--line:#e6e8ec;--blue:#8f1230;--yel:#e91e8c;--grn:#3da63d;--side:#0b0b0f}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--ink)}
+button,input,select{font:inherit}a{color:inherit;text-decoration:none}
+.btn{background:var(--o);color:#fff;border:0;border-radius:10px;padding:9px 16px;cursor:pointer;font-weight:600}
+.btn.g{background:var(--card);color:var(--ink);border:1px solid var(--line)}.btn.s{padding:5px 10px;font-size:13px}
+input,select{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink)}
+label{font-size:13px;color:var(--mut);display:block;margin:10px 0 4px}
+/* auth */
+.auth{min-height:100vh;display:grid;place-items:center;padding:20px;background:linear-gradient(135deg,#0b0b0f,#2b0a14)}
+.box{background:var(--card);border-radius:18px;padding:30px;width:100%;max-width:400px}
+.box h1{margin:0 0 4px;font-size:22px}.box p{margin:0 0 14px;color:var(--mut)}
+.tabs{display:flex;gap:6px;background:var(--bg);padding:4px;border-radius:10px;margin-bottom:8px}
+.tabs button{flex:1;border:0;background:none;padding:8px;border-radius:8px;cursor:pointer;font-weight:600;color:var(--mut)}
+.tabs button.on{background:var(--card);color:var(--ink);box-shadow:0 1px 3px #0002}
+.err{color:#d33;font-size:13px;min-height:18px;margin-top:8px}
+/* shell */
+.shell{display:flex;min-height:100vh}
+aside{width:230px;background:var(--side);color:#cfd5df;padding:18px 12px;position:fixed;inset:0 auto 0 0;display:flex;flex-direction:column;z-index:20;transition:.2s}
+.brand{display:flex;gap:10px;align-items:center;color:#fff;font-weight:700;padding:4px 10px 18px}
+.logo{width:34px;height:34px;border-radius:9px;background:var(--o);display:grid;place-items:center}
+aside a{display:flex;gap:10px;align-items:center;padding:10px 12px;border-radius:10px;margin-bottom:2px;font-size:15px}
+aside a:hover{background:#ffffff14}aside a.on{background:var(--o);color:#fff}
+aside .sp{flex:1}
+main{margin-left:230px;flex:1;padding:22px;min-width:0}
+.top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:18px;flex-wrap:wrap}
+.top h2{margin:0;font-size:22px}.top small{color:var(--mut);display:block}
+.burger{display:none}
+.grid{display:grid;gap:14px}.g4{grid-template-columns:repeat(auto-fit,minmax(190px,1fr))}.g2{grid-template-columns:2fr 1fr}
+.c{background:var(--card);border-radius:16px;padding:18px;box-shadow:0 1px 3px #0000000d}
+.c h3{margin:0 0 12px;font-size:16px}
+.stat b{font-size:24px;display:block}.stat span{color:var(--mut);font-size:13px}
+.stat{border-left:5px solid var(--k)}
+.chart{display:flex;align-items:flex-end;gap:14px;height:190px;padding-top:10px}
+.chart div.col{flex:1;display:flex;flex-direction:column;align-items:center;height:100%;justify-content:flex-end}
+.bars{display:flex;gap:4px;align-items:flex-end;height:100%;width:100%;justify-content:center}
+.bars i{display:block;width:40%;border-radius:5px 5px 0 0;min-height:2px}
+.chart small{color:var(--mut);margin-top:6px}
+.leg{font-size:13px;color:var(--mut);margin-top:8px}.leg i{display:inline-block;width:10px;height:10px;border-radius:3px;margin:0 4px 0 10px}
+.donut{width:150px;height:150px;border-radius:50%;margin:6px auto 14px;position:relative}
+.donut:after{content:"";position:absolute;inset:30px;background:var(--card);border-radius:50%}
+.dl{display:flex;justify-content:space-between;font-size:14px;padding:3px 0}.dl i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:8px}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{text-align:left;font-size:12px;color:var(--mut);letter-spacing:.04em;padding:8px;border-bottom:1px solid var(--line)}
+td{padding:11px 8px;border-bottom:1px solid var(--line)}
+.wrap{overflow-x:auto}
+.pill{padding:3px 10px;border-radius:99px;font-size:12px;font-weight:600}
+.pill.green{background:#dff7dd;color:#1e7a1e}.pill.blue{background:#fde4ec;color:#8f1230}.pill.yellow{background:#fff1c4;color:#8a6700}
+/* projects */
+.note{color:var(--mut);font-size:13px;margin-bottom:10px}
+.tools{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.tools input{width:200px}.tools select{width:130px}
+.pc{background:var(--pc);border-radius:24px;padding:22px 26px;margin-bottom:16px;display:grid;grid-template-columns:1fr 280px;gap:16px;align-items:center}
+.pc h3{margin:0 0 10px;font-size:22px;text-align:center}
+.pc p{margin:2px 0;font-size:15px}
+.prog{background:var(--card);border-radius:99px;height:46px;position:relative;overflow:hidden}
+.prog i{position:absolute;inset:0 auto 0 0;background:#b6ff6e;border-radius:99px}
+.prog span{position:relative;z-index:1;display:flex;height:100%;align-items:center;padding-left:20px;font-size:15px}
+.done{background:#4cff00;border-radius:99px;height:46px;display:grid;place-items:center;font-weight:500}
+.acts{display:flex;gap:6px;margin-top:10px;justify-content:flex-end}
+/* modal */
+.mod{position:fixed;inset:0;background:#0007;display:grid;place-items:center;padding:16px;z-index:50}
+.mod form{background:var(--card);color:var(--ink);border-radius:16px;padding:22px;width:100%;max-width:440px;max-height:92vh;overflow:auto}
+.mod h3{margin:0 0 6px}.row{display:flex;gap:8px;justify-content:flex-end;margin-top:18px}
+.empty{text-align:center;color:var(--mut);padding:30px}
+
+:root{--pc:#d9d9d9}
+[data-theme=dark]{--bg:#12151c;--card:#1b202b;--ink:#e8ebf1;--mut:#8f9aae;--line:#2a3140;--pc:#262d3b}
+.nav{display:flex;align-items:center;gap:10px;background:var(--card);margin:-22px -22px 18px;padding:10px 22px;position:sticky;top:0;z-index:15;border-bottom:1px solid var(--line)}
+.nav .sp{flex:1}.me{display:flex;gap:10px;align-items:center;cursor:pointer;line-height:1.15}.me small{display:block;color:var(--mut);font-size:12px}
+.av{width:36px;height:36px;border-radius:50%;object-fit:cover;background:var(--o);color:#fff;display:grid;place-items:center;font-weight:700;flex:none}
+.stat em{display:block;font-style:normal;font-size:12px;color:var(--mut);margin-top:3px}
+.seg{display:flex;border:1px solid var(--line);border-radius:10px;overflow:hidden}.seg button{border:0;background:var(--card);color:var(--ink);padding:8px 13px;cursor:pointer}.seg button.on{background:var(--o);color:#fff}
+.ptabs{display:flex;gap:6px;overflow-x:auto;margin-bottom:14px;padding-bottom:4px}.ptabs button{white-space:nowrap;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:99px;padding:7px 14px;cursor:pointer}.ptabs button.on{background:var(--o);color:#fff;border-color:var(--o)}
+.sh{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}.sh h3{margin:0}.tt{text-align:right;margin:10px 0 0}
+.ph{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}.ph figure{margin:0;background:var(--bg);border-radius:12px;overflow:hidden}.ph img{width:100%;height:140px;object-fit:cover;cursor:pointer;display:block}.ph figcaption{padding:8px;font-size:13px}.ph small{display:block;color:var(--mut)}
+.gantt{margin:6px 0 16px}.gr{display:flex;align-items:center;gap:10px;margin-bottom:6px}.gl{width:150px;font-size:13px;flex:none}.gt{flex:1;height:26px;background:var(--bg);border-radius:6px;position:relative}.gb{position:absolute;top:3px;bottom:3px;background:#ffd2bd;border-radius:5px;overflow:hidden;min-width:24px}.gb i{position:absolute;inset:0 auto 0 0;background:var(--o)}.gb span{position:relative;font-size:11px;padding:0 6px;color:#000}
+.gax{display:flex;justify-content:space-between;margin-left:160px;font-size:12px;color:var(--mut)}
+.big{max-width:100%;max-height:90vh;border-radius:10px}
+.pbar{height:8px;background:var(--line);border-radius:9px;overflow:hidden;min-width:90px}.pbar i{display:block;height:100%;background:var(--grn)}
+.chart{height:240px}.bars>div{display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%;width:44%}.bars>div>small{font-size:10px;color:var(--mut);margin:0 0 2px;white-space:nowrap}.bars>div>i{width:100%}
+.lbl{text-align:center;font-size:11px;line-height:1.35}.act{white-space:nowrap;text-align:right}
+@media(max-width:860px){.nav{margin:-14px -14px 14px;padding:10px 14px}.me span{display:none}.gl{width:90px}.gax{margin-left:100px}}
+
+:root{--bg:#f2f4f9;--card:#fff;--ink:#1a2030;--mut:#6a7487;--line:#e5e8f0;--sh:0 1px 2px #1018280a,0 10px 28px -14px #10182833;--pc:#e4e6ec;--side:#0b0b0f}
+[data-theme=dark]{--bg:#0e121a;--card:#171c27;--ink:#edf0f6;--mut:#98a3b8;--line:#283043;--sh:0 1px 2px #0006,0 10px 28px -14px #000a;--pc:#1f2635;--side:#0a0d14}
+*{scrollbar-width:thin}
+body{font-family:Inter,"Segoe UI",system-ui,sans-serif;-webkit-font-smoothing:antialiased;background:var(--bg);color:var(--ink)}
+aside{background:linear-gradient(180deg,var(--side),#1d0b12);border-right:1px solid #ffffff10}
+aside a{transition:.15s}aside a.on{background:linear-gradient(135deg,var(--fu),var(--o));box-shadow:0 6px 16px -6px #e11d2eaa}
+.c{border:1px solid var(--line);box-shadow:var(--sh);border-radius:18px}
+.stat{border-left:0;position:relative;overflow:hidden;padding-left:22px}.stat:before{content:"";position:absolute;left:0;top:0;bottom:0;width:6px;background:var(--k)}
+.stat b{font-size:26px;letter-spacing:-.02em}
+.top h2{font-size:26px;letter-spacing:-.02em;margin:0}
+.btn{background:linear-gradient(135deg,var(--fu),var(--o));box-shadow:0 6px 14px -8px #e11d2e;transition:.15s}.btn:hover{transform:translateY(-1px);filter:brightness(1.06)}
+.btn.g{background:var(--card);color:var(--ink);box-shadow:none}.btn.g:hover{border-color:var(--o);filter:none}
+input:focus,select:focus{outline:0;border-color:var(--o);box-shadow:0 0 0 3px #e11d2e30}
+tr:hover td{background:color-mix(in srgb,var(--o) 6%,transparent)}th{font-weight:600}
+.pc{border:1px solid var(--line);box-shadow:var(--sh);transition:.15s}.pc:hover{transform:translateY(-2px)}.pc h3 a:hover{color:var(--o)}
+.prog{background:#fff}.prog span{color:#102a00}.done{color:#052e00}
+.nav{background:color-mix(in srgb,var(--card) 88%,transparent);backdrop-filter:blur(8px)}
+.bars>div>i{border-radius:7px 7px 0 0}
+[data-theme=dark] .pill.green{background:#1d3a22;color:#7be08a}[data-theme=dark] .pill.blue{background:#3a1220;color:#ff8fb0}[data-theme=dark] .pill.yellow{background:#40330c;color:#ffd75e}
+.auth{background:radial-gradient(circle at 15% 10%,#e11d2e66,transparent 40%),radial-gradient(circle at 85% 90%,#8f123055,transparent 40%),#0e121a}
+.box{box-shadow:0 30px 60px -20px #000a}.mut{color:var(--mut);font-size:13px}
+.g2w{overflow-x:auto}.gg{min-width:780px;position:relative}
+.gh{margin-left:170px;position:relative;height:24px;border-bottom:1px solid var(--line)}.gh span{position:absolute;font-size:11px;color:var(--mut);padding-left:4px;border-left:1px solid var(--line);height:100%}
+.gl2{display:flex;align-items:center;border-bottom:1px dashed var(--line);min-height:36px}
+.gl2>b{width:170px;flex:none;font-size:13px;padding-right:8px;display:flex;gap:8px;align-items:center;font-weight:600}.gl2>b i{width:10px;height:10px;border-radius:3px;flex:none}
+.tr{flex:1;position:relative;height:36px}
+.pt{position:absolute;top:50%;width:13px;height:13px;border-radius:50%;transform:translate(-50%,-50%);border:2px solid var(--card);box-shadow:0 0 0 1px #0003}
+.bar{position:absolute;top:8px;height:20px;border-radius:6px;font-size:11px;color:#fff;padding:0 7px;overflow:hidden;white-space:nowrap;line-height:20px;min-width:10px}
+.bar u{position:absolute;inset:0 auto 0 0;background:#0000003d}.bar span{position:relative}
+.today{position:absolute;top:0;bottom:0;width:2px;background:var(--o);opacity:.8}
+
+:root{--fu:#e91e8c;--mar:#8f1230;--blue:#d81b60}
+.bar.s{background:color-mix(in srgb,var(--c) 22%,transparent);border:1px solid var(--c)}.bar.s u{background:var(--c)}
+.pc2{position:absolute;top:50%;transform:translateY(-50%);font-style:normal;font-size:12px;font-weight:700}
+.gv{position:absolute;top:0;bottom:0;width:1px;background:var(--line)}.tr{margin-right:40px}.gh{margin-right:40px}
+.lg{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;margin-top:12px}.lg i{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:6px}
+.exg{display:grid;grid-template-columns:170px 1fr;gap:22px;align-items:center}
+.bl{list-style:none;margin:0;padding:0}.bl li{display:grid;grid-template-columns:1fr auto;gap:4px 12px;padding:9px 0;border-bottom:1px solid var(--line)}.bl li .pbar,.bl li small{grid-column:1/-1}.bl span i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:8px}.bl .tot{font-size:16px;border:0}
+.obl{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:10px}.obl label{margin:0}.obl input{width:90px}
+.lr{display:flex;gap:6px;margin-bottom:6px}.lr select{width:190px}
+.pw{display:grid;grid-template-columns:1.1fr 1fr 1fr;padding:0;overflow:hidden}.pw>div{padding:20px;border-right:1px solid var(--line)}.pw>div:last-child{border:0;background:color-mix(in srgb,var(--fu) 6%,transparent)}.pw h3{margin:0}
+.ring{width:180px;height:180px;border-radius:50%;margin:14px auto;display:grid;place-items:center}.ring>div{width:134px;height:134px;border-radius:50%;background:var(--card);display:grid;place-items:center;align-content:center;font-size:34px;font-weight:800}.ring small{font-size:12px;font-weight:400}
+.mbars{display:flex;gap:20px;justify-content:center;align-items:flex-end;margin-top:14px;font-size:13px}.mb{display:flex;gap:5px;align-items:flex-end;height:150px;justify-content:center}.mb i{width:14px;border-radius:7px 7px 0 0;min-height:3px}
+.lv{margin-bottom:12px;font-size:13px}.lv .h{display:flex;justify-content:space-between;margin-bottom:4px}.lv .pbar{height:10px}
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:16px;text-align:center}.tiles b{display:block;padding:10px 0;border-radius:10px;color:#fff;font-size:18px}.tiles small{font-size:11px;color:var(--mut)}
+@media(max-width:860px){.pw,.exg{grid-template-columns:1fr}.pw>div{border-right:0;border-bottom:1px solid var(--line)}}
+
+.srch{flex:1;max-width:480px;position:relative}.srch input{border-radius:99px;padding-left:16px;background:var(--bg)}
+.gres{position:absolute;top:46px;left:0;right:0;background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--sh);max-height:380px;overflow:auto;z-index:30}.gres:empty{display:none}
+.gres a{display:block;padding:9px 14px;cursor:pointer;border-bottom:1px solid var(--line)}.gres a:hover{background:color-mix(in srgb,var(--o) 9%,transparent)}.gres small{display:block;color:var(--mut)}
+.pm{display:none;position:absolute;right:0;top:46px;background:var(--card);border:1px solid var(--line);border-radius:12px;box-shadow:var(--sh);min-width:140px;z-index:30;overflow:hidden}.pm.show{display:block}.pm a{display:block;padding:10px 16px;cursor:pointer}.pm a:hover{background:color-mix(in srgb,var(--o) 9%,transparent)}
+
+select option{background:var(--card);color:var(--ink)}.tools select{width:auto;min-width:130px}
+.donut{display:grid;place-items:center}.dl2{position:relative;z-index:1;text-align:center;line-height:1.15}.dl2 b{display:block;font-size:17px}.dl2 small{font-size:11px;color:var(--mut)}
+.exg{display:block}.bars>div>small{line-height:1.2;text-align:center}
+.dg figure{border:1px solid var(--line)}.nof{height:140px;display:grid;place-items:center;font-size:42px;color:var(--mut)}.dg figcaption b{display:block;font-size:14px}
+.bd{display:none}.srch{min-width:0}
+@media(max-width:860px){aside.open+.bd{display:block;position:fixed;inset:0;background:#0009;z-index:19}.gres{position:fixed;left:10px;right:10px;top:62px}.tools{width:100%}.top{align-items:flex-start}}
+@media(max-width:560px){
+.shell main{padding:12px}.nav{margin:-12px -12px 12px;padding:8px 12px;gap:8px}
+.g4{grid-template-columns:1fr 1fr}.stat{padding-left:18px}.stat b{font-size:19px}.stat span,.stat em{font-size:11px}.c{padding:14px;border-radius:14px}
+.top h2{font-size:21px}.top{gap:8px;margin-bottom:12px}.tools{gap:6px}.tools .btn,.tools select{flex:1 1 auto}
+input,select{font-size:16px}.btn.s{padding:8px 12px}.seg button{padding:8px 10px;font-size:13px}
+.pc{padding:16px;border-radius:18px}.pc h3{font-size:19px}.pc p{font-size:14px}.acts{justify-content:stretch}.acts .btn{flex:1;text-align:center}
+.lr{flex-wrap:wrap}.lr select,.lr input{width:100%}.ph{grid-template-columns:repeat(2,1fr)}.ph img,.nof{height:110px}
+.chart{gap:5px}.bars>div>small{font-size:9px}.gg{min-width:620px}.mbars{gap:12px}.tiles b{font-size:16px}
+.nav .btn.s{padding:8px 10px}.mod form{padding:16px}.obl input{width:80px}.sh{flex-wrap:wrap;gap:8px}
+th,td{padding:9px 6px;font-size:13px}.ptabs button{padding:8px 12px}}
+
+.brand{align-items:center;gap:12px}.blogo{width:48px;height:48px;border-radius:50%;object-fit:cover;background:#fff;flex:none}.brand span{font-size:14px;line-height:1.25;font-weight:700;word-break:break-word}
+.alogo{width:92px;height:92px;border-radius:50%;margin-bottom:6px;object-fit:cover}.box p{text-align:center}
+.dd{position:relative}.dd .pm{right:0;top:42px}
+.sw{display:flex;flex-wrap:wrap;gap:8px}.swb{display:flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:10px;padding:8px 10px;margin:0;cursor:pointer;color:var(--ink);font-size:14px}.swb input[type=radio]{width:auto}.swb i{width:16px;height:16px;border-radius:50%}.swb input[type=color]{width:34px;height:26px;padding:0;border:0;background:none}
+.phd{display:none;gap:12px;align-items:center;margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid var(--o)}.phd img{width:54px;height:54px;border-radius:50%}.phd b{display:block;font-size:18px}.phd span{display:block;font-size:12px;color:var(--mut)}
+.cap{background:var(--bg);padding:16px}.cap .g2w,.cap .wrap{overflow:visible}
+.srch{max-width:560px}.srch input{padding:11px 16px}
+.bars>div>small{font-size:12.5px;font-weight:600;color:var(--ink)}.lbl{font-size:12.5px}.lbl b{font-size:13.5px}
+.dl{font-size:15px}.lv{font-size:14.5px}.mbars{font-size:14px}.mbars .mut{font-size:13px}.tiles b{font-size:21px}.tiles small{font-size:12.5px}
+.ring>div{font-size:42px}.dl2 b{font-size:21px}.dl2 small{font-size:12px}.pc2{font-size:13.5px}.gh span,.gax{font-size:12.5px}.leg{font-size:14px}.bl li{font-size:15px}
+@media(max-width:860px){.nav{flex-wrap:wrap}.srch{order:5;flex:1 1 100%;max-width:none}.gres{position:absolute;left:0;right:0;top:48px;max-height:60vh}}
+@media(max-width:560px){.bars>div>small{font-size:10px}.c:has(.chart){overflow-x:auto}.chart{min-width:540px}.ring>div{font-size:36px}}
+@media print{@page{size:A4;margin:12mm}body{-webkit-print-color-adjust:exact;print-color-adjust:exact}.phd{display:flex!important}.ptabs,.bd,.gres,.seg{display:none!important}.shell main{padding:0}.c,tr,figure{break-inside:avoid}.g2w,.wrap{overflow:visible}.gg,.chart{min-width:0!important}}
+
+:root{--sbg:linear-gradient(180deg,color-mix(in srgb,var(--o) 7%,#fff),color-mix(in srgb,var(--o) 15%,#fff));--stx:#2b3140;--shv:color-mix(in srgb,var(--o) 11%,transparent)}
+[data-theme=dark]{--sbg:linear-gradient(180deg,color-mix(in srgb,var(--mar) 42%,#0b0b0f),#0b0b0f);--stx:#d9dde6;--shv:#ffffff17}
+aside{background:var(--sbg);color:var(--stx);border-right:1px solid var(--line)}aside a:hover{background:var(--shv)}aside a.on{color:#fff}.brand{color:var(--stx)}
+
+.pm{min-width:170px}.pm a{display:flex;align-items:center;gap:10px}.ic{width:18px;height:18px;flex:none}.pm a.lo{color:var(--o);border-top:1px solid var(--line)}
+.clk{display:flex;align-items:center;gap:8px;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:7px 13px;font-size:13.5px;font-weight:600;white-space:nowrap;color:var(--ink)}.clk .cs{color:var(--mut)}
+@media(max-width:560px){.clk{flex-direction:column;gap:0;padding:4px 9px;font-size:11.5px;line-height:1.25;text-align:center}.clk .cs{display:none}}
+@media(max-width:860px){aside{transform:translateX(-100%)}aside.open{transform:none}main{margin-left:0;padding:14px}.burger{display:inline-block}.g2{grid-template-columns:1fr}.pc{grid-template-columns:1fr}.tools input{width:150px}}
+@media print{aside,.tools,.burger,.noprint,.nav,.sh button,.act{display:none!important}main{margin:0}html[data-theme]{--bg:#fff;--card:#fff;--ink:#000;--mut:#555;--line:#ddd;--pc:#ddd}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+// Palitan ito ng link ng main dashboard mo:
+const MAIN_URL = 'https://example.com';
+
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const peso=n=>'₱'+Number(n||0).toLocaleString('en-PH');
+const ld=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}};
+const sv=(k,v)=>localStorage.setItem(k,JSON.stringify(v));
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,5);
+const sha=async s=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s)))].map(b=>b.toString(16).padStart(2,'0')).join('');
+const sum=(a,f)=>a.reduce((t,x)=>t+Number(f(x)||0),0);
+
+function seed(){return{
+clients:[{id:'c1',name:'DPWH Region III',contact:'0917 000 0001',email:'region3@dpwh.gov.ph',address:'San Fernando, Pampanga'},{id:'c2',name:'LGU Cabanatuan',contact:'0917 000 0002',email:'bac@cabanatuan.gov.ph',address:'Cabanatuan City, Nueva Ecija'},{id:'c3',name:'Santos Realty',contact:'0918 555 1234',email:'info@santosrealty.ph',address:'Gapan City'}],
+projects:[
+{id:'p1',title:'Barangay Road Concreting',client:'LGU Cabanatuan',bid:4850000,location:'Brgy. Bitas, Cabanatuan',dateBid:'2026-08-14',dateStart:'2026-09-01',license:'APC, Dalcon',progress:50},
+{id:'p2',title:'Multi-Purpose Building',client:'DPWH Region III',bid:12400000,location:'Gapan City',dateBid:'2026-06-20',dateStart:'2026-07-10',license:'APC',progress:75},
+{id:'p3',title:'Drainage Improvement',client:'LGU Cabanatuan',bid:2300000,location:'Brgy. Sangitan',dateBid:'2026-02-11',dateStart:'2026-03-01',license:'Dalcon',progress:100},
+{id:'p4',title:'Warehouse Construction',client:'Santos Realty',bid:6700000,location:'San Isidro',dateBid:'2025-10-05',dateStart:'2025-11-01',license:'APC, Dalcon',progress:100}],
+billing:[{id:'b1',project:'Drainage Improvement',amount:690000,date:'2026-05-12',status:'paid'},{id:'b2',project:'Multi-Purpose Building',amount:2400000,date:'2026-07-30',status:'paid'},{id:'b3',project:'Multi-Purpose Building',amount:1800000,date:'2026-09-15',status:'pending'},{id:'b4',project:'Barangay Road Concreting',amount:950000,date:'2026-10-02',status:'pending'},{id:'b5',project:'Barangay Road Concreting',amount:1200000,date:'2026-09-28',status:'paid'},{id:'b6',project:'Multi-Purpose Building',amount:1500000,date:'2026-08-20',status:'paid'}],
+expenses:[{id:'e1',description:'Cement & rebar',category:'Materials',amount:850000,date:'2026-09-03'},{id:'e2',description:'Weekly payroll',category:'Labor',amount:420000,date:'2026-09-20'},{id:'e3',description:'Backhoe rental',category:'Equipment',amount:180000,date:'2026-08-18'},{id:'e4',description:'Permits',category:'Other',amount:45000,date:'2026-07-09'},{id:'e5',description:'Gravel & sand',category:'Materials',amount:310000,date:'2026-10-04'},{id:'e6',description:'Payroll',category:'Labor',amount:390000,date:'2026-10-06'}],
+materials:[{id:'m1',name:'Portland Cement (bag)',quantity:800,unit_cost:260,supplier:'Holcim Dealer'},{id:'m2',name:'Rebar 12mm (pc)',quantity:450,unit_cost:410,supplier:'Steel Hub'},{id:'m3',name:'Gravel (cu.m)',quantity:60,unit_cost:1100,supplier:'Quarry Co.'}],
+documents:[{id:'d1',title:'Notice of Award – Road Concreting',type:'Contract',date:'2026-08-20',notes:'PhilGEPS copy'},{id:'d2',title:'Building Permit – Warehouse',type:'Permit',date:'2025-10-28',notes:''}]}}
+
+let db=ld('apc_db',null)||seed();
+const save=()=>{try{sv('apc_db',db)}catch(e){alert('Puno na ang browser storage. Mag-delete ng ilang photos/documents.')}};
+const seedX=()=>({
+plog:[{pid:'p1',date:'2026-09-01',progress:10},{pid:'p1',date:'2026-09-20',progress:30},{pid:'p1',date:'2026-10-05',progress:50},{pid:'p2',date:'2026-07-10',progress:10},{pid:'p2',date:'2026-08-15',progress:40},{pid:'p2',date:'2026-09-25',progress:65},{pid:'p2',date:'2026-10-08',progress:75},{pid:'p3',date:'2026-03-01',progress:20},{pid:'p3',date:'2026-04-20',progress:100},{pid:'p4',date:'2025-11-01',progress:10},{pid:'p4',date:'2026-02-01',progress:100}],
+labor:[{id:'l1',pid:'p1',description:'Mason & laborers',workers:8,days:12,rate:650,date:'2026-10-05'},{id:'l2',pid:'p2',description:'Carpentry crew',workers:10,days:20,rate:700,date:'2026-09-30'}],
+delivered:[{id:'dm1',pid:'p1',name:'Portland Cement (bag)',quantity:300,unit_cost:260,supplier:'Holcim Dealer',date:'2026-09-10'},{id:'dm2',pid:'p2',name:'Rebar 12mm (pc)',quantity:200,unit_cost:410,supplier:'Steel Hub',date:'2026-08-02'}],
+estimated:[{id:'es1',pid:'p1',name:'Portland Cement (bag)',quantity:900,unit_cost:260},{id:'es2',pid:'p2',name:'Rebar 12mm (pc)',quantity:1200,unit_cost:410}],
+leaders:[{id:'t1',pid:'p1',name:'Engr. Reyes',role:'Project Engineer',contact:'0917 111 2222'},{id:'t2',pid:'p2',name:'Mang Ruben',role:'Foreman',contact:'0918 333 4444'}],
+obligations:[{id:'o1',pid:'p1',description:'Supplier balance – cement',payee:'Holcim Dealer',amount:120000,due:'2026-10-25',status:'pending'}],
+swa:[{id:'s1',pid:'p1',task:'Site clearing',start:'2026-09-01',end:'2026-09-10',pct:100},{id:'s2',pid:'p1',task:'Excavation & subbase',start:'2026-09-08',end:'2026-09-30',pct:80},{id:'s3',pid:'p1',task:'Concrete pouring',start:'2026-09-25',end:'2026-10-31',pct:35},{id:'s4',pid:'p1',task:'Finishing & curing',start:'2026-10-25',end:'2026-11-15',pct:0}],
+photos:[],pdocs:[]});
+{const X=seedX();for(const k in X)if(!db[k])db[k]=X[k];
+const EP={e1:'Barangay Road Concreting',e2:'Multi-Purpose Building',e3:'Multi-Purpose Building',e4:'Drainage Improvement',e5:'Barangay Road Concreting',e6:'Multi-Purpose Building'};
+db.expenses.forEach(e=>{if(e.project===undefined)e.project=EP[e.id]||''});save()}
+const svgImg=(t,a,b)=>'data:image/svg+xml;utf8,'+encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="640" height="420"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${a}"/><stop offset="1" stop-color="${b}"/></linearGradient></defs><rect width="640" height="420" fill="url(#g)"/><text x="320" y="215" font-family="sans-serif" font-size="34" fill="#fff" text-anchor="middle">${t}</text></svg>`);
+const txt=t=>'data:text/plain;charset=utf-8,'+encodeURIComponent(t);
+if(!db.demo2){const P1='Barangay Road Concreting',P2='Multi-Purpose Building',Y={
+expenses:[{id:'e7',project:P1,description:'Fuel & hauling',category:'Equipment',amount:42000,date:'2026-09-12'},{id:'e8',project:P1,description:'Formworks',category:'Materials',amount:96000,date:'2026-09-26'},{id:'e9',project:P2,description:'Scaffolding rental',category:'Equipment',amount:130000,date:'2026-07-22'},{id:'e10',project:P2,description:'Concrete pump',category:'Equipment',amount:85000,date:'2026-08-25'},{id:'e11',project:P2,description:'Electrical rough-in',category:'Materials',amount:240000,date:'2026-09-18'},{id:'e12',project:'Drainage Improvement',description:'Final cleanup',category:'Other',amount:25000,date:'2026-04-15'}],
+labor:[{id:'l3',pid:'p1',description:'Concrete crew',workers:6,days:10,rate:650,date:'2026-10-01'},{id:'l4',pid:'p2',description:'Masonry crew',workers:12,days:25,rate:650,date:'2026-08-10'},{id:'l5',pid:'p2',description:'Electrical crew',workers:5,days:15,rate:800,date:'2026-09-14'}],
+delivered:[{id:'dm3',pid:'p1',name:'Gravel (cu.m)',quantity:40,unit_cost:1100,supplier:'Quarry Co.',date:'2026-09-22'},{id:'dm4',pid:'p1',name:'Sand (cu.m)',quantity:30,unit_cost:900,supplier:'Quarry Co.',date:'2026-10-03'},{id:'dm5',pid:'p2',name:'Hollow blocks (pc)',quantity:3000,unit_cost:18,supplier:'BlockMaker',date:'2026-08-05'},{id:'dm6',pid:'p2',name:'Electrical wire (roll)',quantity:25,unit_cost:3200,supplier:'Volt Supply',date:'2026-09-10'}],
+estimated:[{id:'es1',needed:'2026-09-05'},{id:'es2',needed:'2026-07-15'},{id:'es3',pid:'p1',name:'Gravel (cu.m)',quantity:120,unit_cost:1100,needed:'2026-10-20'},{id:'es4',pid:'p2',name:'Floor tiles (sqm)',quantity:600,unit_cost:520,needed:'2026-10-18'}],
+leaders:[{id:'t1',start:'2026-09-01',end:'2026-11-15'},{id:'t2',start:'2026-07-10',end:'2026-12-15'},{id:'t3',pid:'p1',name:'Dindo Ramos',role:'Foreman',contact:'0919 555 0101',start:'2026-09-01',end:'2026-11-15'},{id:'t4',pid:'p2',name:'Engr. Bautista',role:'Site Supervisor',contact:'0917 555 0202',start:'2026-07-10',end:'2026-12-15'}],
+obligations:[{id:'o2',pid:'p1',description:'Equipment rental',payee:'Mendoza Rentals',amount:65000,due:'2026-10-30',status:'pending'},{id:'o3',pid:'p2',description:'Subcontractor – electrical',payee:'Volt Works',amount:200000,due:'2026-10-15',status:'pending'},{id:'o4',pid:'p2',description:'Rebar supplier',payee:'Steel Hub',amount:150000,due:'2026-09-05',status:'paid'}],
+swa:[{id:'s5',pid:'p2',task:'Foundation',start:'2026-07-10',end:'2026-08-10',pct:100},{id:'s6',pid:'p2',task:'Structural frame',start:'2026-08-05',end:'2026-09-20',pct:100},{id:'s7',pid:'p2',task:'Masonry & electrical',start:'2026-09-10',end:'2026-11-05',pct:60},{id:'s8',pid:'p2',task:'Finishing',start:'2026-11-01',end:'2026-12-15',pct:5}],
+photos:[{id:'ph1',pid:'p1',caption:'Site clearing',date:'2026-09-05',img:svgImg('Site clearing','#e91e8c','#7a2e0e')},{id:'ph2',pid:'p1',caption:'Concrete pouring',date:'2026-10-06',img:svgImg('Concrete pouring','#8f1230','#0b3a66')},{id:'ph3',pid:'p2',caption:'Foundation',date:'2026-07-28',img:svgImg('Foundation','#3da63d','#144014')},{id:'ph4',pid:'p2',caption:'Structural frame',date:'2026-09-02',img:svgImg('Structural frame','#8a6ee0','#2c1a6b')}],
+pdocs:[{id:'pd1',pid:'p1',title:'Client complaint – dust & noise',date:'2026-09-18',notes:'Resolved via water spraying',doc:txt('Complaint: dust and noise near school.\nAction: water spraying, work hours adjusted.'),docName:'complaint_dust.txt'},{id:'pd2',pid:'p2',title:'Complaint – delayed schedule',date:'2026-10-02',notes:'Revised timeline sent',doc:txt('Complaint: slow progress of masonry.\nAction: added 4 workers.'),docName:'complaint_schedule.txt'}]};
+for(const k in Y)Y[k].forEach(r=>{const e=db[k].find(x=>x.id===r.id);e?Object.assign(e,{...r,...e}):db[k].push(r)});db.demo2=1;save()}
+if(!db.demo3){db.projects.forEach(p=>{if(p.oblRate===undefined)p.oblRate=16});
+db.obligations=[{id:'ob1',pid:'p1',date:'2026-09-15',amount:100000,note:'Initial payment'},{id:'ob2',pid:'p1',date:'2026-10-01',amount:150000,note:''},{id:'ob3',pid:'p2',date:'2026-08-01',amount:400000,note:''},{id:'ob4',pid:'p2',date:'2026-09-10',amount:500000,note:''},{id:'ob5',pid:'p2',date:'2026-10-05',amount:300000,note:''}];
+db.bale=[{id:'bl1',pid:'p1',worker:'Juan Dela Cruz',amount:2500,date:'2026-10-04',note:'Cash advance'},{id:'bl2',pid:'p2',worker:'Pedro Santos',amount:4000,date:'2026-09-20',note:'Bale – 1 week'}];db.demo3=1;save()}
+if(!db.demo4){db.documents.forEach(d=>{if(!d.img)d.img=svgImg(d.id==='d1'?'Notice of Award':'Building Permit','#8f1230','#0b0b0f')});
+db.documents.push({id:'d3',title:"Mayor's Business Permit 2026",type:'Permit',date:'2026-01-15',notes:'Renewed',img:svgImg("Mayor's Permit",'#e11d2e','#5a0a18')});db.demo4=1;save()}
+
+const SCHEMA={
+clients:{t:'Clients',f:[['name','Name'],['contact','Contact No.'],['email','Email','email'],['address','Address']]},
+billing:{t:'Billing',f:[['project','Project','select:projects'],['amount','Amount','number'],['date','Date Billed','date'],['status','Status','select:pending,paid']]},
+expenses:{t:'Expenses',f:[['project','Project','select:projects'],['description','Description'],['category','Category','select:Materials,Labor,Equipment,Other'],['amount','Amount','number'],['date','Date','date']]},
+materials:{t:'Materials',f:[['name','Material'],['quantity','Quantity','number'],['unit_cost','Unit Cost','number'],['supplier','Supplier']]},
+documents:{t:'Documents',f:[['title','Title'],['type','Type','select:Permit,Business Paper,Contract,Plan,Receipt,Other'],['date','Date','date'],['notes','Notes'],['img','Picture / Scan','file:image']]}};
+const PF=[['title','Project Title'],['client','Client','select:clients'],['bid','Bid Amount','number'],['location','Location'],['dateBid','Date Bidded (last day of bidding on PhilGEPS)','date'],['dateStart','Date Started (actual deployment of laborers)','date'],['license','License Used (e.g. APC, Dalcon)'],['progress','Progress % (100 = Completed)','number']];
+const NAV=[['dashboard','Dashboard','⌂'],['projects','Projects','▤'],['clients','Clients','☺'],['billing','Billing','▭'],['expenses','Expenses','₱'],['documents','Documents','▢'],['reports','Reports','▥']];
+
+/* ---------- AUTH ---------- */
+let authTab='in';
+function authView(){
+$('#app').innerHTML=`<div class="auth"><div class="box"><div style="text-align:center"><img class="alogo" src="${biz().logo}"></div><h1 style="text-align:center">${esc(biz().name)}</h1><p>${authTab==='in'?'Sign in to continue':'Create your account'}</p>
+<div class="tabs"><button class="${authTab==='in'?'on':''}" onclick="authTab='in';authView()">Sign In</button><button class="${authTab==='up'?'on':''}" onclick="authTab='up';authView()">Sign Up</button></div>
+<form onsubmit="doAuth(event)">${authTab==='up'?'<label>Full name</label><input name="name" required>':''}
+<label>Email</label><input name="email" type="email" required><label>Password</label><input name="pw" type="password" minlength="6" required>
+${authTab==='up'?'<label>Confirm password</label><input name="pw2" type="password" required>':''}
+<div class="err" id="err"></div><button class="btn" style="width:100%;margin-top:6px">${authTab==='in'?'Sign In':'Sign Up'}</button></form></div></div>`}
+async function doAuth(e){
+e.preventDefault();const f=Object.fromEntries(new FormData(e.target));const users=ld('apc_users',[]);const email=f.email.toLowerCase().trim();const h=await sha(f.pw);
+if(authTab==='up'){
+ if(f.pw!==f.pw2)return $('#err').textContent='Hindi magkapareho ang password.';
+ if(users.some(u=>u.email===email))return $('#err').textContent='May account na ang email na ito.';
+ users.push({name:f.name,email,h});sv('apc_users',users);sv('apc_session',{name:f.name,email});
+}else{
+ const u=users.find(u=>u.email===email&&u.h===h);if(!u)return $('#err').textContent='Mali ang email o password.';
+ {const{h:_,...ss}=u;sv('apc_session',ss)}
+}
+location.hash='#/dashboard';boot()}
+function logout(){localStorage.removeItem('apc_session');location.hash='';boot()}
+
+/* ---------- SHELL ---------- */
+const LOGO="data:image/png;base64,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";
+const biz=()=>{const x=ld('apc_set',{});return{name:x.name||'A. Pascua C. Construction',logo:x.logo||LOGO,color:x.color||'red',custom:x.custom||'#e11d2e'}};
+const THEMES={red:['#e11d2e','#e91e8c','#8f1230'],maroon:['#8f1230','#c2185b','#5a0a18'],fuchsia:['#e91e8c','#ff5ca8','#a0105f'],black:['#4a4a58','#e11d2e','#1a1a22']};
+function applyTheme(){const b=biz(),r=document.documentElement.style;let t=THEMES[b.color];if(!t){const c=b.custom;t=[c,`color-mix(in srgb,${c} 65%,#fff)`,`color-mix(in srgb,${c} 60%,#000)`]}
+r.setProperty('--o',t[0]);r.setProperty('--fu',t[1]);r.setProperty('--mar',t[2]);document.title=b.name;
+let l=document.querySelector('link[rel=icon]');if(!l){l=document.createElement('link');l.rel='icon';document.head.appendChild(l)}l.href=b.logo}
+applyTheme();
+function settings(){const b=biz(),m=document.createElement('div');m.className='mod';
+m.innerHTML=`<form><h3>Settings</h3><div style="text-align:center;margin:10px 0"><img class="alogo" src="${b.logo}"></div><label>Business logo</label><input type="file" name="logo" accept="image/*"><label>Business name</label><input name="name" value="${esc(b.name)}" required>
+<label>System theme color</label><div class="sw">${Object.entries(THEMES).map(([k,v])=>`<label class="swb"><input type="radio" name="color" value="${k}" ${b.color===k?'checked':''}><i style="background:${v[0]}"></i>${k[0].toUpperCase()+k.slice(1)}</label>`).join('')}<label class="swb"><input type="radio" name="color" value="custom" ${b.color==='custom'?'checked':''}>Custom <input type="color" name="custom" value="${b.custom}"></label></div>
+<div class="row"><button type="button" class="btn g" onclick="this.closest('.mod').remove()">Cancel</button><button class="btn">Save</button></div></form>`;
+m.querySelector('form').onsubmit=async e=>{e.preventDefault();const fd=new FormData(e.target),f=fd.get('logo'),n={name:fd.get('name').trim(),color:fd.get('color'),custom:fd.get('custom'),logo:b.logo};
+if(f&&f.size)n.logo=await shrink(f,300);sv('apc_set',n);applyTheme();m.remove();route()};document.body.appendChild(m)}
+const IC={user:'<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/>',gear:'<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"/>',out:'<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5M21 12H9"/>'};
+const ic=k=>`<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${IC[k]}</svg>`;
+const clk=()=>{const d=new Date();return`<span class="cd">${d.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})}</span><span class="cs">|</span><span class="ct">${d.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'})}</span>`};
+setInterval(()=>{const e=$('#clk');if(e)e.innerHTML=clk()},10000);
+const closeM=()=>document.querySelectorAll('.pm.show').forEach(x=>x.classList.remove('show'));
+const dlMenu=x=>`<div class="dd"><button class="btn g s" onclick="const m=this.nextElementSibling,o=m.classList.contains('show');closeM();if(!o)m.classList.add('show')">⬇ Download</button><div class="pm"><a onclick="closeM();dl('pdf')">Download as PDF</a><a onclick="closeM();dl('img')">Download as Image (PNG)</a>${x?`<a onclick="closeM();${x}">Download as Excel (.xlsx)</a>`:''}</div></div>`;
+function dl(k){if(k==='pdf'){const t=document.title;document.title=biz().name+' - '+$('.top h2').textContent;print();document.title=t}else shot()}
+async function xlX(){await lib('XLSX',XL);const wb=XLSX.utils.book_new(),P=db.projects.filter(p=>xp==='all'||p.id===xp);
+sheet(wb,'Cost per Project',P.map(p=>{const c=costs(p);return{Project:p.title,'Bid Amount':p.bid,Expenses:c.exp,'Delivered Materials':c.dv,'Labor Cost':c.lab,Obligations:c.obl,'Total Cost':c.t}}));
+sheet(wb,'Expenses',db.expenses.filter(e=>P.some(p=>p.title===e.project)).map(({id,...r})=>r));XLSX.writeFile(wb,`Expenses_${iso(new Date())}.xlsx`)}
+
+const th=()=>ld('apc_theme','light');
+document.documentElement.dataset.theme=th();
+function toggleTheme(){sv('apc_theme',th()==='dark'?'light':'dark');document.documentElement.dataset.theme=th();route()}
+const avatar=(u,z=36)=>u.photo?`<img class="av" src="${u.photo}" style="width:${z}px;height:${z}px">`:`<div class="av" style="width:${z}px;height:${z}px">${esc(((u.name||'?').trim()[0]||'?').toUpperCase())}</div>`;
+const readF=f=>new Promise(r=>{const a=new FileReader();a.onload=()=>r(a.result);a.readAsDataURL(f)});
+const shrink=async(f,max)=>{const u=await readF(f);return new Promise(r=>{const i=new Image();i.onload=()=>{const k=Math.min(1,max/Math.max(i.width,i.height)),c=document.createElement('canvas');c.width=i.width*k;c.height=i.height*k;const g=c.getContext('2d');g.fillStyle='#fff';g.fillRect(0,0,c.width,c.height);g.drawImage(i,0,0,c.width,c.height);r(c.toDataURL('image/jpeg',.8))};i.src=u})};
+const lib=async(k,u)=>{if(window[k])return;for(const x of [].concat(u)){try{await new Promise((r,j)=>{const e=document.createElement('script');e.src=x;e.onload=r;e.onerror=j;document.head.appendChild(e)});if(window[k])return}catch(e){}}alert('Kailangan ng internet para sa export.');throw new Error('lib')};
+function shell(page,title,sub,body,right=''){
+const u=ld('apc_session'),bz=biz();
+$('#app').innerHTML=`<div class="shell"><aside id="side"><div class="brand"><img class="blogo" src="${bz.logo}"><span>${esc(bz.name)}</span></div>
+${NAV.map(n=>`<a href="#/${n[0]}" class="${n[0]===page?'on':''}" onclick="$('#side').classList.remove('open')"><span>${n[2]}</span>${n[1]}</a>`).join('')}
+<div class="sp"></div>
+</aside><div class="bd" onclick="$('#side').classList.remove('open')"></div>
+<main><div class="nav"><button class="btn g burger" onclick="$('#side').classList.toggle('open')">☰</button><div class="srch"><input id="gs" placeholder="Search projects, clients, expenses, documents…" autocomplete="off" oninput="gsearch(this.value)" onkeydown="if(event.key==='Enter')$('#gres a')?.click()"><div id="gres" class="gres"></div></div><div class="sp"></div>
+<div class="clk" id="clk">${clk()}</div><button class="btn g s" onclick="toggleTheme()">${th()==='dark'?'☀ Light':'☾ Dark'}</button>
+<div style="position:relative"><div class="me" onclick="$('#pm').classList.toggle('show')">${avatar(u)}<span><b>${esc(u.name)}</b><small>${esc(u.role||'Administrator')}</small></span></div><div id="pm" class="pm"><a onclick="editProfile()">${ic('user')}Profile</a><a onclick="settings()">${ic('gear')}Settings</a><a class="lo" onclick="logout()">${ic('out')}Logout</a></div></div></div>
+<div class="top"><div><h2>${title}</h2><small>${sub}</small></div><div class="tools">${right}</div></div><div id="export"><div class="phd"><img src="${bz.logo}"><div><b>${esc(bz.name)}</b><span>${title} · ${sub}</span><span>Generated ${new Date().toLocaleString()}</span></div></div>${body}</div></main></div>`}
+function editProfile(){
+const u=ld('apc_session'),m=document.createElement('div');m.className='mod';
+m.innerHTML=`<form><h3>My Profile</h3><div style="text-align:center;margin:10px 0">${avatar(u,80)}</div><label>Change profile photo</label><input type="file" name="photo" accept="image/*"><label>Full name</label><input name="name" value="${esc(u.name)}" required><label>Email</label><input name="email" type="email" value="${esc(u.email)}" required><label>Phone</label><input name="phone" value="${esc(u.phone)}"><label>Role / Position</label><input name="role" value="${esc(u.role||'Administrator')}"><div class="row"><button type="button" class="btn g" onclick="this.closest('.mod').remove()">Cancel</button><button class="btn">Save</button></div></form>`;
+m.querySelector('form').onsubmit=async e=>{e.preventDefault();const fd=new FormData(e.target),f=fd.get('photo');
+const n={...u,name:fd.get('name'),email:fd.get('email').toLowerCase().trim(),phone:fd.get('phone'),role:fd.get('role')};
+if(f&&f.size)n.photo=await shrink(f,240);
+const us=ld('apc_users',[]),i=us.findIndex(x=>x.email===u.email);if(i>-1)us[i]={...us[i],name:n.name,email:n.email,phone:n.phone,role:n.role,photo:n.photo};
+sv('apc_users',us);sv('apc_session',n);m.remove();route()};
+document.body.appendChild(m)}
+
+/* ---------- DASHBOARD ---------- */
+const iso=d=>{const z=new Date(d);return new Date(z.getTime()-z.getTimezoneOffset()*6e4).toISOString().slice(0,10)};
+let dr={};
+function setRange(m){const t=new Date(),to=iso(t);let f=to;
+if(m==='W'){const d=new Date(t);d.setDate(d.getDate()-6);f=iso(d)}
+if(m==='M')f=to.slice(0,8)+'01';if(m==='Y')f=to.slice(0,4)+'-01-01';dr={mode:m,from:f,to}}
+setRange('M');
+const inR=d=>d&&d>=dr.from&&d<=dr.to;
+const sh=v=>v>=1e6?'₱'+(v/1e6).toFixed(1)+'M':v>=1e3?'₱'+Math.round(v/1e3)+'K':'₱'+Math.round(v);
+const pct=(a,b)=>b?Math.round(a/b*100):0;
+const stat=(v,l,k,s='')=>`<div class="c stat" style="--k:${k}"><b>${v}</b><span>${l}</span>${s?`<em>${s}</em>`:''}</div>`;
+const progAt=(id,d)=>{const l=db.plog.filter(x=>x.pid===id&&x.date<=d).sort((a,b)=>a.date.localeCompare(b.date));return l.length?l[l.length-1].progress:null};
+function M(){
+const bl=db.billing.filter(b=>inR(b.date)),ex=db.expenses.filter(e=>inR(e.date));
+const billed=sum(bl,b=>b.amount),coll=sum(bl.filter(b=>b.status==='paid'),b=>b.amount),exp=sum(ex,e=>e.amount);
+const pv=new Date(dr.from);pv.setDate(pv.getDate()-1);
+const prog=db.projects.map(p=>{const end=progAt(p.id,dr.to)??(db.plog.some(x=>x.pid===p.id)?0:p.progress),st=progAt(p.id,iso(pv))??0;return{p,end,gain:Math.max(0,end-st)}});
+return{bl,ex,billed,coll,pend:billed-coll,exp,net:coll-exp,prog}}
+function dashboard(){
+const m=M(),act=db.projects.filter(p=>p.progress<100).length,done=db.projects.length-act;
+const months=[...Array(6)].map((_,i)=>{const d=new Date();d.setDate(1);d.setMonth(d.getMonth()-5+i);return iso(d).slice(0,7)});
+const A=months.map(x=>db.billing.filter(b=>b.date.startsWith(x))),B=months.map(x=>db.expenses.filter(e=>e.date.startsWith(x)));
+const SA=A.map(a=>sum(a,b=>b.amount)),SB=B.map(a=>sum(a,e=>e.amount)),mx=Math.max(1,...SA,...SB),tA=sum(SA,x=>x),tB=sum(SB,x=>x);
+const cats=[['Materials','var(--o)'],['Labor','var(--mar)'],['Equipment','var(--fu)'],['Other','#9aa5b1']].map(([c,col])=>{const r=m.ex.filter(e=>e.category===c);return{c,col,n:r.length,v:sum(r,e=>e.amount)}});
+let acc=0;const grad=m.exp?cats.map(x=>{const a=acc;acc+=x.v/m.exp*100;return`${x.col} ${a}% ${acc}%`}).join(','):'#8884 0 100%';
+const avg=m.prog.length?Math.round(sum(m.prog,x=>x.end)/m.prog.length):0;
+const right=`<div class="seg">${['D','W','M','Y'].map(k=>`<button class="${dr.mode===k?'on':''}" onclick="setRange('${k}');dashboard()">${k}</button>`).join('')}</div>
+
+${dlMenu('xl()')}`;
+shell('dashboard','Construction Dashboard',`${biz().name} · ${dr.from} → ${dr.to}`,`
+<div class="grid g4">${stat(peso(m.billed),'Billed (selected period)','var(--o)',m.bl.length+' billings')}${stat(peso(m.coll),'Collected','#4b4b57',pct(m.coll,m.billed)+'% of billed · '+m.bl.filter(b=>b.status==='paid').length+' paid')}${stat(peso(m.pend),'Pending Billing','var(--fu)',pct(m.pend,m.billed)+'% of billed · '+m.bl.filter(b=>b.status!=='paid').length+' unpaid')}${stat(peso(m.exp),'Expenses','var(--fu)',pct(m.exp,m.billed)+'% of billed · '+m.ex.length+' entries')}${stat(peso(m.net),'Net (Collected − Expenses)',m.net<0?'#d33':'#3da63d')}${stat(avg+'%','Avg Project Progress','var(--mar)','as of '+dr.to)}</div>
+<div class="grid g4" style="margin-top:14px">${stat(act,'Ongoing Projects','var(--mar)',pct(act,db.projects.length)+'% of '+db.projects.length)}${stat(done,'Completed','#3da63d',pct(done,db.projects.length)+'% of '+db.projects.length)}${stat(peso(sum(db.projects,p=>p.bid)),'Contract Value','var(--o)')}${stat(peso(sum(db.delivered,r=>r.quantity*r.unit_cost)),'Delivered Materials','#9aa5b1',db.delivered.length+' deliveries')}</div>${pw(m,act,done)}
+<div class="grid g2" style="margin-top:14px"><div class="c"><h3>Billing vs Expenses (6 months) <span class="mut">· % = share of 6-month total</span></h3><div class="chart">${months.map((x,i)=>`<div class="col"><div class="bars"><div><small>${sh(SA[i])}<br>${pct(SA[i],tA)}%</small><i style="height:calc((100% - 30px)*${SA[i]/mx});background:var(--o)"></i></div><div><small>${sh(SB[i])}<br>${pct(SB[i],tB)}%</small><i style="height:calc((100% - 30px)*${SB[i]/mx});background:var(--blue)"></i></div></div><small class="lbl"><b>${new Date(x+'-02').toLocaleString('en',{month:'short'})}</b><br>Exp ${pct(SB[i],SA[i])}%<br>${A[i].length} bills · ${B[i].length} exp</small></div>`).join('')}</div>
+<div class="leg"><i style="background:var(--o)"></i>Billing ${peso(tA)} (${sum(A,a=>a.length)} bills)<i style="background:var(--blue)"></i>Expenses ${peso(tB)} (${sum(B,a=>a.length)}) · ${pct(tB,tA)}% of billing</div></div>
+<div class="c"><h3>Expense Breakdown</h3><div class="donut" style="background:conic-gradient(${grad})"><span class="dl2"><b>${sh(m.exp)}</b><small>Expenses</small></span></div>${cats.map(x=>`<div class="dl"><span><i style="background:${x.col}"></i>${x.c} (${x.n})</span><b>${pct(x.v,m.exp)}%</b></div>`).join('')}</div></div>
+<div class="c" style="margin-top:14px"><div class="sh"><h3>Project Progress (${dr.from} → ${dr.to})</h3><a href="#/reports" class="btn s">Monthly Report</a></div><div class="wrap"><table><tr><th>PROJECT</th><th>STATUS</th><th>PROGRESS</th><th>AS OF ${dr.to}</th><th>GAINED IN PERIOD</th></tr>
+${m.prog.map(({p,end,gain})=>`<tr><td><a href="#/project/${p.id}"><b>${esc(p.title)}</b></a></td><td>${badge(p)}</td><td><div class="pbar"><i style="width:${end}%"></i></div></td><td>${end}%</td><td>${gain?'<b style="color:var(--grn)">+'+gain+'%</b>':'—'}</td></tr>`).join('')||'<tr><td colspan=5 class="empty">No projects</td></tr>'}</table></div></div>`,right)}
+function pw(m,act,done){
+const tot=db.projects.length,avg=tot?Math.round(sum(m.prog,x=>x.end)/tot):0,loc=p=>(p.location||'No location').split(',').pop().trim().toLowerCase().replace(/\b\w/g,c=>c.toUpperCase()),L={};
+m.prog.forEach(x=>(L[loc(x.p)]=L[loc(x.p)]||[]).push(x.end));
+const locs=Object.entries(L).map(([n,a])=>({n,c:a.length,v:Math.round(sum(a,x=>x)/a.length)})).sort((a,b)=>b.v-a.v);
+const at=d=>tot?sum(db.projects,p=>progAt(p.id,d)??(db.plog.some(x=>x.pid===p.id)?0:p.progress))/tot:0,t=new Date();
+const ms=[2,1,0].map(i=>{const e=new Date(t.getFullYear(),t.getMonth()-i+1,0),v=at(iso(e));return{l:e.toLocaleString('en',{month:'short'}),v:Math.round(v),g:Math.round(Math.max(0,v-at(iso(new Date(t.getFullYear(),t.getMonth()-i,0)))))}});
+const tl=[[tot,'Total','var(--o)'],[act,'Ongoing','var(--mar)'],[done,'Done','var(--fu)'],[locs.length,'Locations','#3a3a46']];
+return`<div class="c pw" style="margin-top:14px"><div><h3>Percent</h3><span class="mut">Overall project progress</span><div class="ring" style="background:conic-gradient(var(--fu) 0,var(--o) ${avg}%,var(--line) 0)"><div>${avg}%<small class="mut">${tot} projects</small></div></div><div class="leg" style="text-align:center">0% ———— 100%</div></div>
+<div><h3>Last <span style="color:var(--o)">3</span> Month</h3><span class="mut">Avg progress vs gained</span><div class="mbars">${ms.map(x=>`<div style="text-align:center"><div class="mb"><i style="height:${x.v}%;background:var(--fu)" title="Avg ${x.v}%"></i><i style="height:${x.g}%;background:var(--o)" title="Gained ${x.g}%"></i></div><b>${x.l}</b><div class="mut">${x.v}% · +${x.g}</div></div>`).join('')}</div><div class="leg"><i style="background:var(--fu)"></i>Avg progress<i style="background:var(--o)"></i>Gained</div></div>
+<div><h3>Progress per Location</h3><span class="mut">Live information</span><div style="margin-top:12px">${locs.map(l=>`<div class="lv"><div class="h"><span>${esc(l.n)} · ${l.c} project${l.c>1?'s':''}</span><b>${l.v}%</b></div><div class="pbar"><i style="width:${l.v}%;background:linear-gradient(90deg,var(--fu),var(--o))"></i></div></div>`).join('')||'<div class="empty">No projects</div>'}</div>
+<div class="tiles">${tl.map(x=>`<div><b style="background:${x[2]}">${x[0]}</b><small>${x[1]}</small></div>`).join('')}</div></div></div>`}
+const badge=p=>p.progress>=100?'<span class="pill green">Completed</span>':`<span class="pill blue">Ongoing ${p.progress}%</span>`;
+async function shot(){const ex=$('#export');
+try{await lib('htmlToImage',['https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/dist/html-to-image.js','https://cdnjs.cloudflare.com/ajax/libs/html-to-image/1.11.11/html-to-image.min.js']);
+ex.classList.add('cap');await new Promise(r=>setTimeout(r,80));
+const url=await htmlToImage.toPng(ex,{pixelRatio:2,backgroundColor:getComputedStyle(document.body).backgroundColor,cacheBust:true});
+const a=document.createElement('a');a.href=url;a.download=`${biz().name.replace(/\W+/g,'_')}_${$('.top h2').textContent.replace(/\W+/g,'_')}_${iso(new Date())}.png`;document.body.appendChild(a);a.click();a.remove()}
+catch(e){console.error(e);alert('Hindi na-download ang image. Subukan ulit.')}finally{ex.classList.remove('cap')}}
+const XL='https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js';
+const nice=k=>k.replace(/_/g,' ').replace(/([a-z])([A-Z])/g,'$1 $2').replace(/^./,c=>c.toUpperCase());
+const sheet=(wb,n,r)=>{r=r.length?r.map(o=>Object.fromEntries(Object.entries(o).map(([k,v])=>[nice(k),v]))):[{}];const ws=XLSX.utils.json_to_sheet(r),h=Object.keys(r[0]);
+ws['!cols']=h.map(k=>({wch:Math.min(42,Math.max(k.length,...r.map(o=>String(o[k]??'').length))+3)}));
+h.forEach((k,c)=>{if(/amount|bid|billed|collected|pending|expenses|^net|cost|rate|materials|obligations|labor/i.test(k))r.forEach((_,i)=>{const a=XLSX.utils.encode_cell({r:i+1,c});if(ws[a]&&typeof ws[a].v==='number')ws[a].z='"₱"#,##0.00'})});
+XLSX.utils.book_append_sheet(wb,ws,n.slice(0,30))};
+const strip=r=>{const{id,pid,img,doc,...o}=r;return o};
+async function xl(){await lib('XLSX',XL);const m=M(),wb=XLSX.utils.book_new();
+sheet(wb,'Summary',[{From:dr.from,To:dr.to,Billed:m.billed,Collected:m.coll,Pending:m.pend,Expenses:m.exp,Net:m.net}]);
+sheet(wb,'Billing',m.bl.map(strip));sheet(wb,'Expenses',m.ex.map(strip));
+sheet(wb,'Project Progress',m.prog.map(x=>({Project:x.p.title,Progress:x.end,Gained:x.gain,Bid:x.p.bid})));XLSX.writeFile(wb,`dashboard_${dr.from}_${dr.to}.xlsx`)}
+
+/* ---------- PROJECTS ---------- */
+let pq='',py='all',pf='all';
+const projSort=(a,b)=>((a.progress>=100)-(b.progress>=100))||(b.dateBid||'').localeCompare(a.dateBid||'');
+function projects(){
+const years=[...new Set(db.projects.map(p=>(p.dateBid||'').slice(0,4)).filter(Boolean))].sort().reverse();
+const list=db.projects.filter(p=>(py==='all'||(p.dateBid||'').startsWith(py))&&(p.title+p.location+p.client+p.license).toLowerCase().includes(pq.toLowerCase())&&(pf==='all'||(pf==='ongoing'?p.progress<100:p.progress>=100))).sort(projSort);
+shell('projects','Projects','*Sequence depends on date bidded, ongoing are at the top',
+list.map(p=>`<div class="pc"><div><h3><a href="#/project/${p.id}">${esc(p.title)}</a></h3><p>Bid Amount: ${peso(p.bid)}</p><p>Location: ${esc(p.location)}</p><p>Date Bidded: ${esc(p.dateBid)||'—'}</p><p>Date Started: ${esc(p.dateStart)||'—'}</p><p>License Used: ${esc(p.license)}</p></div>
+<div>${p.progress>=100?'<div class="done">COMPLETED</div>':`<div class="prog"><i style="width:${p.progress}%"></i><span>Ongoing Projects ${p.progress}%</span></div>`}
+<div class="acts"><a class="btn s" href="#/project/${p.id}">View details</a><button class="btn g s" onclick="openForm('projects','${p.id}')">Edit</button><button class="btn g s" onclick="del('projects','${p.id}')">Delete</button></div></div></div>`).join('')||'<div class="empty c">Walang project na nahanap.</div>',
+`<div class="seg">${[['all','All'],['ongoing','Ongoing'],['completed','Completed']].map(([k,l])=>`<button class="${pf===k?'on':''}" onclick="pf='${k}';projects()">${l} (${db.projects.filter(p=>k==='all'||(k==='ongoing'?p.progress<100:p.progress>=100)).length})</button>`).join('')}</div><select onchange="py=this.value;projects()"><option value="all">All years</option>${years.map(y=>`<option ${y===py?'selected':''}>${y}</option>`).join('')}</select>
+
+<button class="btn" onclick="openForm('projects')">+ Add a project</button>`)}
+
+/* ---------- GENERIC MODULES ---------- */
+const SUB={
+labor:{t:'Labor Cost',f:[['description','Description'],['workers','Workers','number'],['days','Days','number'],['rate','Daily Rate','number'],['date','Date','date']],tot:r=>r.workers*r.days*r.rate},
+delivered:{t:'Delivered Materials',f:[['name','Material'],['quantity','Qty','number'],['unit_cost','Unit Cost','number'],['supplier','Supplier'],['date','Date Delivered','date']],tot:r=>r.quantity*r.unit_cost},
+estimated:{t:'Estimated Materials',f:[['name','Material'],['quantity','Est. Qty','number'],['unit_cost','Est. Unit Cost','number'],['needed','Needed By','date']],tot:r=>r.quantity*r.unit_cost},
+leaders:{t:'Team Leaders',f:[['name','Name'],['role','Role','select:Project Engineer,Foreman,Safety Officer,Site Supervisor,Timekeeper'],['contact','Contact No.'],['start','Assigned From','date'],['end','Until','date']]},
+obligations:{t:'Obligation Payment',f:[['date','Date','date'],['amount','Amount Paid','number'],['note','Note']]},
+bale:{t:'Bale / Cash Advance',f:[['worker','Worker'],['amount','Amount','number'],['date','Date','date'],['note','Note']]},
+swa:{t:'SWA – Statement of Work Accomplished',f:[['task','Work Item'],['start','Start','date'],['end','End','date'],['pct','% Accomplished','number']]},
+photos:{t:'Photo',f:[['caption','Caption'],['date','Date','date'],['img','Photo','file:image']]},
+pdocs:{t:'Client Complaints / Documents',f:[['title','Title'],['date','Date','date'],['notes','Notes'],['doc','File','file:doc']]}};
+const SC=k=>k==='projects'?{t:'Project',f:PF}:SCHEMA[k]||SUB[k];
+const money=new Set(['amount','unit_cost','bid','rate']);
+const cell=(f,r)=>{const[n,,t]=f,v=r[n];
+if(n==='status')return`<span class="pill ${v==='paid'?'green':'yellow'}">${esc(v)}</span>`;
+if(t==='number'&&money.has(n))return peso(v);
+if(t&&t.startsWith('file'))return v?(t==='file:image'?`<a href="#" onclick="view('${r.id}');return false">View</a>`:`<a href="${v}" download="${esc(r[n+'Name']||'file')}">⬇ ${esc(r[n+'Name']||'Download')}</a>`):'—';
+return esc(v)};
+const btns=(k,id)=>`<td class="act"><button class="btn g s" onclick="openForm('${k}','${id}')">Edit</button> <button class="btn g s" onclick="del('${k}','${id}')">Delete</button></td>`;
+function module(k){
+const s=SCHEMA[k];let rows=db[k];
+if(k==='billing'||k==='expenses'||k==='documents')rows=[...rows].sort((a,b)=>(b.date||'').localeCompare(a.date||''));
+shell(k,s.t,biz().name,`<div class="c"><div class="wrap"><table><tr>${s.f.map(f=>`<th>${f[1].toUpperCase()}</th>`).join('')}${k==='materials'?'<th>TOTAL</th>':''}<th></th></tr>
+${rows.map(r=>`<tr>${s.f.map(f=>`<td>${cell(f,r)}</td>`).join('')}${k==='materials'?`<td>${peso(r.quantity*r.unit_cost)}</td>`:''}${btns(k,r.id)}</tr>`).join('')||'<tr><td colspan=9 class="empty">Wala pang laman.</td></tr>'}</table></div></div>`,
+`<button class="btn" onclick="openForm('${k}')">+ Add ${s.t.replace(/s$/,'')}</button>`)}
+
+const POS=['Project Engineer','Foreman','Site Supervisor','Safety Officer','Timekeeper'];
+const lrow=(l={})=>`<div class="lr" data-id="${l.id||''}"><input placeholder="Name" value="${esc(l.name)}"><select>${POS.map(x=>`<option ${x===l.role?'selected':''}>${x}</option>`).join('')}</select><button type="button" class="btn g s" onclick="this.parentElement.remove()">✕</button></div>`;
+const leadersUI=id=>`<label>Team Leaders (puwedeng marami)</label><div id="lrs">${(id?db.leaders.filter(l=>l.pid===id):[{}]).map(lrow).join('')}</div><button type="button" class="btn g s" style="margin-top:6px" onclick="$('#lrs').insertAdjacentHTML('beforeend',lrow())">+ Add team leader</button>`;
+function openForm(k,id,pid){
+const s=SC(k),item=id?db[k].find(x=>x.id===id):{},pre=k==='expenses'&&pid?{project:db.projects.find(x=>x.id===pid)?.title}:{};
+const inp=([n,l,t='text'])=>{const v=item[n]??pre[n]??(n==='progress'||n==='pct'?0:'');
+if(t.startsWith('select:')){const src=t.slice(7),o=(src==='projects'?['']:[]).concat(src==='projects'?db.projects.map(p=>p.title):src==='clients'?db.clients.map(c=>c.name):src.split(','));
+return`<label>${l}</label><select name="${n}">${o.map(x=>`<option value="${esc(x)}" ${x===v?'selected':''}>${esc(x)||'—'}</option>`).join('')}</select>`}
+if(t.startsWith('file'))return`<label>${l}${item[n]?' (leave empty to keep current)':''}</label><input type="file" name="${n}" accept="${t==='file:image'?'image/*':'.pdf,.doc,.docx,.jpg,.png,.xlsx'}">`;
+return`<label>${l}</label><input name="${n}" type="${t}" value="${esc(v)}" ${t==='number'?'min="0" step="any"':''}>`};
+const m=document.createElement('div');m.className='mod';
+m.innerHTML=`<form><h3>${id?'Edit':'Add'} ${s.t.replace(/s$/,'')}</h3>${s.f.map(inp).join('')}${k==='projects'?leadersUI(id):''}<div class="row"><button type="button" class="btn g" onclick="this.closest('.mod').remove()">Cancel</button><button class="btn">Save</button></div></form>`;
+m.querySelector('form').onsubmit=async e=>{e.preventDefault();const fd=new FormData(e.target),d={};
+for(const[n,,t]of s.f){
+ if(t&&t.startsWith('file')){const f=fd.get(n);
+  if(f&&f.size){if(t==='file:doc'&&f.size>1.5e6)return alert('Max 1.5MB bawat document (localStorage lang ito).');d[n]=t==='file:image'?await shrink(f,900):await readF(f);d[n+'Name']=f.name}
+  else if(!id&&t==='file:image'&&k==='photos')return alert('Pumili ng photo.')}
+ else d[n]=t==='number'?Number(fd.get(n)||0):fd.get(n)}
+if(d.progress!==undefined)d.progress=Math.min(100,d.progress);if(d.pct!==undefined)d.pct=Math.min(100,d.pct);
+const old=item.progress;let o;
+if(id){Object.assign(item,d);o=item}else{o={id:uid(),...(pid&&k!=='expenses'?{pid}:{}),...d};db[k].push(o)}
+if(k==='projects'&&o.progress!==old)db.plog.push({pid:o.id,date:today(),progress:o.progress});
+if(k==='projects'){const rows=[...m.querySelectorAll('.lr')].map(r=>({id:r.dataset.id,name:r.querySelector('input').value.trim(),role:r.querySelector('select').value})).filter(r=>r.name);
+db.leaders=db.leaders.filter(l=>l.pid!==o.id||rows.some(r=>r.id===l.id));
+rows.forEach(r=>{const e=r.id&&db.leaders.find(l=>l.id===r.id);e?Object.assign(e,{name:r.name,role:r.role}):db.leaders.push({id:uid(),pid:o.id,name:r.name,role:r.role,start:o.dateStart,end:''})})}
+save();m.remove();route()};
+document.body.appendChild(m)}
+const today=()=>iso(new Date());
+function del(k,id){if(confirm('Sigurado ka bang buburahin ito?')){db[k]=db[k].filter(x=>x.id!==id);save();route()}}
+function view(id){const r=db.photos.find(x=>x.id===id)||db.documents.find(x=>x.id===id),m=document.createElement('div');m.className='mod';m.onclick=()=>m.remove();m.innerHTML=`<img class="big" src="${r.img}">`;document.body.appendChild(m)}
+
+/* ---------- PROJECT DETAIL ---------- */
+const D=x=>new Date(x+'T00:00:00').getTime(),addD=(x,n)=>iso(new Date(D(x)+n*864e5));
+function pgantt(p){
+const rows=rowsOf('swa',p).filter(r=>r.start&&r.end).sort((a,b)=>a.start.localeCompare(b.start));
+const head=`<div class="sh"><h3>SWA Gantt Chart</h3><span class="mut">Overall accomplished: <b>${swaPct(p)}%</b></span></div>`;
+if(!rows.length)return`<div class="c" style="margin-top:16px">${head}<div class="empty">Mag-add ng Work Item sa tab na “SWA Work Items” para lumabas ang Gantt.</div></div>`;
+const mn=Math.min(...rows.map(r=>D(r.start)))-2*864e5,mx=Math.max(...rows.map(r=>D(r.end)))+2*864e5,sp=mx-mn,X=t=>(t-mn)/sp*100,nd=iso(new Date());
+const tk=[];for(let d=new Date(mn);;){d=new Date(d.getFullYear(),d.getMonth()+1,1);if(d.getTime()>=mx)break;tk.push([X(d.getTime()),d.toLocaleString('en',{month:'short'})+' '+String(d.getFullYear()).slice(2)])}
+const gv=tk.map(t=>`<i class="gv" style="left:${t[0]}%"></i>`).join(''),now=Date.now(),tl=now>mn&&now<mx?`<div class="today" style="left:calc(170px + (100% - 210px) * ${X(now)/100})" title="Today"></div>`:'';
+const st=r=>r.pct>=100?['Done','#2e9e4f']:r.end<nd?['Delayed','var(--mar)']:r.pct>0?['In progress','var(--o)']:['Not started','#8a8a96'];
+return`<div class="c" style="margin-top:16px">${head}<div class="g2w"><div class="gg"><div class="gh">${tk.map(t=>`<span style="left:${t[0]}%">${t[1]}</span>`).join('')}</div>
+${rows.map(r=>{const[n,c]=st(r);return`<div class="gl2"><b style="flex-direction:column;align-items:flex-start;gap:1px;line-height:1.25">${esc(r.task)}<small class="mut">${r.start} → ${r.end} · <span style="color:${c};font-weight:700">${n}</span></small></b><div class="tr">${gv}<div class="bar s" style="--c:${c};left:${X(D(r.start))}%;width:${Math.max(X(D(r.end))-X(D(r.start)),1.5)}%" title="${esc(r.task)} · ${r.pct}%"><u style="width:${r.pct}%"></u></div><em class="pc2" style="left:calc(${X(D(r.end))}% + 6px)">${r.pct}%</em></div></div>`}).join('')}${tl}</div></div>
+<div class="lg"><span><i style="background:#2e9e4f"></i>Done</span><span><i style="background:var(--o)"></i>In progress</span><span><i style="background:var(--mar)"></i>Delayed</span><span><i style="background:#8a8a96"></i>Not started</span><span><i style="background:var(--o)"></i>Today line</span><span class="mut">Solid fill = % tapos na · light bar = planned dates</span></div></div>`}
+let ptab='budget';
+const TABS=[['budget','Budget & Profit'],['expenses','Expenses'],['estimated','Estimated Materials'],['leaders','Team Leaders'],['swa','SWA Work Items'],['photos','Photos'],['pdocs','Documents']];
+const rowsOf=(k,p)=>k==='expenses'?db.expenses.filter(r=>r.project===p.title):db[k].filter(r=>r.pid===p.id);
+const swaPct=p=>{const r=db.swa.filter(x=>x.pid===p.id),d=x=>Math.max(1,(new Date(x.end)-new Date(x.start))/864e5||1),t=sum(r,d);return t?Math.round(sum(r,x=>x.pct*d(x))/t):0};
+function gantt(rows){rows=rows.filter(r=>r.start&&r.end);if(!rows.length)return'';
+const t=d=>new Date(d).getTime(),mn=Math.min(...rows.map(r=>t(r.start))),mx=Math.max(...rows.map(r=>t(r.end))),sp=Math.max(mx-mn,864e5);
+return`<div class="gantt">${rows.map(r=>{const l=(t(r.start)-mn)/sp*100,w=Math.max((t(r.end)-t(r.start))/sp*100,2);return`<div class="gr"><div class="gl">${esc(r.task)}</div><div class="gt"><div class="gb" style="left:${l}%;width:${w}%"><i style="width:${r.pct}%"></i><span>${r.pct}%</span></div></div></div>`}).join('')}<div class="gax"><span>${new Date(mn).toLocaleDateString()}</span><span>${new Date(mx).toLocaleDateString()}</span></div></div>`}
+function subTable(k,p,pre=''){const s=SC(k),rows=rowsOf(k,p),T=s.tot,TF=T||(k==='expenses'||k==='bale'?r=>r.amount:null);
+return`<div class="c"><div class="sh"><h3>${s.t}</h3><button class="btn s" onclick="openForm('${k}',null,'${p.id}')">+ Add</button></div>${pre}<div class="wrap"><table><tr>${s.f.map(f=>`<th>${f[1].toUpperCase()}</th>`).join('')}${T?'<th>TOTAL</th>':''}<th></th></tr>
+${rows.map(r=>`<tr>${s.f.map(f=>`<td>${cell(f,r)}</td>`).join('')}${T?`<td>${peso(T(r))}</td>`:''}${btns(k,r.id)}</tr>`).join('')||'<tr><td colspan=9 class="empty">Wala pang laman.</td></tr>'}</table></div>${TF&&rows.length?`<p class="tt">Total: <b>${peso(sum(rows,TF))}</b></p>`:''}</div>`}
+function oblSection(p){
+const rate=p.oblRate??16,tot=Math.round(p.bid*rate/100);let bal=tot;
+const rows=rowsOf('obligations',p).sort((a,b)=>(a.date||'').localeCompare(b.date||''));
+return`<div class="c"><div class="sh"><h3>Obligations (Passbook)</h3><button class="btn s" onclick="openForm('obligations',null,'${p.id}')">+ Add payment</button></div>
+<div class="obl"><label>Rate (%)</label><input type="number" min="0" step="any" value="${rate}" onchange="setRate('${p.id}',this.value)"><div>${peso(p.bid)} × ${rate}% = <b>Total obligation ${peso(tot)}</b></div></div>
+<div class="wrap"><table><tr><th>DATE</th><th>AMOUNT</th><th>BALANCE</th><th></th></tr><tr><td class="mut">Start</td><td>—</td><td><b>${peso(tot)}</b></td><td></td></tr>
+${rows.map(r=>{bal-=r.amount;return`<tr><td>${esc(r.date)}</td><td>${peso(r.amount)}</td><td><b>${peso(bal)}</b></td>${btns('obligations',r.id)}</tr>`}).join('')}</table></div>
+<p class="tt">Paid: <b>${peso(tot-bal)}</b> (${pct(tot-bal,tot)}%) · Remaining: <b>${peso(bal)}</b></p></div>`}
+function setRate(id,v){db.projects.find(x=>x.id===id).oblRate=Number(v)||0;save();projectView(id)}
+function expView(p,v){
+const it=[['Expenses (general)',v.exp,'var(--o)'],['Delivered Materials',v.dv,'var(--mar)'],['Labor Cost (gross wages)',v.lab,'var(--fu)'],[`Obligations (${v.rate}%)`,v.obl,'#3a3a46']],T=sum(it,i=>i[1]);let a=0;
+const g=T?it.map(i=>{const b=a;a+=i[1]/T*100;return`${i[2]} ${b}% ${a}%`}).join(','):'#8884 0 100%';
+return`<div class="c"><h3>Project Expenses Summary</h3><div class="exg"><ul class="bl">${it.map(i=>`<li><span><i style="background:${i[2]}"></i>${i[0]}</span><b>${peso(i[1])}</b><div class="pbar"><i style="width:${pct(i[1],T)}%;background:${i[2]}"></i></div><small class="mut">${pct(i[1],T)}% of total</small></li>`).join('')}<li class="tot"><span>Total Project Expenses</span><b>${peso(T)}</b></li></ul></div>
+</div>`
++subTable('expenses',p)+subTable('delivered',p)+subTable('labor',p)+oblSection(p)}
+function projectView(id){
+const p=db.projects.find(x=>x.id===id);if(!p){location.hash='#/projects';return}
+const R=k=>rowsOf(k,p),exp=sum(R('expenses'),r=>r.amount),lab=sum(R('labor'),SUB.labor.tot),dv=sum(R('delivered'),SUB.delivered.tot),est=sum(R('estimated'),SUB.estimated.tot);
+const rate=p.oblRate??16,obl=Math.round(p.bid*rate/100),paid=sum(R('obligations'),r=>r.amount),bale=sum(R('bale'),r=>r.amount);
+const cost=exp+lab+dv+obl,profit=p.bid-cost,coll=sum(db.billing.filter(b=>b.project===p.title&&b.status==='paid'),b=>b.amount);
+let c;
+if(ptab==='budget')c=`<div class="grid g4">${stat(peso(p.bid),'Contract / Bid Amount','var(--o)')}${stat(peso(cost),'Total Costs','var(--fu)',pct(cost,p.bid)+'% of bid')}${stat(peso(profit),'Running Balance (Profit)',profit<0?'#d33':'#3da63d',pct(profit,p.bid)+'% margin')}${stat(peso(obl-paid),'Obligation Balance','var(--mar)','paid '+peso(paid))}${stat(peso(coll),'Collected (Billing)','#4b4b57',pct(coll,p.bid)+'% of bid')}${stat(swaPct(p)+'%','SWA Accomplished','var(--o)')}${stat(peso(est),'Estimated Materials','#9aa5b1')}${stat(peso(lab),'Labor Cost','var(--fu)',pct(lab,p.bid)+'% of bid')}</div>
+<div class="c" style="margin-top:14px"><h3>Cost Breakdown</h3><div class="wrap"><table><tr><th>ITEM</th><th>AMOUNT</th><th>% OF BID</th></tr>${[['Expenses',exp],['Delivered Materials',dv],['Labor Cost',lab],['Obligations ('+rate+'%)',obl]].map(([n,v])=>`<tr><td>${n}</td><td>${peso(v)}</td><td>${pct(v,p.bid)}%</td></tr>`).join('')}<tr><td><b>Running Balance (Profit)</b></td><td><b>${peso(profit)}</b></td><td>${pct(profit,p.bid)}%</td></tr></table></div></div>`;
+else if(ptab==='expenses')c=expView(p,{exp,lab,dv,obl,rate,paid,bale});
+else if(ptab==='photos')c=`<div class="c"><div class="sh"><h3>Project Photos</h3><button class="btn s" onclick="openForm('photos',null,'${p.id}')">+ Upload photo</button></div><div class="ph">${R('photos').map(r=>`<figure><img src="${r.img}" onclick="view('${r.id}')"><figcaption>${esc(r.caption)}<small>${esc(r.date)}</small><div class="act" style="text-align:left;margin-top:6px"><button class="btn g s" onclick="openForm('photos','${r.id}')">Edit</button> <button class="btn g s" onclick="del('photos','${r.id}')">Delete</button></div></figcaption></figure>`).join('')||'<div class="empty">Wala pang photos.</div>'}</div></div>`;
+else c=subTable(ptab,p);
+shell('projects',esc(p.title),`${esc(p.client)||'—'} · ${esc(p.location)} · Progress ${p.progress}%`,`<div class="ptabs">${TABS.map(([k,l])=>`<button class="${k===ptab?'on':''}" onclick="ptab='${k}';projectView('${id}')">${l}</button>`).join('')}</div>${c}${ptab==='swa'?pgantt(p):''}`,
+`<a class="btn g" href="#/projects">← Projects</a>${dlMenu("xlP('"+id+"')")}`)}
+async function xlP(id){const p=db.projects.find(x=>x.id===id);await lib('XLSX',XL);const wb=XLSX.utils.book_new();
+sheet(wb,'Project',[{Title:p.title,Client:p.client,Bid:p.bid,Location:p.location,'Date Bidded':p.dateBid,'Date Started':p.dateStart,License:p.license,Progress:p.progress}]);
+['expenses','labor','delivered','estimated','leaders','obligations','swa'].forEach(k=>sheet(wb,SC(k).t,rowsOf(k,p).map(strip)));XLSX.writeFile(wb,`${p.title}.xlsx`)}
+
+/* ---------- GLOBAL SEARCH ---------- */
+function sidx(){const P=id=>db.projects.find(p=>p.id===id)?.title||'',I=[],add=(t,x,h,o)=>I.push({t,x:x.toLowerCase(),h,...o});
+db.projects.forEach(p=>add('Project',`${p.title} ${p.location} ${p.client} ${p.license}`,'#/project/'+p.id,{l:p.title,s:p.location,tab:'budget'}));
+db.clients.forEach(c=>add('Client',`${c.name} ${c.email} ${c.address} ${c.contact}`,'#/clients',{l:c.name,s:c.address}));
+db.billing.forEach(b=>add('Billing',`${b.project} ${b.status}`,'#/billing',{l:b.project,s:peso(b.amount)+' · '+b.status}));
+db.documents.forEach(d=>add('Document',`${d.title} ${d.type} ${d.notes}`,'#/documents',{l:d.title,s:d.type}));
+db.expenses.forEach(e=>add('Expense',`${e.description} ${e.category} ${e.project}`,'#/expenses',{l:e.description,s:`${e.project} · ${peso(e.amount)}`,xp:db.projects.find(x=>x.title===e.project)?.id}));
+[['delivered','Delivered','expenses',r=>r.name+' '+r.supplier],['labor','Labor','expenses',r=>r.description],['obligations','Obligation','expenses',r=>'Payment '+r.date+' '+r.note],['leaders','Team Leader','leaders',r=>r.name+' '+r.role],['swa','SWA','swa',r=>r.task],['photos','Photo','photos',r=>r.caption],['pdocs','Project Doc','pdocs',r=>r.title+' '+r.notes],['estimated','Est. Material','estimated',r=>r.name]]
+.forEach(([k,t,tab,f])=>db[k].forEach(r=>add(t,f(r)+' '+P(r.pid),'#/project/'+r.pid,{l:f(r).trim(),s:P(r.pid),tab})));
+return I}
+function gsearch(q){q=q.trim().toLowerCase();const el=$('#gres');if(q.length<2){el.innerHTML='';return}
+const r=sidx().filter(i=>i.x.includes(q)).slice(0,12);
+el.innerHTML=r.map(i=>`<a onclick="go('${i.h}','${i.tab||''}','${i.xp||''}')"><b>${esc(i.l)}</b><small>${i.t} · ${esc(i.s)}</small></a>`).join('')||'<a><small>Walang nahanap.</small></a>'}
+function go(h,t,x){if(t)ptab=t;if(h==='#/expenses')xp=x||'all';$('#gres').innerHTML='';location.hash===h?route():location.hash=h}
+document.addEventListener('click',e=>{if(!e.target.closest('.srch'))$('#gres')&&($('#gres').innerHTML='');if(!e.target.closest('.dd,.me'))closeM()});
+
+/* ---------- EXPENSES (per project, with analytics) ---------- */
+let xp='all';
+const costs=p=>{const exp=sum(rowsOf('expenses',p),r=>r.amount),dv=sum(rowsOf('delivered',p),SUB.delivered.tot),lab=sum(rowsOf('labor',p),SUB.labor.tot),obl=Math.round(p.bid*(p.oblRate??16)/100);return{exp,dv,lab,obl,t:exp+dv+lab+obl}};
+const xrows=rows=>`<div class="wrap"><table><tr><th>DESCRIPTION</th><th>CATEGORY</th><th>AMOUNT</th><th>DATE</th><th></th></tr>${[...rows].sort((a,b)=>(b.date||'').localeCompare(a.date||'')).map(r=>`<tr><td>${esc(r.description)}</td><td>${esc(r.category)}</td><td>${peso(r.amount)}</td><td>${esc(r.date)}</td>${btns('expenses',r.id)}</tr>`).join('')||'<tr><td colspan=5 class="empty">Wala pang expense.</td></tr>'}</table></div>`;
+function expensesPage(){
+const C=db.projects.filter(p=>xp==='all'||p.id===xp).map(p=>({p,c:costs(p)})),tt=k=>sum(C,x=>x.c[k]),T=tt('t');
+const cats=[['Expenses','exp','var(--o)'],['Delivered Materials','dv','var(--mar)'],['Labor Cost','lab','var(--fu)'],['Obligations','obl','#3a3a46']];
+let a=0;const g=T?cats.map(c=>{const b=a;a+=tt(c[1])/T*100;return`${c[2]} ${b}% ${a}%`}).join(','):'#8884 0 100%';
+const months=[...Array(6)].map((_,i)=>{const d=new Date();d.setDate(1);d.setMonth(d.getMonth()-5+i);return iso(d).slice(0,7)}),ti=C.map(x=>x.p.title);
+const MS=months.map(m=>sum(db.expenses.filter(e=>ti.includes(e.project)&&(e.date||'').startsWith(m)),e=>e.amount)),mx=Math.max(1,...MS);
+const un=xp==='all'?db.expenses.filter(e=>!db.projects.some(p=>p.title===e.project)):[];
+shell('expenses','Total Expenses of All Projects',biz().name+' · hiwalay ang bawat project',`
+<div class="ptabs"><button class="${xp==='all'?'on':''}" onclick="xp='all';expensesPage()">All Projects</button>${db.projects.map(p=>`<button class="${xp===p.id?'on':''}" onclick="xp='${p.id}';expensesPage()">${esc(p.title)}</button>`).join('')}</div>
+<div class="grid g4">${stat(peso(T),'Total Project Costs','var(--o)',C.length+' project'+(C.length>1?'s':''))}${cats.map(c=>stat(peso(tt(c[1])),c[0],c[2],pct(tt(c[1]),T)+'% of total')).join('')}</div>
+<div class="grid g2" style="margin-top:14px"><div class="c"><h3>Monthly Expenses (6 months) <span class="mut">· % of total</span></h3><div class="chart">${months.map((m,i)=>`<div class="col"><div class="bars"><div style="width:55%"><small>${sh(MS[i])}<br>${pct(MS[i],sum(MS,x=>x))}%</small><i style="height:calc((100% - 30px)*${MS[i]/mx});background:var(--o)"></i></div></div><small class="lbl"><b>${new Date(m+'-02').toLocaleString('en',{month:'short'})}</b></small></div>`).join('')}</div></div>
+<div class="c"><h3>Cost Breakdown</h3><div class="donut" style="background:conic-gradient(${g})"><span class="dl2"><b>${sh(T)}</b><small>Total</small></span></div>${cats.map(c=>`<div class="dl"><span><i style="background:${c[2]}"></i>${c[0]}</span><b>${pct(tt(c[1]),T)}%</b></div>`).join('')}</div></div>
+<div class="c" style="margin-top:14px"><h3>Cost per Project</h3>${C.map(({p,c})=>`<div class="lv"><div class="h"><span>${esc(p.title)}</span><b>${peso(c.t)} · ${pct(c.t,p.bid)}% of bid</b></div><div class="pbar"><i style="width:${Math.min(100,pct(c.t,p.bid))}%;background:linear-gradient(90deg,var(--fu),var(--o))"></i></div></div>`).join('')||'<div class="empty">No projects</div>'}</div>
+${C.map(({p,c})=>`<div class="c" style="margin-top:14px"><div class="sh"><h3><a href="#/project/${p.id}">${esc(p.title)}</a></h3></div>
+<p class="mut" style="margin:0 0 10px">Expenses ${peso(c.exp)} · Materials ${peso(c.dv)} · Labor ${peso(c.lab)} · Obligations ${peso(c.obl)} · <b>Total ${peso(c.t)}</b></p>${xrows(rowsOf('expenses',p))}<p class="tt">Subtotal: <b>${peso(c.exp)}</b></p></div>`).join('')}
+${un.length?`<div class="c" style="margin-top:14px"><h3>Unassigned</h3>${xrows(un)}</div>`:''}
+<div class="c" style="margin-top:14px;text-align:right;font-size:18px">TOTAL: <b>${peso(tt('exp')+sum(un,e=>e.amount))}</b> <span class="mut">(listed expenses)</span></div>`,
+dlMenu('xlX()'))}
+
+/* ---------- DOCUMENTS ---------- */
+let dt='All';
+function documentsPage(){
+const types=['All','Permit','Business Paper','Contract','Plan','Receipt','Other'],rows=db.documents.filter(d=>dt==='All'||d.type===dt).sort((a,b)=>(b.date||'').localeCompare(a.date||''));
+shell('documents','Documents','Permits at iba pang papeles ng negosyo',`<div class="ptabs">${types.map(t=>`<button class="${t===dt?'on':''}" onclick="dt='${t}';documentsPage()">${t}${t==='All'?' ('+db.documents.length+')':''}</button>`).join('')}</div>
+<div class="ph dg">${rows.map(d=>`<figure>${d.img?`<img src="${d.img}" onclick="view('${d.id}')">`:'<div class="nof">▢</div>'}<figcaption><b>${esc(d.title)}</b><small>${esc(d.type)} · ${esc(d.date)}</small>${d.notes?`<small>${esc(d.notes)}</small>`:''}<div class="act" style="text-align:left;margin-top:8px"><button class="btn g s" onclick="openForm('documents','${d.id}')">Edit</button> <button class="btn g s" onclick="del('documents','${d.id}')">Delete</button></div></figcaption></figure>`).join('')||'<div class="empty c">Wala pang documents.</div>'}</div>`,
+`<button class="btn" onclick="openForm('documents')">+ Add Document</button>`)}
+/* ---------- REPORTS ---------- */
+function reports(){
+const ms=[...new Set([...db.billing.map(b=>b.date.slice(0,7)),...db.expenses.map(e=>e.date.slice(0,7))])].sort().reverse();
+let tb=0,tc=0,te=0;
+const rows=ms.map(m=>{const b=sum(db.billing.filter(x=>x.date.startsWith(m)),x=>x.amount),c=sum(db.billing.filter(x=>x.date.startsWith(m)&&x.status==='paid'),x=>x.amount),e=sum(db.expenses.filter(x=>x.date.startsWith(m)),x=>x.amount);tb+=b;tc+=c;te+=e;
+return`<tr><td>${new Date(m+'-02').toLocaleString('en',{month:'long',year:'numeric'})}</td><td>${peso(b)}</td><td>${peso(c)}</td><td>${peso(e)}</td><td><b style="color:${c-e<0?'#d33':'#1e7a1e'}">${peso(c-e)}</b></td></tr>`}).join('');
+shell('reports','Monthly Report','Billing, collections and expenses per month',`<div class="grid g4">${stat(peso(tb),'Total Billed','var(--o)')}${stat(peso(tc),'Total Collected','#4b4b57')}${stat(peso(te),'Total Expenses','var(--fu)')}${stat(peso(tc-te),'Net (Collected − Expenses)','#3da63d')}</div>
+<div class="c" style="margin-top:14px"><div class="wrap"><table><tr><th>MONTH</th><th>BILLED</th><th>COLLECTED</th><th>EXPENSES</th><th>NET</th></tr>${rows||'<tr><td colspan=5 class="empty">No data</td></tr>'}</table></div></div>`,
+dlMenu(''))}
+
+/* ---------- ROUTER ---------- */
+function route(){
+const p=(location.hash.replace('#/','')||'dashboard');
+if(p.startsWith('project/'))projectView(p.slice(8));else if(p==='dashboard')dashboard();else if(p==='projects')projects();else if(p==='reports')reports();else if(p==='expenses')expensesPage();else if(p==='documents')documentsPage();else if(SCHEMA[p])module(p);else dashboard()}
+function boot(){ld('apc_session')?route():authView()}
+addEventListener('hashchange',()=>ld('apc_session')&&route());
+boot();
+</script>
+</body>
+</html>
