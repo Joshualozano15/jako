@@ -177,6 +177,41 @@ aside{background:var(--sbg);color:var(--stx);border-right:1px solid var(--line)}
 .pm{min-width:170px}.pm a{display:flex;align-items:center;gap:10px}.ic{width:18px;height:18px;flex:none}.pm a.lo{color:var(--o);border-top:1px solid var(--line)}
 .clk{display:flex;align-items:center;gap:8px;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:7px 13px;font-size:13.5px;font-weight:600;white-space:nowrap;color:var(--ink)}.clk .cs{color:var(--mut)}
 @media(max-width:560px){.clk{flex-direction:column;gap:0;padding:4px 9px;font-size:11.5px;line-height:1.25;text-align:center}.clk .cs{display:none}}
+
+.tr{display:inline-block;font-weight:700;font-size:13px;padding:2px 9px;border-radius:99px;background:#8882;color:var(--mut);white-space:nowrap;line-height:1.5}
+.tr.up{color:#15803d;background:#16a34a22}.tr.dn{color:#dc2626;background:#dc262622}
+[data-theme=dark] .tr.up{color:#4ade80;background:#22c55e26}[data-theme=dark] .tr.dn{color:#ff6b73;background:#ff4d5a26}
+.tw{margin-top:8px}.tw small{font-size:11px}.td{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:4px}.lbl .tr{font-size:11.5px;padding:1px 6px;margin-top:3px}
+.dg2{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
+.dc{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--sh);overflow:hidden;display:flex;flex-direction:column}
+.dt img,.fi{width:100%;height:150px;display:block}.dt img{object-fit:cover;cursor:pointer}
+.fi{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;background:color-mix(in srgb,var(--o) 9%,var(--bg));cursor:pointer}.fi b{font-size:28px;color:var(--o);letter-spacing:.04em}.fi small{max-width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--mut)}
+.db{padding:12px 14px;display:flex;flex-direction:column;gap:5px;flex:1}.db b{font-size:15px;word-break:break-word}.db .pill{align-self:flex-start}
+.df{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;padding:10px 12px 12px}.df .btn{width:100%;text-align:center}
+.vw{background:var(--card);border-radius:14px;padding:12px;max-width:min(940px,96vw);width:100%;max-height:94vh;overflow:auto}.vh{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap}.vw .big{max-height:76vh;display:block;margin:0 auto}.pv{width:100%;height:76vh;border:0;border-radius:8px;background:#fff}
+@media(max-width:560px){.dg2{grid-template-columns:repeat(2,1fr)}.df .btn{padding:8px 2px;font-size:12.5px}.dt img,.fi{height:115px}}
+
+.tr{display:inline-flex;align-items:center;gap:3px;width:fit-content;font-weight:700;font-size:11.5px;line-height:1.35;padding:1px 6px;border-radius:6px}
+.lbl .tr{font-size:10.5px;padding:0 5px;margin-top:3px}.tw{margin-top:8px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}.tw small{font-size:11px}
+.chart{height:auto!important;align-items:flex-start}.chart div.col{height:auto;justify-content:flex-start}.chart .bars{height:190px;flex:none;align-items:flex-end}.chart .lbl{display:block;min-height:var(--lh,52px)}
+.lr{display:grid;grid-template-columns:1fr 1fr;gap:6px 8px;padding:10px;border:1px solid var(--line);border-radius:12px;margin-bottom:8px;align-items:end}.lr label{margin:0;font-size:12px}.lr .w2{grid-column:1/-1}.lr select,.lr input{width:100%}.lr .btn{grid-column:1/-1;justify-self:end}
+.lc-g{stroke:var(--line);stroke-width:1}.lc-t{fill:var(--mut);font-size:12.5px}.lc-v{font-size:12px;font-weight:700;paint-order:stroke;stroke:var(--card);stroke-width:4px;stroke-linejoin:round;text-anchor:middle}
+.lgd{display:flex;gap:18px;flex-wrap:wrap;margin-bottom:8px;font-size:14px;font-weight:600}.lgd i{display:inline-block;width:26px;height:4px;border-radius:2px;margin-right:7px;vertical-align:middle}
+
+.tr{display:inline-flex;align-items:center;gap:3px;width:fit-content;padding:1px 8px;border-radius:99px;font-weight:600;font-size:11px;line-height:1.35;white-space:nowrap;background:#8882;color:var(--mut)}
+.tr.up{background:#b8f5c4;color:#0e8f2e}.tr.dn{background:#ffc9cc;color:#d4141f}.tr .cv{flex:none}.lbl .tr{font-size:10px;padding:0 6px}
+[data-theme=dark] .tr.up{background:#14532d99;color:#6ee79a}[data-theme=dark] .tr.dn{background:#7f1d1d99;color:#ff8a92}
+.og{display:grid;grid-template-columns:190px 1fr;gap:22px;align-items:center;margin-bottom:16px}.ogr{text-align:center}.ogr h3{margin:0 0 4px}.ring-s{width:140px;height:140px;margin:8px auto}.ring-s>div{width:100px;height:100px;font-size:27px}.pbar.big{height:12px}.ogb .lv{margin-bottom:14px}
+.lcard .sh{align-items:flex-start;flex-wrap:wrap;gap:8px}.lcard h3{margin:0}.lcw{max-width:780px;margin:0 auto}.lcard .lgd{margin:0;gap:14px;font-size:13px}.lcard .lgd i{width:20px;height:3px}
+.lcard{background:linear-gradient(180deg,color-mix(in srgb,var(--o) 4%,var(--card)),var(--card))}
+@media(max-width:700px){.og{grid-template-columns:1fr}}
+
+.tr{padding:0 6px;font-size:10.5px;line-height:1.4;gap:2px;letter-spacing:0}.tr .cv{width:7px;height:4px}.lbl .tr{font-size:9.5px;padding:0 5px}
+.ongp{background:linear-gradient(180deg,color-mix(in srgb,var(--o) 6%,var(--card)),var(--card));border-left:5px solid var(--o)}.ongp .sh{flex-wrap:wrap;gap:4px 12px;margin-bottom:4px}
+.ob{list-style:none;margin:0;padding:0}.ob li{display:grid;grid-template-columns:12px 1fr auto;gap:12px;align-items:center;padding:12px 0;border-top:1px solid var(--line)}
+.ob li>i{width:11px;height:11px;border-radius:50%}.ol b{display:block;font-size:15px}.ol small{display:block;color:var(--mut);font-size:12.5px;margin-top:1px}
+.ov{text-align:right}.ov b{display:block;font-size:21px;white-space:nowrap;letter-spacing:-.01em}.ov span{display:flex;gap:6px;align-items:center;justify-content:flex-end;margin-top:3px}.ov small{color:var(--mut);font-size:11px}
+@media(max-width:560px){.ov b{font-size:17px}.ol b{font-size:14px}.ob li{gap:9px}}
 @media(max-width:860px){aside{transform:translateX(-100%)}aside.open{transform:none}main{margin-left:0;padding:14px}.burger{display:inline-block}.g2{grid-template-columns:1fr}.pc{grid-template-columns:1fr}.tools input{width:150px}}
 @media print{aside,.tools,.burger,.noprint,.nav,.sh button,.act{display:none!important}main{margin:0}html[data-theme]{--bg:#fff;--card:#fff;--ink:#000;--mut:#555;--line:#ddd;--pc:#ddd}}
 </style>
@@ -246,7 +281,7 @@ clients:{t:'Clients',f:[['name','Name'],['contact','Contact No.'],['email','Emai
 billing:{t:'Billing',f:[['project','Project','select:projects'],['amount','Amount','number'],['date','Date Billed','date'],['status','Status','select:pending,paid']]},
 expenses:{t:'Expenses',f:[['project','Project','select:projects'],['description','Description'],['category','Category','select:Materials,Labor,Equipment,Other'],['amount','Amount','number'],['date','Date','date']]},
 materials:{t:'Materials',f:[['name','Material'],['quantity','Quantity','number'],['unit_cost','Unit Cost','number'],['supplier','Supplier']]},
-documents:{t:'Documents',f:[['title','Title'],['type','Type','select:Permit,Business Paper,Contract,Plan,Receipt,Other'],['date','Date','date'],['notes','Notes'],['img','Picture / Scan','file:image']]}};
+documents:{t:'Documents',f:[['title','Title'],['type','Type','select:Permit,Business Paper,Contract,Plan,Receipt,Other'],['notes','Notes'],['doc','File (PDF, Word, Excel, Picture…)','file:any']]}};
 const PF=[['title','Project Title'],['client','Client','select:clients'],['bid','Bid Amount','number'],['location','Location'],['dateBid','Date Bidded (last day of bidding on PhilGEPS)','date'],['dateStart','Date Started (actual deployment of laborers)','date'],['license','License Used (e.g. APC, Dalcon)'],['progress','Progress % (100 = Completed)','number']];
 const NAV=[['dashboard','Dashboard','⌂'],['projects','Projects','▤'],['clients','Clients','☺'],['billing','Billing','▭'],['expenses','Expenses','₱'],['documents','Documents','▢'],['reports','Reports','▥']];
 
@@ -334,7 +369,11 @@ setRange('M');
 const inR=d=>d&&d>=dr.from&&d<=dr.to;
 const sh=v=>v>=1e6?'₱'+(v/1e6).toFixed(1)+'M':v>=1e3?'₱'+Math.round(v/1e3)+'K':'₱'+Math.round(v);
 const pct=(a,b)=>b?Math.round(a/b*100):0;
-const stat=(v,l,k,s='')=>`<div class="c stat" style="--k:${k}"><b>${v}</b><span>${l}</span>${s?`<em>${s}</em>`:''}</div>`;
+const chev=u=>`<svg class="cv" viewBox="0 0 10 6" width="8" height="5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="${u?'M1 5l4-4 4 4':'M1 1l4 4 4-4'}"/></svg>`;
+const trend=(c,p)=>{if(!p&&!c)return'';if(!p)return`<span class="tr up">${chev(1)}new</span>`;const v=(c-p)/Math.abs(p)*100,r=Math.round(Math.abs(v)*10)/10;return r===0?'<span class="tr">0%</span>':v<0?`<span class="tr dn">${chev(0)}-${r}%</span>`:`<span class="tr up">${chev(1)}+${r}%</span>`};
+const trendPts=d=>d<0?`<span class="tr dn">${chev(0)}${d}%</span>`:d===0?'<span class="tr">0%</span>':`<span class="tr up">${chev(1)}+${d}%</span>`;
+const dtr=(c,p,col)=>`<i class="td" style="background:${col}"></i>${trend(c,p)}`;
+const stat=(v,l,k,s='',t='',tl='previous period')=>`<div class="c stat" style="--k:${k}"><b>${v}</b><span>${l}</span>${s?`<em>${s}</em>`:''}${t?`<div class="tw">${t} <small class="mut">vs ${tl}</small></div>`:''}</div>`;
 const progAt=(id,d)=>{const l=db.plog.filter(x=>x.pid===id&&x.date<=d).sort((a,b)=>a.date.localeCompare(b.date));return l.length?l[l.length-1].progress:null};
 function M(){
 const bl=db.billing.filter(b=>inR(b.date)),ex=db.expenses.filter(e=>inR(e.date));
@@ -344,6 +383,15 @@ const prog=db.projects.map(p=>{const end=progAt(p.id,dr.to)??(db.plog.some(x=>x.
 return{bl,ex,billed,coll,pend:billed-coll,exp,net:coll-exp,prog}}
 function dashboard(){
 const m=M(),act=db.projects.filter(p=>p.progress<100).length,done=db.projects.length-act;
+const nD=Math.round((D(dr.to)-D(dr.from))/864e5)+1,o_=dr;dr={...dr,from:addD(dr.from,-nD),to:addD(dr.from,-1)};const pm=M();dr=o_;const pavg=pm.prog.length?Math.round(sum(pm.prog,x=>x.end)/pm.prog.length):0;
+const now_=new Date(),mo=iso(now_).slice(0,7),pmo=iso(new Date(now_.getFullYear(),now_.getMonth()-1,1)).slice(0,7),ong=db.projects.filter(p=>p.progress<100),TT=new Set(ong.map(p=>p.title)),II=new Set(ong.map(p=>p.id));
+const inM=(d,ym)=>(d||'').startsWith(ym),OM=ym=>{const rev=sum(db.billing.filter(b=>TT.has(b.project)&&inM(b.date,ym)),b=>b.amount),col=sum(db.billing.filter(b=>TT.has(b.project)&&b.status==='paid'&&inM(b.date,ym)),b=>b.amount),
+ex=sum(db.expenses.filter(e=>TT.has(e.project)&&inM(e.date,ym)),e=>e.amount)+sum(db.delivered.filter(r=>II.has(r.pid)&&inM(r.date,ym)),SUB.delivered.tot)+sum(db.labor.filter(r=>II.has(r.pid)&&inM(r.date,ym)),SUB.labor.tot)+sum(db.obligations.filter(r=>II.has(r.pid)&&inM(r.date,ym)),r=>r.amount);return{rev,col,ex,net:rev-ex}};
+const om=OM(mo),op=OM(pmo),ongCard=`<div class="c ongp"><div class="sh"><h3>Ongoing Projects · ${now_.toLocaleString('en',{month:'long',year:'numeric'})}</h3><span class="mut">${ong.length} existing ongoing project${ong.length===1?'':'s'}</span></div><ul class="ob">${[
+['var(--o)','Amount of Ongoing Projects','total contract · '+ong.length+' projects',peso(sum(ong,p=>p.bid)),''],
+['var(--fu)','Expenses for the Month','expenses, materials, labor & obligations',peso(om.ex),trend(om.ex,op.ex)],
+['var(--mar)','Revenue for the Month','collected '+peso(om.col),peso(om.rev),trend(om.rev,op.rev)],
+[om.net<0?'#d33':'#3da63d','Net for the Month','revenue − expenses',peso(om.net),trend(om.net,op.net)]].map(x=>`<li><i style="background:${x[0]}"></i><div class="ol"><b>${x[1]}</b><small>${x[2]}</small></div><div class="ov"><b>${x[3]}</b>${x[4]?`<span>${x[4]}<small>vs last month</small></span>`:''}</div></li>`).join('')}</ul></div>`;
 const months=[...Array(6)].map((_,i)=>{const d=new Date();d.setDate(1);d.setMonth(d.getMonth()-5+i);return iso(d).slice(0,7)});
 const A=months.map(x=>db.billing.filter(b=>b.date.startsWith(x))),B=months.map(x=>db.expenses.filter(e=>e.date.startsWith(x)));
 const SA=A.map(a=>sum(a,b=>b.amount)),SB=B.map(a=>sum(a,e=>e.amount)),mx=Math.max(1,...SA,...SB),tA=sum(SA,x=>x),tB=sum(SB,x=>x);
@@ -354,9 +402,9 @@ const right=`<div class="seg">${['D','W','M','Y'].map(k=>`<button class="${dr.mo
 
 ${dlMenu('xl()')}`;
 shell('dashboard','Construction Dashboard',`${biz().name} · ${dr.from} → ${dr.to}`,`
-<div class="grid g4">${stat(peso(m.billed),'Billed (selected period)','var(--o)',m.bl.length+' billings')}${stat(peso(m.coll),'Collected','#4b4b57',pct(m.coll,m.billed)+'% of billed · '+m.bl.filter(b=>b.status==='paid').length+' paid')}${stat(peso(m.pend),'Pending Billing','var(--fu)',pct(m.pend,m.billed)+'% of billed · '+m.bl.filter(b=>b.status!=='paid').length+' unpaid')}${stat(peso(m.exp),'Expenses','var(--fu)',pct(m.exp,m.billed)+'% of billed · '+m.ex.length+' entries')}${stat(peso(m.net),'Net (Collected − Expenses)',m.net<0?'#d33':'#3da63d')}${stat(avg+'%','Avg Project Progress','var(--mar)','as of '+dr.to)}</div>
+${ongCard}<div class="grid g4" style="margin-top:14px">${stat(peso(m.billed),'Billed (selected period)','var(--o)',m.bl.length+' billings',trend(m.billed,pm.billed))}${stat(peso(m.coll),'Collected','#4b4b57',pct(m.coll,m.billed)+'% of billed · '+m.bl.filter(b=>b.status==='paid').length+' paid',trend(m.coll,pm.coll))}${stat(peso(m.pend),'Pending Billing','var(--fu)',pct(m.pend,m.billed)+'% of billed · '+m.bl.filter(b=>b.status!=='paid').length+' unpaid',trend(m.pend,pm.pend))}${stat(peso(m.exp),'Expenses','var(--fu)',pct(m.exp,m.billed)+'% of billed · '+m.ex.length+' entries',trend(m.exp,pm.exp))}${stat(peso(m.net),'Net (Collected − Expenses)',m.net<0?'#d33':'#3da63d','',trend(m.net,pm.net))}${stat(avg+'%','Avg Project Progress','var(--mar)','as of '+dr.to,trendPts(avg-pavg))}</div>
 <div class="grid g4" style="margin-top:14px">${stat(act,'Ongoing Projects','var(--mar)',pct(act,db.projects.length)+'% of '+db.projects.length)}${stat(done,'Completed','#3da63d',pct(done,db.projects.length)+'% of '+db.projects.length)}${stat(peso(sum(db.projects,p=>p.bid)),'Contract Value','var(--o)')}${stat(peso(sum(db.delivered,r=>r.quantity*r.unit_cost)),'Delivered Materials','#9aa5b1',db.delivered.length+' deliveries')}</div>${pw(m,act,done)}
-<div class="grid g2" style="margin-top:14px"><div class="c"><h3>Billing vs Expenses (6 months) <span class="mut">· % = share of 6-month total</span></h3><div class="chart">${months.map((x,i)=>`<div class="col"><div class="bars"><div><small>${sh(SA[i])}<br>${pct(SA[i],tA)}%</small><i style="height:calc((100% - 30px)*${SA[i]/mx});background:var(--o)"></i></div><div><small>${sh(SB[i])}<br>${pct(SB[i],tB)}%</small><i style="height:calc((100% - 30px)*${SB[i]/mx});background:var(--blue)"></i></div></div><small class="lbl"><b>${new Date(x+'-02').toLocaleString('en',{month:'short'})}</b><br>Exp ${pct(SB[i],SA[i])}%<br>${A[i].length} bills · ${B[i].length} exp</small></div>`).join('')}</div>
+<div class="grid g2" style="margin-top:14px"><div class="c"><h3>Billing vs Expenses (6 months) <span class="mut">· % = share of 6-month total</span></h3><div class="chart">${months.map((x,i)=>`<div class="col"><div class="bars"><div><small>${sh(SA[i])}<br>${pct(SA[i],tA)}%</small><i style="height:calc((100% - 30px)*${SA[i]/mx});background:var(--o)"></i></div><div><small>${sh(SB[i])}<br>${pct(SB[i],tB)}%</small><i style="height:calc((100% - 30px)*${SB[i]/mx});background:var(--blue)"></i></div></div><small class="lbl" style="--lh:116px"><b>${new Date(x+'-02').toLocaleString('en',{month:'short'})}</b><br>Exp ${pct(SB[i],SA[i])}%<br>${A[i].length} bills · ${B[i].length} exp${i?`<br>${dtr(SA[i],SA[i-1],'var(--o)')}<br>${dtr(SB[i],SB[i-1],'var(--blue)')}`:''}</small></div>`).join('')}</div>
 <div class="leg"><i style="background:var(--o)"></i>Billing ${peso(tA)} (${sum(A,a=>a.length)} bills)<i style="background:var(--blue)"></i>Expenses ${peso(tB)} (${sum(B,a=>a.length)}) · ${pct(tB,tA)}% of billing</div></div>
 <div class="c"><h3>Expense Breakdown</h3><div class="donut" style="background:conic-gradient(${grad})"><span class="dl2"><b>${sh(m.exp)}</b><small>Expenses</small></span></div>${cats.map(x=>`<div class="dl"><span><i style="background:${x.col}"></i>${x.c} (${x.n})</span><b>${pct(x.v,m.exp)}%</b></div>`).join('')}</div></div>
 <div class="c" style="margin-top:14px"><div class="sh"><h3>Project Progress (${dr.from} → ${dr.to})</h3><a href="#/reports" class="btn s">Monthly Report</a></div><div class="wrap"><table><tr><th>PROJECT</th><th>STATUS</th><th>PROGRESS</th><th>AS OF ${dr.to}</th><th>GAINED IN PERIOD</th></tr>
@@ -368,8 +416,8 @@ const locs=Object.entries(L).map(([n,a])=>({n,c:a.length,v:Math.round(sum(a,x=>x
 const at=d=>tot?sum(db.projects,p=>progAt(p.id,d)??(db.plog.some(x=>x.pid===p.id)?0:p.progress))/tot:0,t=new Date();
 const ms=[2,1,0].map(i=>{const e=new Date(t.getFullYear(),t.getMonth()-i+1,0),v=at(iso(e));return{l:e.toLocaleString('en',{month:'short'}),v:Math.round(v),g:Math.round(Math.max(0,v-at(iso(new Date(t.getFullYear(),t.getMonth()-i,0)))))}});
 const tl=[[tot,'Total','var(--o)'],[act,'Ongoing','var(--mar)'],[done,'Done','var(--fu)'],[locs.length,'Locations','#3a3a46']];
-return`<div class="c pw" style="margin-top:14px"><div><h3>Percent</h3><span class="mut">Overall project progress</span><div class="ring" style="background:conic-gradient(var(--fu) 0,var(--o) ${avg}%,var(--line) 0)"><div>${avg}%<small class="mut">${tot} projects</small></div></div><div class="leg" style="text-align:center">0% ———— 100%</div></div>
-<div><h3>Last <span style="color:var(--o)">3</span> Month</h3><span class="mut">Avg progress vs gained</span><div class="mbars">${ms.map(x=>`<div style="text-align:center"><div class="mb"><i style="height:${x.v}%;background:var(--fu)" title="Avg ${x.v}%"></i><i style="height:${x.g}%;background:var(--o)" title="Gained ${x.g}%"></i></div><b>${x.l}</b><div class="mut">${x.v}% · +${x.g}</div></div>`).join('')}</div><div class="leg"><i style="background:var(--fu)"></i>Avg progress<i style="background:var(--o)"></i>Gained</div></div>
+return`<div class="c pw" style="margin-top:14px"><div><h3>Percent</h3><span class="mut">Overall project progress</span><div class="ring" style="background:conic-gradient(var(--fu) 0,var(--o) ${avg}%,var(--line) 0)"><div>${avg}%<small class="mut">${tot} projects</small></div></div><div class="leg" style="text-align:center">0% ———— 100%</div><div style="text-align:center;margin-top:8px">${trendPts(ms[2].g)} <span class="mut">this month</span></div></div>
+<div><h3>Last <span style="color:var(--o)">3</span> Month</h3><span class="mut">Avg progress vs gained</span><div class="mbars">${ms.map(x=>`<div style="text-align:center"><div class="mb"><i style="height:${x.v}%;background:var(--fu)" title="Avg ${x.v}%"></i><i style="height:${x.g}%;background:var(--o)" title="Gained ${x.g}%"></i></div><b>${x.l}</b><div class="mut">${x.v}% avg</div><div>${trendPts(x.g)}</div></div>`).join('')}</div><div class="leg"><i style="background:var(--fu)"></i>Avg progress<i style="background:var(--o)"></i>Gained</div></div>
 <div><h3>Progress per Location</h3><span class="mut">Live information</span><div style="margin-top:12px">${locs.map(l=>`<div class="lv"><div class="h"><span>${esc(l.n)} · ${l.c} project${l.c>1?'s':''}</span><b>${l.v}%</b></div><div class="pbar"><i style="width:${l.v}%;background:linear-gradient(90deg,var(--fu),var(--o))"></i></div></div>`).join('')||'<div class="empty">No projects</div>'}</div>
 <div class="tiles">${tl.map(x=>`<div><b style="background:${x[2]}">${x[0]}</b><small>${x[1]}</small></div>`).join('')}</div></div></div>`}
 const badge=p=>p.progress>=100?'<span class="pill green">Completed</span>':`<span class="pill blue">Ongoing ${p.progress}%</span>`;
@@ -394,13 +442,15 @@ sheet(wb,'Project Progress',m.prog.map(x=>({Project:x.p.title,Progress:x.end,Gai
 /* ---------- PROJECTS ---------- */
 let pq='',py='all',pf='all';
 const projSort=(a,b)=>((a.progress>=100)-(b.progress>=100))||(b.dateBid||'').localeCompare(a.dateBid||'');
+function ongGraph(){const o=db.projects.filter(p=>p.progress<100).sort((a,b)=>b.progress-a.progress);if(!o.length)return'';const avg=Math.round(sum(o,p=>p.progress)/o.length);
+return`<div class="c og"><div class="ogr"><h3>Ongoing Projects Progress</h3><div class="ring ring-s" style="background:conic-gradient(var(--fu) 0,var(--o) ${avg}%,var(--line) 0)"><div>${avg}%<small class="mut">${o.length} ongoing</small></div></div><div class="leg" style="text-align:center">Average progress</div></div><div class="ogb">${o.map(p=>`<div class="lv"><div class="h"><span><a href="#/project/${p.id}"><b>${esc(p.title)}</b></a> · <span class="mut">${esc(p.location)}</span></span><b>${p.progress}%</b></div><div class="pbar big"><i style="width:${p.progress}%;background:linear-gradient(90deg,var(--fu),var(--o))"></i></div></div>`).join('')}</div></div>`}
 function projects(){
 const years=[...new Set(db.projects.map(p=>(p.dateBid||'').slice(0,4)).filter(Boolean))].sort().reverse();
 const list=db.projects.filter(p=>(py==='all'||(p.dateBid||'').startsWith(py))&&(p.title+p.location+p.client+p.license).toLowerCase().includes(pq.toLowerCase())&&(pf==='all'||(pf==='ongoing'?p.progress<100:p.progress>=100))).sort(projSort);
 shell('projects','Projects','*Sequence depends on date bidded, ongoing are at the top',
-list.map(p=>`<div class="pc"><div><h3><a href="#/project/${p.id}">${esc(p.title)}</a></h3><p>Bid Amount: ${peso(p.bid)}</p><p>Location: ${esc(p.location)}</p><p>Date Bidded: ${esc(p.dateBid)||'—'}</p><p>Date Started: ${esc(p.dateStart)||'—'}</p><p>License Used: ${esc(p.license)}</p></div>
+ongGraph()+(list.map(p=>`<div class="pc"><div><h3><a href="#/project/${p.id}">${esc(p.title)}</a></h3><p>Bid Amount: ${peso(p.bid)}</p><p>Location: ${esc(p.location)}</p><p>Date Bidded: ${esc(p.dateBid)||'—'}</p><p>Date Started: ${esc(p.dateStart)||'—'}</p><p>License Used: ${esc(p.license)}</p></div>
 <div>${p.progress>=100?'<div class="done">COMPLETED</div>':`<div class="prog"><i style="width:${p.progress}%"></i><span>Ongoing Projects ${p.progress}%</span></div>`}
-<div class="acts"><a class="btn s" href="#/project/${p.id}">View details</a><button class="btn g s" onclick="openForm('projects','${p.id}')">Edit</button><button class="btn g s" onclick="del('projects','${p.id}')">Delete</button></div></div></div>`).join('')||'<div class="empty c">Walang project na nahanap.</div>',
+<div class="acts"><a class="btn s" href="#/project/${p.id}">View details</a><button class="btn g s" onclick="openForm('projects','${p.id}')">Edit</button><button class="btn g s" onclick="del('projects','${p.id}')">Delete</button></div></div></div>`).join('')||'<div class="empty c">Walang project na nahanap.</div>'),
 `<div class="seg">${[['all','All'],['ongoing','Ongoing'],['completed','Completed']].map(([k,l])=>`<button class="${pf===k?'on':''}" onclick="pf='${k}';projects()">${l} (${db.projects.filter(p=>k==='all'||(k==='ongoing'?p.progress<100:p.progress>=100)).length})</button>`).join('')}</div><select onchange="py=this.value;projects()"><option value="all">All years</option>${years.map(y=>`<option ${y===py?'selected':''}>${y}</option>`).join('')}</select>
 
 <button class="btn" onclick="openForm('projects')">+ Add a project</button>`)}
@@ -432,35 +482,39 @@ ${rows.map(r=>`<tr>${s.f.map(f=>`<td>${cell(f,r)}</td>`).join('')}${k==='materia
 `<button class="btn" onclick="openForm('${k}')">+ Add ${s.t.replace(/s$/,'')}</button>`)}
 
 const POS=['Project Engineer','Foreman','Site Supervisor','Safety Officer','Timekeeper'];
-const lrow=(l={})=>`<div class="lr" data-id="${l.id||''}"><input placeholder="Name" value="${esc(l.name)}"><select>${POS.map(x=>`<option ${x===l.role?'selected':''}>${x}</option>`).join('')}</select><button type="button" class="btn g s" onclick="this.parentElement.remove()">✕</button></div>`;
+const lrow=(l={})=>`<div class="lr" data-id="${l.id||''}"><label class="w2">Name<input class="l1" placeholder="Name" value="${esc(l.name)}"></label><label>Role<select>${POS.map(x=>`<option ${x===l.role?'selected':''}>${x}</option>`).join('')}</select></label><label>Contact No.<input class="l3" placeholder="09xx xxx xxxx" value="${esc(l.contact)}"></label><label>Assigned from<input class="l4" type="date" value="${esc(l.start)}"></label><label>Until<input class="l5" type="date" value="${esc(l.end)}"></label><button type="button" class="btn g s" onclick="this.parentElement.remove()">✕ Remove</button></div>`;
 const leadersUI=id=>`<label>Team Leaders (puwedeng marami)</label><div id="lrs">${(id?db.leaders.filter(l=>l.pid===id):[{}]).map(lrow).join('')}</div><button type="button" class="btn g s" style="margin-top:6px" onclick="$('#lrs').insertAdjacentHTML('beforeend',lrow())">+ Add team leader</button>`;
 function openForm(k,id,pid){
 const s=SC(k),item=id?db[k].find(x=>x.id===id):{},pre=k==='expenses'&&pid?{project:db.projects.find(x=>x.id===pid)?.title}:{};
 const inp=([n,l,t='text'])=>{const v=item[n]??pre[n]??(n==='progress'||n==='pct'?0:'');
 if(t.startsWith('select:')){const src=t.slice(7),o=(src==='projects'?['']:[]).concat(src==='projects'?db.projects.map(p=>p.title):src==='clients'?db.clients.map(c=>c.name):src.split(','));
 return`<label>${l}</label><select name="${n}">${o.map(x=>`<option value="${esc(x)}" ${x===v?'selected':''}>${esc(x)||'—'}</option>`).join('')}</select>`}
-if(t.startsWith('file'))return`<label>${l}${item[n]?' (leave empty to keep current)':''}</label><input type="file" name="${n}" accept="${t==='file:image'?'image/*':'.pdf,.doc,.docx,.jpg,.png,.xlsx'}">`;
+if(t.startsWith('file'))return`<label>${l}${item[n]?' (leave empty to keep current)':''}</label><input type="file" name="${n}" accept="${t==='file:image'?'image/*':t==='file:any'?'.pdf,.doc,.docx,.xls,.xlsx,.csv,.txt,.ppt,.pptx,image/*':'.pdf,.doc,.docx,.jpg,.png,.xlsx'}">`;
 return`<label>${l}</label><input name="${n}" type="${t}" value="${esc(v)}" ${t==='number'?'min="0" step="any"':''}>`};
 const m=document.createElement('div');m.className='mod';
 m.innerHTML=`<form><h3>${id?'Edit':'Add'} ${s.t.replace(/s$/,'')}</h3>${s.f.map(inp).join('')}${k==='projects'?leadersUI(id):''}<div class="row"><button type="button" class="btn g" onclick="this.closest('.mod').remove()">Cancel</button><button class="btn">Save</button></div></form>`;
 m.querySelector('form').onsubmit=async e=>{e.preventDefault();const fd=new FormData(e.target),d={};
 for(const[n,,t]of s.f){
  if(t&&t.startsWith('file')){const f=fd.get(n);
-  if(f&&f.size){if(t==='file:doc'&&f.size>1.5e6)return alert('Max 1.5MB bawat document (localStorage lang ito).');d[n]=t==='file:image'?await shrink(f,900):await readF(f);d[n+'Name']=f.name}
+  if(f&&f.size){const im=f.type.startsWith('image/');if(!im&&f.size>2e6)return alert('Max 2MB bawat file (localStorage lang ito).');d[n]=(t==='file:image'||(t==='file:any'&&im))?await shrink(f,t==='file:any'?1400:900):await readF(f);d[n+'Name']=f.name;if(k==='documents')d.added=today()}
   else if(!id&&t==='file:image'&&k==='photos')return alert('Pumili ng photo.')}
  else d[n]=t==='number'?Number(fd.get(n)||0):fd.get(n)}
 if(d.progress!==undefined)d.progress=Math.min(100,d.progress);if(d.pct!==undefined)d.pct=Math.min(100,d.pct);
 const old=item.progress;let o;
 if(id){Object.assign(item,d);o=item}else{o={id:uid(),...(pid&&k!=='expenses'?{pid}:{}),...d};db[k].push(o)}
 if(k==='projects'&&o.progress!==old)db.plog.push({pid:o.id,date:today(),progress:o.progress});
-if(k==='projects'){const rows=[...m.querySelectorAll('.lr')].map(r=>({id:r.dataset.id,name:r.querySelector('input').value.trim(),role:r.querySelector('select').value})).filter(r=>r.name);
+if(k==='projects'){const rows=[...m.querySelectorAll('.lr')].map(r=>({id:r.dataset.id,name:r.querySelector('.l1').value.trim(),role:r.querySelector('select').value,contact:r.querySelector('.l3').value.trim(),start:r.querySelector('.l4').value,end:r.querySelector('.l5').value})).filter(r=>r.name);
 db.leaders=db.leaders.filter(l=>l.pid!==o.id||rows.some(r=>r.id===l.id));
-rows.forEach(r=>{const e=r.id&&db.leaders.find(l=>l.id===r.id);e?Object.assign(e,{name:r.name,role:r.role}):db.leaders.push({id:uid(),pid:o.id,name:r.name,role:r.role,start:o.dateStart,end:''})})}
+rows.forEach(r=>{const e=r.id&&db.leaders.find(l=>l.id===r.id);e?Object.assign(e,{name:r.name,role:r.role,contact:r.contact,start:r.start,end:r.end}):db.leaders.push({id:uid(),pid:o.id,name:r.name,role:r.role,contact:r.contact,start:r.start||o.dateStart,end:r.end})})}
 save();m.remove();route()};
 document.body.appendChild(m)}
 const today=()=>iso(new Date());
 function del(k,id){if(confirm('Sigurado ka bang buburahin ito?')){db[k]=db[k].filter(x=>x.id!==id);save();route()}}
-function view(id){const r=db.photos.find(x=>x.id===id)||db.documents.find(x=>x.id===id),m=document.createElement('div');m.className='mod';m.onclick=()=>m.remove();m.innerHTML=`<img class="big" src="${r.img}">`;document.body.appendChild(m)}
+async function view(id){const r=db.documents.find(x=>x.id===id)||db.photos.find(x=>x.id===id)||db.pdocs.find(x=>x.id===id);if(!r)return;const src=r.doc||r.img;if(!src)return alert('Walang naka-attach na file.');
+const nm=r.docName||r.imgName||'file',m=document.createElement('div');m.className='mod';m.onclick=e=>{if(e.target===m)m.remove()};let body;
+if(src.startsWith('data:image'))body=`<img class="big" src="${src}">`;
+else{const u=URL.createObjectURL(await(await fetch(src)).blob());body=/pdf|text/.test(src.slice(0,30))?`<iframe class="pv" src="${u}"></iframe>`:`<div class="empty">▢<p><b>${esc(nm)}</b></p><p class="mut">Walang preview para sa ganitong file. I-download na lang.</p></div>`}
+m.innerHTML=`<div class="vw"><div class="vh"><b>${esc(r.title||r.caption||nm)}</b><span><a class="btn s" href="${src}" download="${esc(nm)}">⬇ Download</a> <button class="btn g s" onclick="this.closest('.mod').remove()">✕ Close</button></span></div>${body}</div>`;document.body.appendChild(m)}
 
 /* ---------- PROJECT DETAIL ---------- */
 const D=x=>new Date(x+'T00:00:00').getTime(),addD=(x,n)=>iso(new Date(D(x)+n*864e5));
@@ -486,7 +540,7 @@ function subTable(k,p,pre=''){const s=SC(k),rows=rowsOf(k,p),T=s.tot,TF=T||(k===
 return`<div class="c"><div class="sh"><h3>${s.t}</h3><button class="btn s" onclick="openForm('${k}',null,'${p.id}')">+ Add</button></div>${pre}<div class="wrap"><table><tr>${s.f.map(f=>`<th>${f[1].toUpperCase()}</th>`).join('')}${T?'<th>TOTAL</th>':''}<th></th></tr>
 ${rows.map(r=>`<tr>${s.f.map(f=>`<td>${cell(f,r)}</td>`).join('')}${T?`<td>${peso(T(r))}</td>`:''}${btns(k,r.id)}</tr>`).join('')||'<tr><td colspan=9 class="empty">Wala pang laman.</td></tr>'}</table></div>${TF&&rows.length?`<p class="tt">Total: <b>${peso(sum(rows,TF))}</b></p>`:''}</div>`}
 function oblSection(p){
-const rate=p.oblRate??16,tot=Math.round(p.bid*rate/100);let bal=tot;
+const rate=p.oblRate??0,tot=Math.round(p.bid*rate/100);let bal=tot;
 const rows=rowsOf('obligations',p).sort((a,b)=>(a.date||'').localeCompare(b.date||''));
 return`<div class="c"><div class="sh"><h3>Obligations (Passbook)</h3><button class="btn s" onclick="openForm('obligations',null,'${p.id}')">+ Add payment</button></div>
 <div class="obl"><label>Rate (%)</label><input type="number" min="0" step="any" value="${rate}" onchange="setRate('${p.id}',this.value)"><div>${peso(p.bid)} × ${rate}% = <b>Total obligation ${peso(tot)}</b></div></div>
@@ -503,7 +557,7 @@ return`<div class="c"><h3>Project Expenses Summary</h3><div class="exg"><ul clas
 function projectView(id){
 const p=db.projects.find(x=>x.id===id);if(!p){location.hash='#/projects';return}
 const R=k=>rowsOf(k,p),exp=sum(R('expenses'),r=>r.amount),lab=sum(R('labor'),SUB.labor.tot),dv=sum(R('delivered'),SUB.delivered.tot),est=sum(R('estimated'),SUB.estimated.tot);
-const rate=p.oblRate??16,obl=Math.round(p.bid*rate/100),paid=sum(R('obligations'),r=>r.amount),bale=sum(R('bale'),r=>r.amount);
+const rate=p.oblRate??0,obl=Math.round(p.bid*rate/100),paid=sum(R('obligations'),r=>r.amount),bale=sum(R('bale'),r=>r.amount);
 const cost=exp+lab+dv+obl,profit=p.bid-cost,coll=sum(db.billing.filter(b=>b.project===p.title&&b.status==='paid'),b=>b.amount);
 let c;
 if(ptab==='budget')c=`<div class="grid g4">${stat(peso(p.bid),'Contract / Bid Amount','var(--o)')}${stat(peso(cost),'Total Costs','var(--fu)',pct(cost,p.bid)+'% of bid')}${stat(peso(profit),'Running Balance (Profit)',profit<0?'#d33':'#3da63d',pct(profit,p.bid)+'% margin')}${stat(peso(obl-paid),'Obligation Balance','var(--mar)','paid '+peso(paid))}${stat(peso(coll),'Collected (Billing)','#4b4b57',pct(coll,p.bid)+'% of bid')}${stat(swaPct(p)+'%','SWA Accomplished','var(--o)')}${stat(peso(est),'Estimated Materials','#9aa5b1')}${stat(peso(lab),'Labor Cost','var(--fu)',pct(lab,p.bid)+'% of bid')}</div>
@@ -535,7 +589,7 @@ document.addEventListener('click',e=>{if(!e.target.closest('.srch'))$('#gres')&&
 
 /* ---------- EXPENSES (per project, with analytics) ---------- */
 let xp='all';
-const costs=p=>{const exp=sum(rowsOf('expenses',p),r=>r.amount),dv=sum(rowsOf('delivered',p),SUB.delivered.tot),lab=sum(rowsOf('labor',p),SUB.labor.tot),obl=Math.round(p.bid*(p.oblRate??16)/100);return{exp,dv,lab,obl,t:exp+dv+lab+obl}};
+const costs=p=>{const exp=sum(rowsOf('expenses',p),r=>r.amount),dv=sum(rowsOf('delivered',p),SUB.delivered.tot),lab=sum(rowsOf('labor',p),SUB.labor.tot),obl=Math.round(p.bid*(p.oblRate??0)/100);return{exp,dv,lab,obl,t:exp+dv+lab+obl}};
 const xrows=rows=>`<div class="wrap"><table><tr><th>DESCRIPTION</th><th>CATEGORY</th><th>AMOUNT</th><th>DATE</th><th></th></tr>${[...rows].sort((a,b)=>(b.date||'').localeCompare(a.date||'')).map(r=>`<tr><td>${esc(r.description)}</td><td>${esc(r.category)}</td><td>${peso(r.amount)}</td><td>${esc(r.date)}</td>${btns('expenses',r.id)}</tr>`).join('')||'<tr><td colspan=5 class="empty">Wala pang expense.</td></tr>'}</table></div>`;
 function expensesPage(){
 const C=db.projects.filter(p=>xp==='all'||p.id===xp).map(p=>({p,c:costs(p)})),tt=k=>sum(C,x=>x.c[k]),T=tt('t');
@@ -547,7 +601,7 @@ const un=xp==='all'?db.expenses.filter(e=>!db.projects.some(p=>p.title===e.proje
 shell('expenses','Total Expenses of All Projects',biz().name+' · hiwalay ang bawat project',`
 <div class="ptabs"><button class="${xp==='all'?'on':''}" onclick="xp='all';expensesPage()">All Projects</button>${db.projects.map(p=>`<button class="${xp===p.id?'on':''}" onclick="xp='${p.id}';expensesPage()">${esc(p.title)}</button>`).join('')}</div>
 <div class="grid g4">${stat(peso(T),'Total Project Costs','var(--o)',C.length+' project'+(C.length>1?'s':''))}${cats.map(c=>stat(peso(tt(c[1])),c[0],c[2],pct(tt(c[1]),T)+'% of total')).join('')}</div>
-<div class="grid g2" style="margin-top:14px"><div class="c"><h3>Monthly Expenses (6 months) <span class="mut">· % of total</span></h3><div class="chart">${months.map((m,i)=>`<div class="col"><div class="bars"><div style="width:55%"><small>${sh(MS[i])}<br>${pct(MS[i],sum(MS,x=>x))}%</small><i style="height:calc((100% - 30px)*${MS[i]/mx});background:var(--o)"></i></div></div><small class="lbl"><b>${new Date(m+'-02').toLocaleString('en',{month:'short'})}</b></small></div>`).join('')}</div></div>
+<div class="grid g2" style="margin-top:14px"><div class="c"><h3>Monthly Expenses (6 months) <span class="mut">· % of total</span></h3><div class="chart">${months.map((m,i)=>`<div class="col"><div class="bars"><div style="width:55%"><small>${sh(MS[i])}<br>${pct(MS[i],sum(MS,x=>x))}%</small><i style="height:calc((100% - 30px)*${MS[i]/mx});background:var(--o)"></i></div></div><small class="lbl"><b>${new Date(m+'-02').toLocaleString('en',{month:'short'})}</b>${i?'<br>'+trend(MS[i],MS[i-1]):''}</small></div>`).join('')}</div></div>
 <div class="c"><h3>Cost Breakdown</h3><div class="donut" style="background:conic-gradient(${g})"><span class="dl2"><b>${sh(T)}</b><small>Total</small></span></div>${cats.map(c=>`<div class="dl"><span><i style="background:${c[2]}"></i>${c[0]}</span><b>${pct(tt(c[1]),T)}%</b></div>`).join('')}</div></div>
 <div class="c" style="margin-top:14px"><h3>Cost per Project</h3>${C.map(({p,c})=>`<div class="lv"><div class="h"><span>${esc(p.title)}</span><b>${peso(c.t)} · ${pct(c.t,p.bid)}% of bid</b></div><div class="pbar"><i style="width:${Math.min(100,pct(c.t,p.bid))}%;background:linear-gradient(90deg,var(--fu),var(--o))"></i></div></div>`).join('')||'<div class="empty">No projects</div>'}</div>
 ${C.map(({p,c})=>`<div class="c" style="margin-top:14px"><div class="sh"><h3><a href="#/project/${p.id}">${esc(p.title)}</a></h3></div>
@@ -558,19 +612,40 @@ dlMenu('xlX()'))}
 
 /* ---------- DOCUMENTS ---------- */
 let dt='All';
+const fmtD=x=>x?new Date(x+'T00:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}):'—';
+const extOf=n=>((n||'').split('.').pop()||'FILE').toUpperCase().slice(0,4);
+function dcard(d){const src=d.doc||d.img,im=src&&src.startsWith('data:image'),nm=d.docName||d.imgName||'';
+return`<div class="dc"><div class="dt">${im?`<img src="${src}" onclick="view('${d.id}')">`:`<div class="fi" onclick="view('${d.id}')"><b>${src?esc(extOf(nm)):'—'}</b><small>${esc(nm)||'Walang file'}</small></div>`}</div>
+<div class="db"><b>${esc(d.title)}</b><span class="pill blue">${esc(d.type)}</span><small class="mut">Attached: ${fmtD(d.added||d.date)}</small>${d.notes?`<small class="mut">${esc(d.notes)}</small>`:''}</div>
+<div class="df"><button class="btn g s" onclick="view('${d.id}')">View</button><button class="btn g s" onclick="openForm('documents','${d.id}')">Edit</button><button class="btn g s" onclick="del('documents','${d.id}')">Delete</button></div></div>`}
 function documentsPage(){
-const types=['All','Permit','Business Paper','Contract','Plan','Receipt','Other'],rows=db.documents.filter(d=>dt==='All'||d.type===dt).sort((a,b)=>(b.date||'').localeCompare(a.date||''));
-shell('documents','Documents','Permits at iba pang papeles ng negosyo',`<div class="ptabs">${types.map(t=>`<button class="${t===dt?'on':''}" onclick="dt='${t}';documentsPage()">${t}${t==='All'?' ('+db.documents.length+')':''}</button>`).join('')}</div>
-<div class="ph dg">${rows.map(d=>`<figure>${d.img?`<img src="${d.img}" onclick="view('${d.id}')">`:'<div class="nof">▢</div>'}<figcaption><b>${esc(d.title)}</b><small>${esc(d.type)} · ${esc(d.date)}</small>${d.notes?`<small>${esc(d.notes)}</small>`:''}<div class="act" style="text-align:left;margin-top:8px"><button class="btn g s" onclick="openForm('documents','${d.id}')">Edit</button> <button class="btn g s" onclick="del('documents','${d.id}')">Delete</button></div></figcaption></figure>`).join('')||'<div class="empty c">Wala pang documents.</div>'}</div>`,
+const types=['All','Permit','Business Paper','Contract','Plan','Receipt','Other'],all=db.documents.filter(d=>dt==='All'||d.type===dt).sort((a,b)=>(b.added||b.date||'').localeCompare(a.added||a.date||''));
+const isI=d=>(d.doc||d.img||'').startsWith('data:image'),pics=all.filter(isI),files=all.filter(d=>!isI(d));
+shell('documents','Documents','Permits at iba pang papeles ng negosyo — pictures, PDF, Word, Excel',`<div class="ptabs">${types.map(t=>`<button class="${t===dt?'on':''}" onclick="dt='${t}';documentsPage()">${t}${t==='All'?' ('+db.documents.length+')':''}</button>`).join('')}</div>
+<div class="sh"><h3>Pictures <span class="mut">(${pics.length})</span></h3></div><div class="dg2">${pics.map(dcard).join('')||'<div class="empty c" style="grid-column:1/-1">Wala pang pictures.</div>'}</div>
+<div class="sh" style="margin-top:24px"><h3>Files <span class="mut">(${files.length})</span></h3></div><div class="dg2">${files.map(dcard).join('')||'<div class="empty c" style="grid-column:1/-1">Wala pang files.</div>'}</div>`,
 `<button class="btn" onclick="openForm('documents')">+ Add Document</button>`)}
 /* ---------- REPORTS ---------- */
+function lineChart(ms){ms=[...ms].reverse();if(!ms.length)return'';
+const S=[['Billed','var(--o)',m=>sum(db.billing.filter(x=>x.date.startsWith(m)),x=>x.amount),'',1],['Collected','var(--ink)',m=>sum(db.billing.filter(x=>x.date.startsWith(m)&&x.status==='paid'),x=>x.amount),'6 5',0],['Expenses','var(--fu)',m=>sum(db.expenses.filter(x=>x.date.startsWith(m)),x=>x.amount),'',1]];
+const V=S.map(a=>ms.map(a[2])),mx=Math.max(1,...V.flat()),r=mx/3,e=10**Math.floor(Math.log10(r)),f=r/e,st=(f<=1?1:f<=2?2:f<=5?5:10)*e,top=Math.ceil(mx/st)*st;
+const W=720,H=250,L=54,R=22,T=26,B=34,pw=W-L-R,ph=H-T-B,X=i=>L+(ms.length===1?pw/2:i*pw/(ms.length-1)),Y=v=>T+ph-v/top*ph,base=T+ph;
+const sp=q=>q.length<2?'':q.map((p,i)=>{if(!i)return`M${p[0]},${p[1]}`;const a=q[i-2]||q[i-1],b=q[i-1],d=q[i+1]||p,t=.18,cl=y=>Math.min(base,Math.max(T,y));return`C${b[0]+(p[0]-a[0])*t},${cl(b[1]+(p[1]-a[1])*t)} ${p[0]-(d[0]-b[0])*t},${cl(p[1]-(d[1]-b[1])*t)} ${p[0]},${p[1]}`}).join('');
+let g='';for(let t=0;t<=top+1;t+=st)g+=`<line class="lc-g" x1="${L}" x2="${W-R}" y1="${Y(t)}" y2="${Y(t)}"/><text class="lc-t" x="${L-8}" y="${Y(t)+4}" text-anchor="end">${sh(t)}</text>`;
+const xl=ms.map((m,i)=>`<text class="lc-t" x="${X(i)}" y="${H-10}" text-anchor="middle" style="font-weight:600">${new Date(m+'-02').toLocaleString('en',{month:'short',year:'2-digit'})}</text>`).join('');
+const df=S.map((s,k)=>s[4]?`<linearGradient id="lg${k}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:${s[1]};stop-opacity:.28"/><stop offset="1" style="stop-color:${s[1]};stop-opacity:0"/></linearGradient>`:'').join('');
+const ln=S.map((s,k)=>{const q=ms.map((m,i)=>[X(i),Y(V[k][i])]),d=sp(q);return(s[4]&&q.length>1?`<path d="${d}L${q[q.length-1][0]},${base}L${q[0][0]},${base}Z" fill="url(#lg${k})"/>`:'')+`<path d="${d}" fill="none" style="stroke:${s[1]}" stroke-width="2.6" stroke-linecap="round" ${s[3]?`stroke-dasharray="${s[3]}"`:''}/>`}).join('');
+const dots=S.map((s,k)=>ms.map((m,i)=>`<circle cx="${X(i)}" cy="${Y(V[k][i])}" r="4" style="fill:${s[1]};stroke:var(--card)" stroke-width="2"><title>${s[0]} ${lab2(m)}: ${peso(V[k][i])}</title></circle>`).join('')).join('');
+let lb='';ms.forEach((m,i)=>{const o=S.map((s,k)=>({k,v:V[k][i]})).sort((a,b)=>b.v-a.v);let last=-1e9;o.forEach((q,n)=>{if(!q.v)return;let y;if(n===0)y=Y(q.v)-9;else{y=Math.max(Y(q.v)+16,last+13);last=y}lb+=`<text class="lc-v" x="${X(i)}" y="${y}" style="fill:${S[q.k][1]}">${sh(q.v)}</text>`})});
+return`<div class="c lcard" style="margin-top:14px"><div class="sh"><div><h3>Billed vs Collected vs Expenses</h3><span class="mut">per month</span></div><div class="lgd">${S.map(s=>`<span><i style="${s[3]?'background:repeating-linear-gradient(90deg,'+s[1]+' 0 5px,transparent 5px 8px)':'background:'+s[1]}"></i>${s[0]}</span>`).join('')}</div></div><div class="g2w"><div class="lcw"><svg viewBox="0 0 ${W} ${H}" style="width:100%;min-width:560px;height:auto;display:block" role="img" aria-label="Line chart of billed, collected and expenses per month"><defs>${df}</defs>${g}${ln}${dots}${lb}${xl}</svg></div></div></div>`}
+const lab2=m=>new Date(m+'-02').toLocaleString('en',{month:'short',year:'numeric'});
 function reports(){
 const ms=[...new Set([...db.billing.map(b=>b.date.slice(0,7)),...db.expenses.map(e=>e.date.slice(0,7))])].sort().reverse();
 let tb=0,tc=0,te=0;
-const rows=ms.map(m=>{const b=sum(db.billing.filter(x=>x.date.startsWith(m)),x=>x.amount),c=sum(db.billing.filter(x=>x.date.startsWith(m)&&x.status==='paid'),x=>x.amount),e=sum(db.expenses.filter(x=>x.date.startsWith(m)),x=>x.amount);tb+=b;tc+=c;te+=e;
-return`<tr><td>${new Date(m+'-02').toLocaleString('en',{month:'long',year:'numeric'})}</td><td>${peso(b)}</td><td>${peso(c)}</td><td>${peso(e)}</td><td><b style="color:${c-e<0?'#d33':'#1e7a1e'}">${peso(c-e)}</b></td></tr>`}).join('');
+const MB=m=>sum(db.billing.filter(x=>x.date.startsWith(m)),x=>x.amount),ME=m=>sum(db.expenses.filter(x=>x.date.startsWith(m)),x=>x.amount);const rows=ms.map((m,ix)=>{const pm_=ms[ix+1];const b=sum(db.billing.filter(x=>x.date.startsWith(m)),x=>x.amount),c=sum(db.billing.filter(x=>x.date.startsWith(m)&&x.status==='paid'),x=>x.amount),e=sum(db.expenses.filter(x=>x.date.startsWith(m)),x=>x.amount);tb+=b;tc+=c;te+=e;
+return`<tr><td>${new Date(m+'-02').toLocaleString('en',{month:'long',year:'numeric'})}</td><td>${peso(b)}${pm_?'<br>'+trend(b,MB(pm_)):''}</td><td>${peso(c)}</td><td>${peso(e)}${pm_?'<br>'+trend(e,ME(pm_)):''}</td><td><b style="color:${c-e<0?'#d33':'#1e7a1e'}">${peso(c-e)}</b></td></tr>`}).join('');
 shell('reports','Monthly Report','Billing, collections and expenses per month',`<div class="grid g4">${stat(peso(tb),'Total Billed','var(--o)')}${stat(peso(tc),'Total Collected','#4b4b57')}${stat(peso(te),'Total Expenses','var(--fu)')}${stat(peso(tc-te),'Net (Collected − Expenses)','#3da63d')}</div>
-<div class="c" style="margin-top:14px"><div class="wrap"><table><tr><th>MONTH</th><th>BILLED</th><th>COLLECTED</th><th>EXPENSES</th><th>NET</th></tr>${rows||'<tr><td colspan=5 class="empty">No data</td></tr>'}</table></div></div>`,
+${lineChart(ms)}<div class="c" style="margin-top:14px"><div class="wrap"><table><tr><th>MONTH</th><th>BILLED</th><th>COLLECTED</th><th>EXPENSES</th><th>NET</th></tr>${rows||'<tr><td colspan=5 class="empty">No data</td></tr>'}</table></div></div>`,
 dlMenu(''))}
 
 /* ---------- ROUTER ---------- */
