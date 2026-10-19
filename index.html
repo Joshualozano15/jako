@@ -120,7 +120,7 @@ tr:hover td{background:color-mix(in srgb,var(--o) 6%,transparent)}th{font-weight
 
 :root{--fu:#e91e8c;--mar:#8f1230;--blue:#d81b60}
 .bar.s{background:color-mix(in srgb,var(--c) 22%,transparent);border:1px solid var(--c)}.bar.s u{background:var(--c)}
-.pc2{position:absolute;top:50%;transform:translateY(-50%);font-style:normal;font-size:12px;font-weight:700}
+.gpct{position:absolute;top:50%;transform:translateY(-50%);font-style:normal;font-size:12px;font-weight:700}
 .gv{position:absolute;top:0;bottom:0;width:1px;background:var(--line)}.tr{margin-right:40px}.gh{margin-right:40px}
 .lg{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;margin-top:12px}.lg i{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:6px}
 .exg{display:grid;grid-template-columns:170px 1fr;gap:22px;align-items:center}
@@ -165,7 +165,7 @@ th,td{padding:9px 6px;font-size:13px}.ptabs button{padding:8px 12px}}
 .srch{max-width:560px}.srch input{padding:11px 16px}
 .bars>div>small{font-size:12.5px;font-weight:600;color:var(--ink)}.lbl{font-size:12.5px}.lbl b{font-size:13.5px}
 .dl{font-size:15px}.lv{font-size:14.5px}.mbars{font-size:14px}.mbars .mut{font-size:13px}.tiles b{font-size:21px}.tiles small{font-size:12.5px}
-.ring>div{font-size:42px}.dl2 b{font-size:21px}.dl2 small{font-size:12px}.pc2{font-size:13.5px}.gh span,.gax{font-size:12.5px}.leg{font-size:14px}.bl li{font-size:15px}
+.ring>div{font-size:42px}.dl2 b{font-size:21px}.dl2 small{font-size:12px}.gpct{font-size:13.5px}.gh span,.gax{font-size:12.5px}.leg{font-size:14px}.bl li{font-size:15px}
 @media(max-width:860px){.nav{flex-wrap:wrap}.srch{order:5;flex:1 1 100%;max-width:none}.gres{position:absolute;left:0;right:0;top:48px;max-height:60vh}}
 @media(max-width:560px){.bars>div>small{font-size:10px}.c:has(.chart){overflow-x:auto}.chart{min-width:540px}.ring>div{font-size:36px}}
 @media print{@page{size:A4;margin:12mm}body{-webkit-print-color-adjust:exact;print-color-adjust:exact}.phd{display:flex!important}.ptabs,.bd,.gres,.seg{display:none!important}.shell main{padding:0}.c,tr,figure{break-inside:avoid}.g2w,.wrap{overflow:visible}.gg,.chart{min-width:0!important}}
@@ -212,6 +212,52 @@ aside{background:var(--sbg);color:var(--stx);border-right:1px solid var(--line)}
 .ob li>i{width:11px;height:11px;border-radius:50%}.ol b{display:block;font-size:15px}.ol small{display:block;color:var(--mut);font-size:12.5px;margin-top:1px}
 .ov{text-align:right}.ov b{display:block;font-size:21px;white-space:nowrap;letter-spacing:-.01em}.ov span{display:flex;gap:6px;align-items:center;justify-content:flex-end;margin-top:3px}.ov small{color:var(--mut);font-size:11px}
 @media(max-width:560px){.ov b{font-size:17px}.ol b{font-size:14px}.ob li{gap:9px}}
+
+.tr{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:99px;font-weight:600;font-size:11.5px;line-height:1.3;background:#8882;color:var(--mut)}.tr .cv{width:7px;height:6px;flex:none}
+.tr.up{background:#22c55e26;color:#16a34a}.tr.dn{background:#ef444426;color:#dc2626}
+[data-theme=dark] .tr.up{background:#22c55e26;color:#22c55e}[data-theme=dark] .tr.dn{background:#ef444426;color:#f87171}
+.lbl .tr{font-size:9.5px;padding:0 5px}
+.stat{position:relative}.stat:has(.tw){padding-bottom:38px}.stat .tw{position:absolute;right:12px;bottom:10px;margin:0;display:block}
+.pc2{background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:var(--sh);padding:16px 20px;margin-bottom:14px;display:flex;flex-direction:column;gap:12px}
+.pc2-h h3{margin:0;font-size:20px}.pc2-h a:hover{color:var(--o)}
+.pc2-b{display:grid;grid-template-columns:1fr 280px;gap:22px;align-items:start}
+.pc2-d p{margin:3px 0;font-size:14.5px}.pc2-d p span{color:var(--mut)}
+.pc2-t{margin-top:10px;padding-top:10px;border-top:1px dashed var(--line)}.pc2-t small{color:var(--mut)}.pc2-t p{font-size:17px;font-weight:800;margin:4px 0}.pc2-t em{font-style:normal;font-weight:700;color:var(--o)}
+.pc2-p .lab{display:flex;justify-content:space-between;font-weight:700;margin-bottom:7px}
+.pc2-bar{height:14px;background:var(--bg);border:1px solid var(--line);border-radius:99px;overflow:hidden}.pc2-bar i{display:block;height:100%;background:linear-gradient(90deg,var(--fu),var(--o));border-radius:99px}
+.pc2-done{display:inline-block;background:#16a34a;color:#fff;padding:8px 20px;border-radius:99px;font-weight:700}
+.pc2-f{display:flex;gap:8px;justify-content:flex-end;padding-top:12px;border-top:1px solid var(--line);margin-top:auto}
+.btn.g.s[onclick^="openForm("]{background:color-mix(in srgb,var(--o) 13%,var(--card));color:var(--o);border-color:color-mix(in srgb,var(--o) 40%,transparent)}
+.btn.g.s[onclick^="openForm("]:hover{background:var(--o);color:#fff}
+.btn.g.s[onclick^="view("],.btn.s[href^="#/project/"]{background:linear-gradient(135deg,var(--fu),var(--o));color:#fff;border-color:transparent}
+.btn.g.s[onclick^="del("]{background:#dc262618;color:#dc2626;border-color:#dc262655}.btn.g.s[onclick^="del("]:hover{background:#dc2626;color:#fff}
+[data-theme=dark] .btn.g.s[onclick^="del("]{background:#ef444426;color:#f87171;border-color:#ef444466}[data-theme=dark] .btn.g.s[onclick^="del("]:hover{background:#dc2626;color:#fff}
+@media(max-width:700px){.pc2-b{grid-template-columns:1fr}.pc2-f .btn{flex:1;text-align:center}}
+.lcw{max-width:none!important}
+
+.tr{font-size:10px;padding:1px 6px;gap:3px;line-height:1.3}.tr .cv{width:6px;height:5px}.stat .tw{right:12px;bottom:11px}
+.mod form{overflow-x:hidden}.mod input,.mod select{min-width:0;max-width:100%}
+input[type=date]{min-width:0;min-height:42px;-webkit-appearance:none;appearance:none}
+.lr{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.lr label,.lr>*{min-width:0}
+@media(max-width:560px){.lr{grid-template-columns:minmax(0,1fr)}.lr .btn{justify-self:stretch;width:100%}.mod{padding:10px}.mod form{padding:14px;max-height:94vh}}
+
+.pc2-h{text-align:center}.pc2-h h3{width:100%;text-align:center}
+.cks{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px;margin-bottom:14px}
+.ck{display:flex;gap:12px;padding:12px 14px;border:1px solid var(--line);border-radius:14px;background:var(--bg)}.ck .n{width:30px;height:30px;border-radius:50%;background:var(--line);display:grid;place-items:center;font-weight:800;flex:none}.ck.ok .n{background:#16a34a;color:#fff}
+.ck small{display:block;color:var(--mut);font-size:12.5px;margin-top:2px}.ck .v{font-weight:700;margin-top:6px}.ck small.bad{color:#dc2626;font-weight:600}.ck small.good{color:#16a34a;font-weight:600}
+
+.tr,.tr.up,.tr.dn,[data-theme=dark] .tr.up,[data-theme=dark] .tr.dn,.lbl .tr{background:none!important;padding:0!important;border-radius:0!important}
+.tr{font-size:12px;font-weight:700;gap:4px}.lbl .tr{font-size:11px}.tr.up{color:#16a34a}.tr.dn{color:#dc2626}[data-theme=dark] .tr.up{color:#4ade80}[data-theme=dark] .tr.dn{color:#f87171}
+.cmp{display:grid;gap:16px;margin-bottom:18px}.cr .h{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:6px}.cb{display:grid;grid-template-columns:76px 1fr 64px;gap:10px;align-items:center;margin-top:5px;font-size:13px}.cb>span{color:var(--mut)}.cb>b{text-align:right}
+/* spacing */
+#export>*+*{margin-top:18px}.ptabs{margin-bottom:0!important}.pc2{margin-bottom:0}.grid{gap:16px}
+@media(min-width:561px){.c{padding:22px}}
+.sh{margin-bottom:16px}td{padding:13px 10px}th{padding:11px 10px}.act .btn{margin-left:6px}.act .btn:first-child{margin-left:0}
+.mod form{padding:24px}.mod form h3{margin:0 0 10px}.mod label{margin:16px 0 6px}.mod input,.mod select{padding:12px 14px}.mod .row{margin-top:26px;gap:10px}
+.lr{gap:12px 12px;padding:14px;margin-bottom:12px}.lr label{margin:0}
+.bl li{padding:13px 0}.ob li{padding:15px 0}.lv{margin-bottom:16px}.dl{padding:5px 0}.cks{gap:14px}.tiles{gap:10px}.leg{margin-top:12px}
+.tt{margin-top:14px}.stat{padding-top:20px;padding-bottom:20px}.stat:has(.tw){padding-bottom:40px}
+@media(max-width:560px){.mod form{padding:16px}.lr{padding:12px}#export>*+*{margin-top:14px}}
 @media(max-width:860px){aside{transform:translateX(-100%)}aside.open{transform:none}main{margin-left:0;padding:14px}.burger{display:inline-block}.g2{grid-template-columns:1fr}.pc{grid-template-columns:1fr}.tools input{width:150px}}
 @media print{aside,.tools,.burger,.noprint,.nav,.sh button,.act{display:none!important}main{margin:0}html[data-theme]{--bg:#fff;--card:#fff;--ink:#000;--mut:#555;--line:#ddd;--pc:#ddd}}
 </style>
@@ -275,10 +321,11 @@ db.obligations=[{id:'ob1',pid:'p1',date:'2026-09-15',amount:100000,note:'Initial
 db.bale=[{id:'bl1',pid:'p1',worker:'Juan Dela Cruz',amount:2500,date:'2026-10-04',note:'Cash advance'},{id:'bl2',pid:'p2',worker:'Pedro Santos',amount:4000,date:'2026-09-20',note:'Bale – 1 week'}];db.demo3=1;save()}
 if(!db.demo4){db.documents.forEach(d=>{if(!d.img)d.img=svgImg(d.id==='d1'?'Notice of Award':'Building Permit','#8f1230','#0b0b0f')});
 db.documents.push({id:'d3',title:"Mayor's Business Permit 2026",type:'Permit',date:'2026-01-15',notes:'Renewed',img:svgImg("Mayor's Permit",'#e11d2e','#5a0a18')});db.demo4=1;save()}
+if(!db.demo5){const S={b1:'Final Billing',b2:'Mobilization',b6:'First Partial Billing',b3:'Second Partial Billing',b5:'Mobilization',b4:'First Partial Billing'};db.billing.forEach(b=>{if(b.stage===undefined)b.stage=S[b.id]||''});db.demo5=1;save()}
 
 const SCHEMA={
 clients:{t:'Clients',f:[['name','Name'],['contact','Contact No.'],['email','Email','email'],['address','Address']]},
-billing:{t:'Billing',f:[['project','Project','select:projects'],['amount','Amount','number'],['date','Date Billed','date'],['status','Status','select:pending,paid']]},
+billing:{t:'Billing',f:[['project','Project','select:projects'],['stage','Stage','select:,Mobilization,First Partial Billing,Second Partial Billing,Third Partial Billing,Final Billing'],['amount','Amount','number'],['date','Date Billed','date'],['status','Status','select:pending,paid']]},
 expenses:{t:'Expenses',f:[['project','Project','select:projects'],['description','Description'],['category','Category','select:Materials,Labor,Equipment,Other'],['amount','Amount','number'],['date','Date','date']]},
 materials:{t:'Materials',f:[['name','Material'],['quantity','Quantity','number'],['unit_cost','Unit Cost','number'],['supplier','Supplier']]},
 documents:{t:'Documents',f:[['title','Title'],['type','Type','select:Permit,Business Paper,Contract,Plan,Receipt,Other'],['notes','Notes'],['doc','File (PDF, Word, Excel, Picture…)','file:any']]}};
@@ -369,11 +416,12 @@ setRange('M');
 const inR=d=>d&&d>=dr.from&&d<=dr.to;
 const sh=v=>v>=1e6?'₱'+(v/1e6).toFixed(1)+'M':v>=1e3?'₱'+Math.round(v/1e3)+'K':'₱'+Math.round(v);
 const pct=(a,b)=>b?Math.round(a/b*100):0;
-const chev=u=>`<svg class="cv" viewBox="0 0 10 6" width="8" height="5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="${u?'M1 5l4-4 4 4':'M1 1l4 4 4-4'}"/></svg>`;
-const trend=(c,p)=>{if(!p&&!c)return'';if(!p)return`<span class="tr up">${chev(1)}new</span>`;const v=(c-p)/Math.abs(p)*100,r=Math.round(Math.abs(v)*10)/10;return r===0?'<span class="tr">0%</span>':v<0?`<span class="tr dn">${chev(0)}-${r}%</span>`:`<span class="tr up">${chev(1)}+${r}%</span>`};
-const trendPts=d=>d<0?`<span class="tr dn">${chev(0)}${d}%</span>`:d===0?'<span class="tr">0%</span>':`<span class="tr up">${chev(1)}+${d}%</span>`;
-const dtr=(c,p,col)=>`<i class="td" style="background:${col}"></i>${trend(c,p)}`;
-const stat=(v,l,k,s='',t='',tl='previous period')=>`<div class="c stat" style="--k:${k}"><b>${v}</b><span>${l}</span>${s?`<em>${s}</em>`:''}${t?`<div class="tw">${t} <small class="mut">vs ${tl}</small></div>`:''}</div>`;
+const chev=u=>`<svg class="cv" viewBox="0 0 8 7" width="7" height="6"><path d="${u?'M4 0L8 7H0Z':'M0 0H8L4 7Z'}" fill="currentColor"/></svg>`;
+const SHOW_TR=true;
+const trend=(c,p)=>{if(!SHOW_TR)return'';if(!p&&!c)return'';if(!p)return`<span class="tr up">${chev(1)}new</span>`;const v=(c-p)/Math.abs(p)*100,r=Math.round(Math.abs(v)*10)/10;return r===0?'<span class="tr">0%</span>':v<0?`<span class="tr dn">${chev(0)}-${r}%</span>`:`<span class="tr up">${chev(1)}+${r}%</span>`};
+const trendPts=d=>!SHOW_TR?'':d<0?`<span class="tr dn">${chev(0)}${d}%</span>`:d===0?'<span class="tr">0%</span>':`<span class="tr up">${chev(1)}+${d}%</span>`;
+const dtr=(c,p,col)=>SHOW_TR?`<i class="td" style="background:${col}"></i>${trend(c,p)}`:'';
+const stat=(v,l,k,s='',t='',tl='previous period')=>`<div class="c stat" style="--k:${k}"><b>${v}</b><span>${l}</span>${s?`<em>${s}</em>`:''}${t?`<div class="tw" title="vs ${tl}">${t}</div>`:''}</div>`;
 const progAt=(id,d)=>{const l=db.plog.filter(x=>x.pid===id&&x.date<=d).sort((a,b)=>a.date.localeCompare(b.date));return l.length?l[l.length-1].progress:null};
 function M(){
 const bl=db.billing.filter(b=>inR(b.date)),ex=db.expenses.filter(e=>inR(e.date));
@@ -401,13 +449,13 @@ const avg=m.prog.length?Math.round(sum(m.prog,x=>x.end)/m.prog.length):0;
 const right=`<div class="seg">${['D','W','M','Y'].map(k=>`<button class="${dr.mode===k?'on':''}" onclick="setRange('${k}');dashboard()">${k}</button>`).join('')}</div>
 
 ${dlMenu('xl()')}`;
-shell('dashboard','Construction Dashboard',`${biz().name} · ${dr.from} → ${dr.to}`,`
-${ongCard}<div class="grid g4" style="margin-top:14px">${stat(peso(m.billed),'Billed (selected period)','var(--o)',m.bl.length+' billings',trend(m.billed,pm.billed))}${stat(peso(m.coll),'Collected','#4b4b57',pct(m.coll,m.billed)+'% of billed · '+m.bl.filter(b=>b.status==='paid').length+' paid',trend(m.coll,pm.coll))}${stat(peso(m.pend),'Pending Billing','var(--fu)',pct(m.pend,m.billed)+'% of billed · '+m.bl.filter(b=>b.status!=='paid').length+' unpaid',trend(m.pend,pm.pend))}${stat(peso(m.exp),'Expenses','var(--fu)',pct(m.exp,m.billed)+'% of billed · '+m.ex.length+' entries',trend(m.exp,pm.exp))}${stat(peso(m.net),'Net (Collected − Expenses)',m.net<0?'#d33':'#3da63d','',trend(m.net,pm.net))}${stat(avg+'%','Avg Project Progress','var(--mar)','as of '+dr.to,trendPts(avg-pavg))}</div>
+shell('dashboard','Construction Dashboard',`${biz().name} · ${fmtD(dr.from)} → ${fmtD(dr.to)}`,`
+${ongCard}<div class="grid g4" style="margin-top:14px">${stat(peso(m.billed),'Billed (selected period)','var(--o)',m.bl.length+' billings',trend(m.billed,pm.billed))}${stat(peso(m.coll),'Collected','#4b4b57',pct(m.coll,m.billed)+'% of billed · '+m.bl.filter(b=>b.status==='paid').length+' paid',trend(m.coll,pm.coll))}${stat(peso(m.pend),'Pending Billing','var(--fu)',pct(m.pend,m.billed)+'% of billed · '+m.bl.filter(b=>b.status!=='paid').length+' unpaid',trend(m.pend,pm.pend))}${stat(peso(m.exp),'Expenses','var(--fu)',pct(m.exp,m.billed)+'% of billed · '+m.ex.length+' entries',trend(m.exp,pm.exp))}${stat(peso(m.net),'Net (Collected − Expenses)',m.net<0?'#d33':'#3da63d','',trend(m.net,pm.net))}${stat(avg+'%','Avg Project Progress','var(--mar)','as of '+fmtD(dr.to),trendPts(avg-pavg))}</div>
 <div class="grid g4" style="margin-top:14px">${stat(act,'Ongoing Projects','var(--mar)',pct(act,db.projects.length)+'% of '+db.projects.length)}${stat(done,'Completed','#3da63d',pct(done,db.projects.length)+'% of '+db.projects.length)}${stat(peso(sum(db.projects,p=>p.bid)),'Contract Value','var(--o)')}${stat(peso(sum(db.delivered,r=>r.quantity*r.unit_cost)),'Delivered Materials','#9aa5b1',db.delivered.length+' deliveries')}</div>${pw(m,act,done)}
 <div class="grid g2" style="margin-top:14px"><div class="c"><h3>Billing vs Expenses (6 months) <span class="mut">· % = share of 6-month total</span></h3><div class="chart">${months.map((x,i)=>`<div class="col"><div class="bars"><div><small>${sh(SA[i])}<br>${pct(SA[i],tA)}%</small><i style="height:calc((100% - 30px)*${SA[i]/mx});background:var(--o)"></i></div><div><small>${sh(SB[i])}<br>${pct(SB[i],tB)}%</small><i style="height:calc((100% - 30px)*${SB[i]/mx});background:var(--blue)"></i></div></div><small class="lbl" style="--lh:116px"><b>${new Date(x+'-02').toLocaleString('en',{month:'short'})}</b><br>Exp ${pct(SB[i],SA[i])}%<br>${A[i].length} bills · ${B[i].length} exp${i?`<br>${dtr(SA[i],SA[i-1],'var(--o)')}<br>${dtr(SB[i],SB[i-1],'var(--blue)')}`:''}</small></div>`).join('')}</div>
 <div class="leg"><i style="background:var(--o)"></i>Billing ${peso(tA)} (${sum(A,a=>a.length)} bills)<i style="background:var(--blue)"></i>Expenses ${peso(tB)} (${sum(B,a=>a.length)}) · ${pct(tB,tA)}% of billing</div></div>
 <div class="c"><h3>Expense Breakdown</h3><div class="donut" style="background:conic-gradient(${grad})"><span class="dl2"><b>${sh(m.exp)}</b><small>Expenses</small></span></div>${cats.map(x=>`<div class="dl"><span><i style="background:${x.col}"></i>${x.c} (${x.n})</span><b>${pct(x.v,m.exp)}%</b></div>`).join('')}</div></div>
-<div class="c" style="margin-top:14px"><div class="sh"><h3>Project Progress (${dr.from} → ${dr.to})</h3><a href="#/reports" class="btn s">Monthly Report</a></div><div class="wrap"><table><tr><th>PROJECT</th><th>STATUS</th><th>PROGRESS</th><th>AS OF ${dr.to}</th><th>GAINED IN PERIOD</th></tr>
+<div class="c" style="margin-top:14px"><div class="sh"><h3>Project Progress (${fmtD(dr.from)} → ${fmtD(dr.to)})</h3><a href="#/reports" class="btn s">Monthly Report</a></div><div class="wrap"><table><tr><th>PROJECT</th><th>STATUS</th><th>PROGRESS</th><th>AS OF ${fmtD(dr.to).toUpperCase()}</th><th>GAINED IN PERIOD</th></tr>
 ${m.prog.map(({p,end,gain})=>`<tr><td><a href="#/project/${p.id}"><b>${esc(p.title)}</b></a></td><td>${badge(p)}</td><td><div class="pbar"><i style="width:${end}%"></i></div></td><td>${end}%</td><td>${gain?'<b style="color:var(--grn)">+'+gain+'%</b>':'—'}</td></tr>`).join('')||'<tr><td colspan=5 class="empty">No projects</td></tr>'}</table></div></div>`,right)}
 function pw(m,act,done){
 const tot=db.projects.length,avg=tot?Math.round(sum(m.prog,x=>x.end)/tot):0,loc=p=>(p.location||'No location').split(',').pop().trim().toLowerCase().replace(/\b\w/g,c=>c.toUpperCase()),L={};
@@ -448,9 +496,11 @@ function projects(){
 const years=[...new Set(db.projects.map(p=>(p.dateBid||'').slice(0,4)).filter(Boolean))].sort().reverse();
 const list=db.projects.filter(p=>(py==='all'||(p.dateBid||'').startsWith(py))&&(p.title+p.location+p.client+p.license).toLowerCase().includes(pq.toLowerCase())&&(pf==='all'||(pf==='ongoing'?p.progress<100:p.progress>=100))).sort(projSort);
 shell('projects','Projects','*Sequence depends on date bidded, ongoing are at the top',
-ongGraph()+(list.map(p=>`<div class="pc"><div><h3><a href="#/project/${p.id}">${esc(p.title)}</a></h3><p>Bid Amount: ${peso(p.bid)}</p><p>Location: ${esc(p.location)}</p><p>Date Bidded: ${esc(p.dateBid)||'—'}</p><p>Date Started: ${esc(p.dateStart)||'—'}</p><p>License Used: ${esc(p.license)}</p></div>
-<div>${p.progress>=100?'<div class="done">COMPLETED</div>':`<div class="prog"><i style="width:${p.progress}%"></i><span>Ongoing Projects ${p.progress}%</span></div>`}
-<div class="acts"><a class="btn s" href="#/project/${p.id}">View details</a><button class="btn g s" onclick="openForm('projects','${p.id}')">Edit</button><button class="btn g s" onclick="del('projects','${p.id}')">Delete</button></div></div></div>`).join('')||'<div class="empty c">Walang project na nahanap.</div>'),
+ongGraph()+(list.map(p=>{const L=db.leaders.filter(l=>l.pid===p.id);return`<div class="pc2"><div class="pc2-h"><h3><a href="#/project/${p.id}">${esc(p.title)}</a></h3></div>
+<div class="pc2-b"><div class="pc2-d"><p><span>Bid Amount:</span> <b>${peso(p.bid)}</b></p><p><span>Location:</span> ${esc(p.location)}</p><p><span>Date Bidded:</span> ${fmtD(p.dateBid)}</p><p><span>Date Started:</span> ${fmtD(p.dateStart)}</p><p><span>License Used:</span> ${esc(p.license)}</p>
+${L.length?`<div class="pc2-t"><small>Team Leaders</small>${L.map(l=>`<p>${esc(l.name)} <em>· ${esc(l.role)}</em></p>`).join('')}</div>`:''}</div>
+<div class="pc2-p">${p.progress>=100?'<span class="pc2-done">COMPLETED</span>':`<div class="lab"><span>Ongoing Projects</span><b>${p.progress}%</b></div><div class="pc2-bar"><i style="width:${p.progress}%"></i></div>`}</div></div>
+<div class="pc2-f"><a class="btn s" href="#/project/${p.id}">View details</a><button class="btn g s" onclick="openForm('projects','${p.id}')">Edit</button><button class="btn g s" onclick="del('projects','${p.id}')">Delete</button></div></div>`}).join('')||'<div class="empty c">Walang project na nahanap.</div>'),
 `<div class="seg">${[['all','All'],['ongoing','Ongoing'],['completed','Completed']].map(([k,l])=>`<button class="${pf===k?'on':''}" onclick="pf='${k}';projects()">${l} (${db.projects.filter(p=>k==='all'||(k==='ongoing'?p.progress<100:p.progress>=100)).length})</button>`).join('')}</div><select onchange="py=this.value;projects()"><option value="all">All years</option>${years.map(y=>`<option ${y===py?'selected':''}>${y}</option>`).join('')}</select>
 
 <button class="btn" onclick="openForm('projects')">+ Add a project</button>`)}
@@ -472,6 +522,7 @@ const cell=(f,r)=>{const[n,,t]=f,v=r[n];
 if(n==='status')return`<span class="pill ${v==='paid'?'green':'yellow'}">${esc(v)}</span>`;
 if(t==='number'&&money.has(n))return peso(v);
 if(t&&t.startsWith('file'))return v?(t==='file:image'?`<a href="#" onclick="view('${r.id}');return false">View</a>`:`<a href="${v}" download="${esc(r[n+'Name']||'file')}">⬇ ${esc(r[n+'Name']||'Download')}</a>`):'—';
+if(t==='date')return fmtD(v);
 return esc(v)};
 const btns=(k,id)=>`<td class="act"><button class="btn g s" onclick="openForm('${k}','${id}')">Edit</button> <button class="btn g s" onclick="del('${k}','${id}')">Delete</button></td>`;
 function module(k){
@@ -485,7 +536,7 @@ const POS=['Project Engineer','Foreman','Site Supervisor','Safety Officer','Time
 const lrow=(l={})=>`<div class="lr" data-id="${l.id||''}"><label class="w2">Name<input class="l1" placeholder="Name" value="${esc(l.name)}"></label><label>Role<select>${POS.map(x=>`<option ${x===l.role?'selected':''}>${x}</option>`).join('')}</select></label><label>Contact No.<input class="l3" placeholder="09xx xxx xxxx" value="${esc(l.contact)}"></label><label>Assigned from<input class="l4" type="date" value="${esc(l.start)}"></label><label>Until<input class="l5" type="date" value="${esc(l.end)}"></label><button type="button" class="btn g s" onclick="this.parentElement.remove()">✕ Remove</button></div>`;
 const leadersUI=id=>`<label>Team Leaders (puwedeng marami)</label><div id="lrs">${(id?db.leaders.filter(l=>l.pid===id):[{}]).map(lrow).join('')}</div><button type="button" class="btn g s" style="margin-top:6px" onclick="$('#lrs').insertAdjacentHTML('beforeend',lrow())">+ Add team leader</button>`;
 function openForm(k,id,pid){
-const s=SC(k),item=id?db[k].find(x=>x.id===id):{},pre=k==='expenses'&&pid?{project:db.projects.find(x=>x.id===pid)?.title}:{};
+const s=SC(k),item=id?db[k].find(x=>x.id===id):{},pre=(k==='expenses'||k==='billing')&&pid?{project:db.projects.find(x=>x.id===pid)?.title}:{};
 const inp=([n,l,t='text'])=>{const v=item[n]??pre[n]??(n==='progress'||n==='pct'?0:'');
 if(t.startsWith('select:')){const src=t.slice(7),o=(src==='projects'?['']:[]).concat(src==='projects'?db.projects.map(p=>p.title):src==='clients'?db.clients.map(c=>c.name):src.split(','));
 return`<label>${l}</label><select name="${n}">${o.map(x=>`<option value="${esc(x)}" ${x===v?'selected':''}>${esc(x)||'—'}</option>`).join('')}</select>`}
@@ -501,7 +552,7 @@ for(const[n,,t]of s.f){
  else d[n]=t==='number'?Number(fd.get(n)||0):fd.get(n)}
 if(d.progress!==undefined)d.progress=Math.min(100,d.progress);if(d.pct!==undefined)d.pct=Math.min(100,d.pct);
 const old=item.progress;let o;
-if(id){Object.assign(item,d);o=item}else{o={id:uid(),...(pid&&k!=='expenses'?{pid}:{}),...d};db[k].push(o)}
+if(id){Object.assign(item,d);o=item}else{o={id:uid(),...(pid&&k!=='expenses'&&k!=='billing'?{pid}:{}),...d};db[k].push(o)}
 if(k==='projects'&&o.progress!==old)db.plog.push({pid:o.id,date:today(),progress:o.progress});
 if(k==='projects'){const rows=[...m.querySelectorAll('.lr')].map(r=>({id:r.dataset.id,name:r.querySelector('.l1').value.trim(),role:r.querySelector('select').value,contact:r.querySelector('.l3').value.trim(),start:r.querySelector('.l4').value,end:r.querySelector('.l5').value})).filter(r=>r.name);
 db.leaders=db.leaders.filter(l=>l.pid!==o.id||rows.some(r=>r.id===l.id));
@@ -527,11 +578,11 @@ const tk=[];for(let d=new Date(mn);;){d=new Date(d.getFullYear(),d.getMonth()+1,
 const gv=tk.map(t=>`<i class="gv" style="left:${t[0]}%"></i>`).join(''),now=Date.now(),tl=now>mn&&now<mx?`<div class="today" style="left:calc(170px + (100% - 210px) * ${X(now)/100})" title="Today"></div>`:'';
 const st=r=>r.pct>=100?['Done','#2e9e4f']:r.end<nd?['Delayed','var(--mar)']:r.pct>0?['In progress','var(--o)']:['Not started','#8a8a96'];
 return`<div class="c" style="margin-top:16px">${head}<div class="g2w"><div class="gg"><div class="gh">${tk.map(t=>`<span style="left:${t[0]}%">${t[1]}</span>`).join('')}</div>
-${rows.map(r=>{const[n,c]=st(r);return`<div class="gl2"><b style="flex-direction:column;align-items:flex-start;gap:1px;line-height:1.25">${esc(r.task)}<small class="mut">${r.start} → ${r.end} · <span style="color:${c};font-weight:700">${n}</span></small></b><div class="tr">${gv}<div class="bar s" style="--c:${c};left:${X(D(r.start))}%;width:${Math.max(X(D(r.end))-X(D(r.start)),1.5)}%" title="${esc(r.task)} · ${r.pct}%"><u style="width:${r.pct}%"></u></div><em class="pc2" style="left:calc(${X(D(r.end))}% + 6px)">${r.pct}%</em></div></div>`}).join('')}${tl}</div></div>
+${rows.map(r=>{const[n,c]=st(r);return`<div class="gl2"><b style="flex-direction:column;align-items:flex-start;gap:1px;line-height:1.25">${esc(r.task)}<small class="mut">${fmtD(r.start)} → ${fmtD(r.end)} · <span style="color:${c};font-weight:700">${n}</span></small></b><div class="tr">${gv}<div class="bar s" style="--c:${c};left:${X(D(r.start))}%;width:${Math.max(X(D(r.end))-X(D(r.start)),1.5)}%" title="${esc(r.task)} · ${r.pct}%"><u style="width:${r.pct}%"></u></div><em class="gpct" style="left:calc(${X(D(r.end))}% + 6px)">${r.pct}%</em></div></div>`}).join('')}${tl}</div></div>
 <div class="lg"><span><i style="background:#2e9e4f"></i>Done</span><span><i style="background:var(--o)"></i>In progress</span><span><i style="background:var(--mar)"></i>Delayed</span><span><i style="background:#8a8a96"></i>Not started</span><span><i style="background:var(--o)"></i>Today line</span><span class="mut">Solid fill = % tapos na · light bar = planned dates</span></div></div>`}
 let ptab='budget';
-const TABS=[['budget','Budget & Profit'],['expenses','Expenses'],['estimated','Estimated Materials'],['leaders','Team Leaders'],['swa','SWA Work Items'],['photos','Photos'],['pdocs','Documents']];
-const rowsOf=(k,p)=>k==='expenses'?db.expenses.filter(r=>r.project===p.title):db[k].filter(r=>r.pid===p.id);
+const TABS=[['budget','Budget & Profit'],['report','Monthly Report'],['expenses','Expenses'],['materials','Materials'],['leaders','Team Leaders'],['swa','SWA Work Items'],['photos','Photos'],['pdocs','Documents'],['collect','Collection-Billing']];
+const rowsOf=(k,p)=>(k==='expenses'||k==='billing')?db[k].filter(r=>r.project===p.title):db[k].filter(r=>r.pid===p.id);
 const swaPct=p=>{const r=db.swa.filter(x=>x.pid===p.id),d=x=>Math.max(1,(new Date(x.end)-new Date(x.start))/864e5||1),t=sum(r,d);return t?Math.round(sum(r,x=>x.pct*d(x))/t):0};
 function gantt(rows){rows=rows.filter(r=>r.start&&r.end);if(!rows.length)return'';
 const t=d=>new Date(d).getTime(),mn=Math.min(...rows.map(r=>t(r.start))),mx=Math.max(...rows.map(r=>t(r.end))),sp=Math.max(mx-mn,864e5);
@@ -545,7 +596,7 @@ const rows=rowsOf('obligations',p).sort((a,b)=>(a.date||'').localeCompare(b.date
 return`<div class="c"><div class="sh"><h3>Obligations (Passbook)</h3><button class="btn s" onclick="openForm('obligations',null,'${p.id}')">+ Add payment</button></div>
 <div class="obl"><label>Rate (%)</label><input type="number" min="0" step="any" value="${rate}" onchange="setRate('${p.id}',this.value)"><div>${peso(p.bid)} × ${rate}% = <b>Total obligation ${peso(tot)}</b></div></div>
 <div class="wrap"><table><tr><th>DATE</th><th>AMOUNT</th><th>BALANCE</th><th></th></tr><tr><td class="mut">Start</td><td>—</td><td><b>${peso(tot)}</b></td><td></td></tr>
-${rows.map(r=>{bal-=r.amount;return`<tr><td>${esc(r.date)}</td><td>${peso(r.amount)}</td><td><b>${peso(bal)}</b></td>${btns('obligations',r.id)}</tr>`}).join('')}</table></div>
+${rows.map(r=>{bal-=r.amount;return`<tr><td>${fmtD(r.date)}</td><td>${peso(r.amount)}</td><td><b>${peso(bal)}</b></td>${btns('obligations',r.id)}</tr>`}).join('')}</table></div>
 <p class="tt">Paid: <b>${peso(tot-bal)}</b> (${pct(tot-bal,tot)}%) · Remaining: <b>${peso(bal)}</b></p></div>`}
 function setRate(id,v){db.projects.find(x=>x.id===id).oblRate=Number(v)||0;save();projectView(id)}
 function expView(p,v){
@@ -553,7 +604,29 @@ const it=[['Expenses (general)',v.exp,'var(--o)'],['Delivered Materials',v.dv,'v
 const g=T?it.map(i=>{const b=a;a+=i[1]/T*100;return`${i[2]} ${b}% ${a}%`}).join(','):'#8884 0 100%';
 return`<div class="c"><h3>Project Expenses Summary</h3><div class="exg"><ul class="bl">${it.map(i=>`<li><span><i style="background:${i[2]}"></i>${i[0]}</span><b>${peso(i[1])}</b><div class="pbar"><i style="width:${pct(i[1],T)}%;background:${i[2]}"></i></div><small class="mut">${pct(i[1],T)}% of total</small></li>`).join('')}<li class="tot"><span>Total Project Expenses</span><b>${peso(T)}</b></li></ul></div>
 </div>`
-+subTable('expenses',p)+subTable('delivered',p)+subTable('labor',p)+oblSection(p)}
++subTable('expenses',p)+subTable('labor',p)+oblSection(p)}
+function matAnalytics(p){
+const key=n=>(n||'').trim().toLowerCase(),M={},g=r=>M[key(r.name)]=M[key(r.name)]||{n:r.name,eq:0,ec:0,dq:0,dc:0};
+rowsOf('estimated',p).forEach(r=>{const o=g(r);o.eq+=r.quantity;o.ec+=r.quantity*r.unit_cost});rowsOf('delivered',p).forEach(r=>{const o=g(r);o.dq+=r.quantity;o.dc+=r.quantity*r.unit_cost});
+const L=Object.values(M);if(!L.length)return'';const te=sum(L,x=>x.ec),td=sum(L,x=>x.dc),mx=Math.max(1,...L.map(x=>Math.max(x.ec,x.dc))),rem=te-td;
+return`<div class="grid g4">${stat(peso(te),'Estimated Cost','var(--mar)',L.length+' materials')}${stat(peso(td),'Delivered Cost','var(--o)',pct(td,te)+'% of estimate')}${stat(peso(Math.abs(rem)),rem<0?'Over Estimate':'Remaining Budget',rem<0?'#d33':'#3da63d',rem<0?'delivered is above estimate':'still to be delivered')}${stat(pct(sum(L,x=>Math.min(x.dq,x.eq)),sum(L,x=>x.eq))+'%','Quantity Delivered','var(--fu)','vs estimated quantity')}</div>
+<div class="c"><div class="sh"><h3>Estimated vs Delivered · Comparison</h3><span class="lgd" style="margin:0"><span><i style="background:var(--mar)"></i>Estimated</span><span><i style="background:var(--o)"></i>Delivered</span></span></div>
+<div class="cmp">${L.map(x=>`<div class="cr"><div class="h"><b>${esc(x.n)}</b><span class="mut">${x.dq} of ${x.eq} delivered · ${pct(x.dq,x.eq)}%</span></div>
+<div class="cb"><span>Estimated</span><div class="pbar big"><i style="width:${x.ec/mx*100}%;background:var(--mar)"></i></div><b>${sh(x.ec)}</b></div>
+<div class="cb"><span>Delivered</span><div class="pbar big"><i style="width:${x.dc/mx*100}%;background:linear-gradient(90deg,var(--fu),var(--o))"></i></div><b>${sh(x.dc)}</b></div></div>`).join('')}</div>
+<div class="wrap"><table><tr><th>MATERIAL</th><th>EST. QTY</th><th>DELIVERED QTY</th><th>REMAINING QTY</th><th>% DELIVERED</th><th>EST. COST</th><th>DELIVERED COST</th><th>VARIANCE</th></tr>
+${L.map(x=>{const v=x.ec-x.dc;return`<tr><td>${esc(x.n)}</td><td>${x.eq}</td><td>${x.dq}</td><td>${x.eq-x.dq}</td><td>${pct(x.dq,x.eq)}%</td><td>${peso(x.ec)}</td><td>${peso(x.dc)}</td><td><b style="color:${v<0?'#dc2626':'#16a34a'}">${v<0?'▼ Over '+peso(-v):'▲ Under '+peso(v)}</b></td></tr>`}).join('')}</table></div></div>`}
+function collSection(p){
+const rows=rowsOf('billing',p).sort((a,b)=>(a.date||'').localeCompare(b.date||'')),bid=p.bid||0,lo=Math.round(bid*.1),hi=Math.round(bid*.15),dl=p.dateStart?addD(p.dateStart,15):'',nd=iso(new Date());
+const f=n=>rows.find(r=>r.stage===n),mob=f('Mobilization'),fp=f('First Partial Billing'),fin=f('Final Billing');
+const card=(no,t,sub,r,note='')=>`<div class="ck ${r?'ok':''}"><div class="n">${r?'✓':no}</div><div><b>${t}</b><small>${sub}</small>${r?`<div class="v">${peso(r.amount)} · ${pct(r.amount,bid)}% of bid · ${fmtD(r.date)}</div>`:'<div class="v mut">Wala pang naka-record</div>'}${note}</div></div>`;
+let mn='';if(mob){const bad=pct(mob.amount,bid)<10||pct(mob.amount,bid)>15,late=dl&&mob.date>dl;mn=`<small class="${bad?'bad':'good'}">${bad?'⚠ Wala sa 10–15% ng contract':'✓ Nasa 10–15% ng contract'}</small><small class="${late?'bad':'good'}">${late?'⚠ Lampas sa 15 araw':'✓ Within 15 days'}</small>`}else if(dl&&nd>dl)mn='<small class="bad">⚠ Overdue — lampas na sa 15 araw</small>';
+let run=0;const tr=rows.map(r=>{run+=r.amount;return`<tr><td>${esc(r.stage)||'—'}</td><td>${fmtD(r.date)}</td><td>${peso(r.amount)}</td><td>${pct(r.amount,bid)}%</td><td><span class="pill ${r.status==='paid'?'green':'yellow'}">${esc(r.status)}</span></td><td>${peso(run)}</td><td><b>${peso(bid-run)}</b></td>${btns('billing',r.id)}</tr>`}).join('');
+const col=sum(rows.filter(r=>r.status==='paid'),r=>r.amount);
+return`<div class="c"><div class="sh"><h3>Collection-Billing (Running)</h3><button class="btn s" onclick="openForm('billing',null,'${p.id}')">+ Add billing</button></div>
+<div class="cks">${card(1,'Mobilization','Within 15 days'+(dl?' (hanggang '+fmtD(dl)+')':'')+' · 10–15% = '+peso(lo)+' – '+peso(hi),mob,mn)}${card(2,'First Partial Billing','with date and amount',fp)}${card(3,'Final Billing','with date and amount',fin)}</div>
+<div class="wrap"><table><tr><th>STAGE</th><th>DATE</th><th>AMOUNT</th><th>% OF BID</th><th>STATUS</th><th>RUNNING TOTAL</th><th>BALANCE</th><th></th></tr>${tr||'<tr><td colspan=8 class="empty">Wala pang billing. Pindutin ang “+ Add billing”.</td></tr>'}</table></div>
+<p class="tt">Total billed: <b>${peso(run)}</b> (${pct(run,bid)}%) · Collected: <b>${peso(col)}</b> · Remaining: <b>${peso(bid-run)}</b></p></div>`}
 function projectView(id){
 const p=db.projects.find(x=>x.id===id);if(!p){location.hash='#/projects';return}
 const R=k=>rowsOf(k,p),exp=sum(R('expenses'),r=>r.amount),lab=sum(R('labor'),SUB.labor.tot),dv=sum(R('delivered'),SUB.delivered.tot),est=sum(R('estimated'),SUB.estimated.tot);
@@ -562,8 +635,11 @@ const cost=exp+lab+dv+obl,profit=p.bid-cost,coll=sum(db.billing.filter(b=>b.proj
 let c;
 if(ptab==='budget')c=`<div class="grid g4">${stat(peso(p.bid),'Contract / Bid Amount','var(--o)')}${stat(peso(cost),'Total Costs','var(--fu)',pct(cost,p.bid)+'% of bid')}${stat(peso(profit),'Running Balance (Profit)',profit<0?'#d33':'#3da63d',pct(profit,p.bid)+'% margin')}${stat(peso(obl-paid),'Obligation Balance','var(--mar)','paid '+peso(paid))}${stat(peso(coll),'Collected (Billing)','#4b4b57',pct(coll,p.bid)+'% of bid')}${stat(swaPct(p)+'%','SWA Accomplished','var(--o)')}${stat(peso(est),'Estimated Materials','#9aa5b1')}${stat(peso(lab),'Labor Cost','var(--fu)',pct(lab,p.bid)+'% of bid')}</div>
 <div class="c" style="margin-top:14px"><h3>Cost Breakdown</h3><div class="wrap"><table><tr><th>ITEM</th><th>AMOUNT</th><th>% OF BID</th></tr>${[['Expenses',exp],['Delivered Materials',dv],['Labor Cost',lab],['Obligations ('+rate+'%)',obl]].map(([n,v])=>`<tr><td>${n}</td><td>${peso(v)}</td><td>${pct(v,p.bid)}%</td></tr>`).join('')}<tr><td><b>Running Balance (Profit)</b></td><td><b>${peso(profit)}</b></td><td>${pct(profit,p.bid)}%</td></tr></table></div></div>`;
+else if(ptab==='materials')c=matAnalytics(p)+subTable('estimated',p)+subTable('delivered',p);
+else if(ptab==='collect')c=collSection(p);
+else if(ptab==='report')c=projReport(p);
 else if(ptab==='expenses')c=expView(p,{exp,lab,dv,obl,rate,paid,bale});
-else if(ptab==='photos')c=`<div class="c"><div class="sh"><h3>Project Photos</h3><button class="btn s" onclick="openForm('photos',null,'${p.id}')">+ Upload photo</button></div><div class="ph">${R('photos').map(r=>`<figure><img src="${r.img}" onclick="view('${r.id}')"><figcaption>${esc(r.caption)}<small>${esc(r.date)}</small><div class="act" style="text-align:left;margin-top:6px"><button class="btn g s" onclick="openForm('photos','${r.id}')">Edit</button> <button class="btn g s" onclick="del('photos','${r.id}')">Delete</button></div></figcaption></figure>`).join('')||'<div class="empty">Wala pang photos.</div>'}</div></div>`;
+else if(ptab==='photos')c=`<div class="c"><div class="sh"><h3>Project Photos</h3><button class="btn s" onclick="openForm('photos',null,'${p.id}')">+ Upload photo</button></div><div class="ph">${R('photos').map(r=>`<figure><img src="${r.img}" onclick="view('${r.id}')"><figcaption>${esc(r.caption)}<small>${fmtD(r.date)}</small><div class="act" style="text-align:left;margin-top:6px"><button class="btn g s" onclick="openForm('photos','${r.id}')">Edit</button> <button class="btn g s" onclick="del('photos','${r.id}')">Delete</button></div></figcaption></figure>`).join('')||'<div class="empty">Wala pang photos.</div>'}</div></div>`;
 else c=subTable(ptab,p);
 shell('projects',esc(p.title),`${esc(p.client)||'—'} · ${esc(p.location)} · Progress ${p.progress}%`,`<div class="ptabs">${TABS.map(([k,l])=>`<button class="${k===ptab?'on':''}" onclick="ptab='${k}';projectView('${id}')">${l}</button>`).join('')}</div>${c}${ptab==='swa'?pgantt(p):''}`,
 `<a class="btn g" href="#/projects">← Projects</a>${dlMenu("xlP('"+id+"')")}`)}
@@ -578,7 +654,7 @@ db.clients.forEach(c=>add('Client',`${c.name} ${c.email} ${c.address} ${c.contac
 db.billing.forEach(b=>add('Billing',`${b.project} ${b.status}`,'#/billing',{l:b.project,s:peso(b.amount)+' · '+b.status}));
 db.documents.forEach(d=>add('Document',`${d.title} ${d.type} ${d.notes}`,'#/documents',{l:d.title,s:d.type}));
 db.expenses.forEach(e=>add('Expense',`${e.description} ${e.category} ${e.project}`,'#/expenses',{l:e.description,s:`${e.project} · ${peso(e.amount)}`,xp:db.projects.find(x=>x.title===e.project)?.id}));
-[['delivered','Delivered','expenses',r=>r.name+' '+r.supplier],['labor','Labor','expenses',r=>r.description],['obligations','Obligation','expenses',r=>'Payment '+r.date+' '+r.note],['leaders','Team Leader','leaders',r=>r.name+' '+r.role],['swa','SWA','swa',r=>r.task],['photos','Photo','photos',r=>r.caption],['pdocs','Project Doc','pdocs',r=>r.title+' '+r.notes],['estimated','Est. Material','estimated',r=>r.name]]
+[['delivered','Delivered','materials',r=>r.name+' '+r.supplier],['labor','Labor','expenses',r=>r.description],['obligations','Obligation','expenses',r=>'Payment '+r.date+' '+r.note],['leaders','Team Leader','leaders',r=>r.name+' '+r.role],['swa','SWA','swa',r=>r.task],['photos','Photo','photos',r=>r.caption],['pdocs','Project Doc','pdocs',r=>r.title+' '+r.notes],['estimated','Est. Material','materials',r=>r.name]]
 .forEach(([k,t,tab,f])=>db[k].forEach(r=>add(t,f(r)+' '+P(r.pid),'#/project/'+r.pid,{l:f(r).trim(),s:P(r.pid),tab})));
 return I}
 function gsearch(q){q=q.trim().toLowerCase();const el=$('#gres');if(q.length<2){el.innerHTML='';return}
@@ -590,7 +666,7 @@ document.addEventListener('click',e=>{if(!e.target.closest('.srch'))$('#gres')&&
 /* ---------- EXPENSES (per project, with analytics) ---------- */
 let xp='all';
 const costs=p=>{const exp=sum(rowsOf('expenses',p),r=>r.amount),dv=sum(rowsOf('delivered',p),SUB.delivered.tot),lab=sum(rowsOf('labor',p),SUB.labor.tot),obl=Math.round(p.bid*(p.oblRate??0)/100);return{exp,dv,lab,obl,t:exp+dv+lab+obl}};
-const xrows=rows=>`<div class="wrap"><table><tr><th>DESCRIPTION</th><th>CATEGORY</th><th>AMOUNT</th><th>DATE</th><th></th></tr>${[...rows].sort((a,b)=>(b.date||'').localeCompare(a.date||'')).map(r=>`<tr><td>${esc(r.description)}</td><td>${esc(r.category)}</td><td>${peso(r.amount)}</td><td>${esc(r.date)}</td>${btns('expenses',r.id)}</tr>`).join('')||'<tr><td colspan=5 class="empty">Wala pang expense.</td></tr>'}</table></div>`;
+const xrows=rows=>`<div class="wrap"><table><tr><th>DESCRIPTION</th><th>CATEGORY</th><th>AMOUNT</th><th>DATE</th><th></th></tr>${[...rows].sort((a,b)=>(b.date||'').localeCompare(a.date||'')).map(r=>`<tr><td>${esc(r.description)}</td><td>${esc(r.category)}</td><td>${peso(r.amount)}</td><td>${fmtD(r.date)}</td>${btns('expenses',r.id)}</tr>`).join('')||'<tr><td colspan=5 class="empty">Wala pang expense.</td></tr>'}</table></div>`;
 function expensesPage(){
 const C=db.projects.filter(p=>xp==='all'||p.id===xp).map(p=>({p,c:costs(p)})),tt=k=>sum(C,x=>x.c[k]),T=tt('t');
 const cats=[['Expenses','exp','var(--o)'],['Delivered Materials','dv','var(--mar)'],['Labor Cost','lab','var(--fu)'],['Obligations','obl','#3a3a46']];
@@ -612,7 +688,7 @@ dlMenu('xlX()'))}
 
 /* ---------- DOCUMENTS ---------- */
 let dt='All';
-const fmtD=x=>x?new Date(x+'T00:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}):'—';
+const fmtD=x=>{const m=/^(\d{4})-(\d{2})-(\d{2})/.exec(x||'');return m?['Jan.','Feb.','Mar.','Apr.','May','Jun.','Jul.','Aug.','Sep.','Oct.','Nov.','Dec.'][+m[2]-1]+' '+m[3]+', '+m[1]:'—'};
 const extOf=n=>((n||'').split('.').pop()||'FILE').toUpperCase().slice(0,4);
 function dcard(d){const src=d.doc||d.img,im=src&&src.startsWith('data:image'),nm=d.docName||d.imgName||'';
 return`<div class="dc"><div class="dt">${im?`<img src="${src}" onclick="view('${d.id}')">`:`<div class="fi" onclick="view('${d.id}')"><b>${src?esc(extOf(nm)):'—'}</b><small>${esc(nm)||'Walang file'}</small></div>`}</div>
@@ -626,10 +702,10 @@ shell('documents','Documents','Permits at iba pang papeles ng negosyo — pictur
 <div class="sh" style="margin-top:24px"><h3>Files <span class="mut">(${files.length})</span></h3></div><div class="dg2">${files.map(dcard).join('')||'<div class="empty c" style="grid-column:1/-1">Wala pang files.</div>'}</div>`,
 `<button class="btn" onclick="openForm('documents')">+ Add Document</button>`)}
 /* ---------- REPORTS ---------- */
-function lineChart(ms){ms=[...ms].reverse();if(!ms.length)return'';
-const S=[['Billed','var(--o)',m=>sum(db.billing.filter(x=>x.date.startsWith(m)),x=>x.amount),'',1],['Collected','var(--ink)',m=>sum(db.billing.filter(x=>x.date.startsWith(m)&&x.status==='paid'),x=>x.amount),'6 5',0],['Expenses','var(--fu)',m=>sum(db.expenses.filter(x=>x.date.startsWith(m)),x=>x.amount),'',1]];
+function lineChart(ms,pr){ms=[...ms].sort();if(!ms.length)return'';{const a=ms[0],b=ms[ms.length-1],r=[];for(let d=new Date(a+'-01T00:00:00');iso(d).slice(0,7)<=b&&r.length<60;d=new Date(d.getFullYear(),d.getMonth()+1,1))r.push(iso(d).slice(0,7));ms=r}
+const S=[['Billed','var(--o)',m=>pr?PM(pr,m).b:sum(db.billing.filter(x=>x.date.startsWith(m)),x=>x.amount),'',1],['Collected','var(--ink)',m=>pr?PM(pr,m).c:sum(db.billing.filter(x=>x.date.startsWith(m)&&x.status==='paid'),x=>x.amount),'6 5',0],['Expenses','var(--fu)',m=>pr?PM(pr,m).e:sum(db.expenses.filter(x=>x.date.startsWith(m)),x=>x.amount),'',1]];
 const V=S.map(a=>ms.map(a[2])),mx=Math.max(1,...V.flat()),r=mx/3,e=10**Math.floor(Math.log10(r)),f=r/e,st=(f<=1?1:f<=2?2:f<=5?5:10)*e,top=Math.ceil(mx/st)*st;
-const W=720,H=250,L=54,R=22,T=26,B=34,pw=W-L-R,ph=H-T-B,X=i=>L+(ms.length===1?pw/2:i*pw/(ms.length-1)),Y=v=>T+ph-v/top*ph,base=T+ph;
+const avail=(document.querySelector('main')?.clientWidth||(innerWidth>860?innerWidth-230:innerWidth))-84,W=Math.max(560,Math.min(1300,avail)),H=260,L=54,R=22,T=26,B=34,pw=W-L-R,ph=H-T-B,X=i=>L+(ms.length===1?pw/2:i*pw/(ms.length-1)),Y=v=>T+ph-v/top*ph,base=T+ph;
 const sp=q=>q.length<2?'':q.map((p,i)=>{if(!i)return`M${p[0]},${p[1]}`;const a=q[i-2]||q[i-1],b=q[i-1],d=q[i+1]||p,t=.18,cl=y=>Math.min(base,Math.max(T,y));return`C${b[0]+(p[0]-a[0])*t},${cl(b[1]+(p[1]-a[1])*t)} ${p[0]-(d[0]-b[0])*t},${cl(p[1]-(d[1]-b[1])*t)} ${p[0]},${p[1]}`}).join('');
 let g='';for(let t=0;t<=top+1;t+=st)g+=`<line class="lc-g" x1="${L}" x2="${W-R}" y1="${Y(t)}" y2="${Y(t)}"/><text class="lc-t" x="${L-8}" y="${Y(t)+4}" text-anchor="end">${sh(t)}</text>`;
 const xl=ms.map((m,i)=>`<text class="lc-t" x="${X(i)}" y="${H-10}" text-anchor="middle" style="font-weight:600">${new Date(m+'-02').toLocaleString('en',{month:'short',year:'2-digit'})}</text>`).join('');
@@ -638,6 +714,14 @@ const ln=S.map((s,k)=>{const q=ms.map((m,i)=>[X(i),Y(V[k][i])]),d=sp(q);return(s
 const dots=S.map((s,k)=>ms.map((m,i)=>`<circle cx="${X(i)}" cy="${Y(V[k][i])}" r="4" style="fill:${s[1]};stroke:var(--card)" stroke-width="2"><title>${s[0]} ${lab2(m)}: ${peso(V[k][i])}</title></circle>`).join('')).join('');
 let lb='';ms.forEach((m,i)=>{const o=S.map((s,k)=>({k,v:V[k][i]})).sort((a,b)=>b.v-a.v);let last=-1e9;o.forEach((q,n)=>{if(!q.v)return;let y;if(n===0)y=Y(q.v)-9;else{y=Math.max(Y(q.v)+16,last+13);last=y}lb+=`<text class="lc-v" x="${X(i)}" y="${y}" style="fill:${S[q.k][1]}">${sh(q.v)}</text>`})});
 return`<div class="c lcard" style="margin-top:14px"><div class="sh"><div><h3>Billed vs Collected vs Expenses</h3><span class="mut">per month</span></div><div class="lgd">${S.map(s=>`<span><i style="${s[3]?'background:repeating-linear-gradient(90deg,'+s[1]+' 0 5px,transparent 5px 8px)':'background:'+s[1]}"></i>${s[0]}</span>`).join('')}</div></div><div class="g2w"><div class="lcw"><svg viewBox="0 0 ${W} ${H}" style="width:100%;min-width:560px;height:auto;display:block" role="img" aria-label="Line chart of billed, collected and expenses per month"><defs>${df}</defs>${g}${ln}${dots}${lb}${xl}</svg></div></div></div>`}
+const PM=(p,m)=>{const q=r=>(r.date||'').startsWith(m),T=p.title,b=sum(db.billing.filter(x=>x.project===T&&q(x)),x=>x.amount),c=sum(db.billing.filter(x=>x.project===T&&x.status==='paid'&&q(x)),x=>x.amount),e=sum(db.expenses.filter(x=>x.project===T&&q(x)),x=>x.amount)+sum(db.delivered.filter(x=>x.pid===p.id&&q(x)),SUB.delivered.tot)+sum(db.labor.filter(x=>x.pid===p.id&&q(x)),SUB.labor.tot)+sum(db.obligations.filter(x=>x.pid===p.id&&q(x)),x=>x.amount);return{b,c,e}};
+function projReport(p){
+const ds=[...db.billing.filter(x=>x.project===p.title),...db.expenses.filter(x=>x.project===p.title),...db.delivered.filter(x=>x.pid===p.id),...db.labor.filter(x=>x.pid===p.id),...db.obligations.filter(x=>x.pid===p.id)].map(x=>x.date).filter(Boolean);if(p.dateStart)ds.push(p.dateStart);
+if(!ds.length)return'<div class="c empty">Wala pang data para sa monthly report ng project na ito.</div>';
+ds.sort();const cur=iso(new Date()).slice(0,7),mxm=ds[ds.length-1].slice(0,7),end=mxm>cur?mxm:cur,ms=[];
+for(let d=new Date(ds[0].slice(0,7)+'-01T00:00:00');iso(d).slice(0,7)<=end&&ms.length<36;d=new Date(d.getFullYear(),d.getMonth()+1,1))ms.unshift(iso(d).slice(0,7));
+let tb=0,tc=0,te=0;const rows=ms.map((m,i)=>{const x=PM(p,m),y=ms[i+1]?PM(p,ms[i+1]):null;tb+=x.b;tc+=x.c;te+=x.e;return`<tr><td>${lab2(m)}</td><td>${peso(x.b)}${y?'<br>'+trend(x.b,y.b):''}</td><td>${peso(x.c)}</td><td>${peso(x.e)}${y?'<br>'+trend(x.e,y.e):''}</td><td><b style="color:${x.c-x.e<0?'#d33':'#1e7a1e'}">${peso(x.c-x.e)}</b></td></tr>`}).join('');
+return`<div class="grid g4">${stat(peso(tb),'Total Billed','var(--o)')}${stat(peso(tc),'Total Collected','var(--mar)',pct(tc,tb)+'% of billed')}${stat(peso(te),'Total Expenses','var(--fu)',pct(te,p.bid)+'% of bid')}${stat(peso(tc-te),'Net (Collected − Expenses)',tc-te<0?'#d33':'#3da63d')}</div>${lineChart(ms,p)}<div class="c" style="margin-top:14px"><h3>Monthly Report · ${esc(p.title)}</h3><div class="wrap"><table><tr><th>MONTH</th><th>BILLED</th><th>COLLECTED</th><th>EXPENSES</th><th>NET</th></tr>${rows}</table></div></div>`}
 const lab2=m=>new Date(m+'-02').toLocaleString('en',{month:'short',year:'numeric'});
 function reports(){
 const ms=[...new Set([...db.billing.map(b=>b.date.slice(0,7)),...db.expenses.map(e=>e.date.slice(0,7))])].sort().reverse();
@@ -654,6 +738,7 @@ const p=(location.hash.replace('#/','')||'dashboard');
 if(p.startsWith('project/'))projectView(p.slice(8));else if(p==='dashboard')dashboard();else if(p==='projects')projects();else if(p==='reports')reports();else if(p==='expenses')expensesPage();else if(p==='documents')documentsPage();else if(SCHEMA[p])module(p);else dashboard()}
 function boot(){ld('apc_session')?route():authView()}
 addEventListener('hashchange',()=>ld('apc_session')&&route());
+let rz,lw=innerWidth;addEventListener('resize',()=>{clearTimeout(rz);rz=setTimeout(()=>{if(Math.abs(innerWidth-lw)<40)return;lw=innerWidth;if(/#\/(reports|project\/)/.test(location.hash)&&!$('.mod')&&!$('#gs')?.value)route()},300)});
 boot();
 </script>
 </body>
