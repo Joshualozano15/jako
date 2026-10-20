@@ -258,8 +258,40 @@ input[type=date]{min-width:0;min-height:42px;-webkit-appearance:none;appearance:
 .bl li{padding:13px 0}.ob li{padding:15px 0}.lv{margin-bottom:16px}.dl{padding:5px 0}.cks{gap:14px}.tiles{gap:10px}.leg{margin-top:12px}
 .tt{margin-top:14px}.stat{padding-top:20px;padding-bottom:20px}.stat:has(.tw){padding-bottom:40px}
 @media(max-width:560px){.mod form{padding:16px}.lr{padding:12px}#export>*+*{margin-top:14px}}
+.bk{display:flex;gap:8px;flex-wrap:wrap}.bkl{margin:0!important;cursor:pointer}
 @media(max-width:860px){aside{transform:translateX(-100%)}aside.open{transform:none}main{margin-left:0;padding:14px}.burger{display:inline-block}.g2{grid-template-columns:1fr}.pc{grid-template-columns:1fr}.tools input{width:150px}}
 @media print{aside,.tools,.burger,.noprint,.nav,.sh button,.act{display:none!important}main{margin:0}html[data-theme]{--bg:#fff;--card:#fff;--ink:#000;--mut:#555;--line:#ddd;--pc:#ddd}}
+
+/* ===== v2: scroll, pagination, dropdowns, aligned report tables ===== */
+.tr,.tr.up,.tr.dn,.lbl .tr,.stat .tr,.ov .tr{font-weight:400!important}
+.scr{max-height:min(460px,60vh);overflow-y:auto;overflow-x:hidden;padding-right:8px;scrollbar-gutter:stable}
+.cap .scr{max-height:none;overflow:visible}
+.psel{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.psel label{margin:0;font-size:13px;color:var(--mut);white-space:nowrap}
+.psel select{width:auto;flex:1 1 260px;max-width:460px;min-width:0;font-weight:600}
+td.num,th.num{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+table.rpt td{vertical-align:top}
+table.rpt .trl{display:flex;justify-content:flex-end;margin-top:3px;line-height:1.3}
+@media(max-width:560px){
+.psel select{flex:1 1 100%;max-width:none}.psel label{width:100%}
+}
+@media print{.psel,.pgt,.pgb{display:none!important}.scr{max-height:none!important;overflow:visible!important}}
+
+.pgt{display:flex;align-items:center;justify-content:flex-start;gap:8px;margin:0 0 12px;font-size:13px;color:var(--mut)}
+.pgt select{width:auto;padding:6px 10px;font-size:13px;border-radius:8px}
+.pgb{display:flex;align-items:center;justify-content:space-between;gap:10px 16px;flex-wrap:wrap;margin-top:14px;font-size:13px;color:var(--mut)}
+.pgx{display:flex;align-items:center;justify-content:flex-end;gap:10px;margin-left:auto}
+.pgb .btn[disabled]{opacity:.4;cursor:not-allowed;transform:none;filter:none}
+.pgp{white-space:nowrap}
+@media(max-width:560px){
+.pgb{flex-direction:column;align-items:stretch;gap:10px}
+.pgi{text-align:left}
+.pgx{width:100%;justify-content:space-between;margin-left:0}
+.pgx .btn{flex:0 0 auto}
+}
+
+.c>*+.pgt,.obl+.pgt{margin-top:18px}
+.obl{margin-bottom:18px}
 </style>
 </head>
 <body>
@@ -270,12 +302,24 @@ const MAIN_URL = 'https://example.com';
 
 const $=s=>document.querySelector(s);
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const peso=n=>'₱'+Number(n||0).toLocaleString('en-PH');
+const peso=n=>{n=Number(n||0);return(n<0?'-':'')+'₱'+Math.abs(n).toLocaleString('en-PH')};
 const ld=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}};
 const sv=(k,v)=>localStorage.setItem(k,JSON.stringify(v));
 const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,5);
 const sha=async s=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s)))].map(b=>b.toString(16).padStart(2,'0')).join('');
 const sum=(a,f)=>a.reduce((t,x)=>t+Number(f(x)||0),0);
+/* ---- pagination helper: 10/25/50/100/All + Previous/Next ---- */
+const PG={};
+function paged(key,rows,head,cols,empty,cls=''){
+const g=PG[key]=PG[key]||{n:10,p:1},tot=rows.length,n=g.n||tot||1,pages=Math.max(1,Math.ceil(tot/n));
+g.p=Math.min(Math.max(1,g.p),pages);const st=(g.p-1)*n,en=Math.min(tot,st+n);
+const body=rows.slice(st,en).join('')||`<tr><td colspan="${cols}" class="empty">${empty||'No data'}</td></tr>`;
+const top=tot?`<div class="pgt"><span>Show</span><select onchange="pgSet('${key}',this.value)">${[10,25,50,100,0].map(v=>`<option value="${v}" ${g.n===v?'selected':''}>${v||'Show all'}</option>`).join('')}</select><span>entries</span></div>`:'';
+const bot=tot?`<div class="pgb"><div class="pgi">Showing ${st+1}–${en} of ${tot}</div><div class="pgx"><button class="btn g s" ${g.p<=1?'disabled':''} onclick="pgGo('${key}',-1)">← Previous</button><span class="pgp">Page ${g.p} / ${pages}</span><button class="btn g s" ${g.p>=pages?'disabled':''} onclick="pgGo('${key}',1)">Next →</button></div></div>`:'';
+return`${top}<div class="wrap"><table class="${cls}">${head}${body}</table></div>${bot}`}
+function rr(){const y=scrollY;route();scrollTo(0,y)}
+function pgSet(k,v){PG[k].n=+v;PG[k].p=1;rr()}
+function pgGo(k,d){PG[k].p+=d;rr()}
 
 function seed(){return{
 clients:[{id:'c1',name:'DPWH Region III',contact:'0917 000 0001',email:'region3@dpwh.gov.ph',address:'San Fernando, Pampanga'},{id:'c2',name:'LGU Cabanatuan',contact:'0917 000 0002',email:'bac@cabanatuan.gov.ph',address:'Cabanatuan City, Nueva Ecija'},{id:'c3',name:'Santos Realty',contact:'0918 555 1234',email:'info@santosrealty.ph',address:'Gapan City'}],
@@ -289,8 +333,11 @@ expenses:[{id:'e1',description:'Cement & rebar',category:'Materials',amount:8500
 materials:[{id:'m1',name:'Portland Cement (bag)',quantity:800,unit_cost:260,supplier:'Holcim Dealer'},{id:'m2',name:'Rebar 12mm (pc)',quantity:450,unit_cost:410,supplier:'Steel Hub'},{id:'m3',name:'Gravel (cu.m)',quantity:60,unit_cost:1100,supplier:'Quarry Co.'}],
 documents:[{id:'d1',title:'Notice of Award – Road Concreting',type:'Contract',date:'2026-08-20',notes:'PhilGEPS copy'},{id:'d2',title:'Building Permit – Warehouse',type:'Permit',date:'2025-10-28',notes:''}]}}
 
-let db=ld('apc_db',null)||seed();
-const save=()=>{try{sv('apc_db',db)}catch(e){alert('Puno na ang browser storage. Mag-delete ng ilang photos/documents.')}};
+const SESS=ld('apc_session'),DBK='apc_db:'+(SESS?SESS.email:'_');
+let db=ld(DBK,null);
+if(!db){const lg=ld('apc_db',null);if(SESS&&lg&&!localStorage.getItem('apc_legacy')){db=lg;localStorage.setItem('apc_legacy',SESS.email)}else db=seed()}
+try{navigator.storage&&navigator.storage.persist&&navigator.storage.persist()}catch(e){}
+const save=()=>{if(!SESS)return;try{sv(DBK,db)}catch(e){alert('Puno na ang browser storage. Mag-delete ng ilang photos/documents.')}};
 const seedX=()=>({
 plog:[{pid:'p1',date:'2026-09-01',progress:10},{pid:'p1',date:'2026-09-20',progress:30},{pid:'p1',date:'2026-10-05',progress:50},{pid:'p2',date:'2026-07-10',progress:10},{pid:'p2',date:'2026-08-15',progress:40},{pid:'p2',date:'2026-09-25',progress:65},{pid:'p2',date:'2026-10-08',progress:75},{pid:'p3',date:'2026-03-01',progress:20},{pid:'p3',date:'2026-04-20',progress:100},{pid:'p4',date:'2025-11-01',progress:10},{pid:'p4',date:'2026-02-01',progress:100}],
 labor:[{id:'l1',pid:'p1',description:'Mason & laborers',workers:8,days:12,rate:650,date:'2026-10-05'},{id:'l2',pid:'p2',description:'Carpentry crew',workers:10,days:20,rate:700,date:'2026-09-30'}],
@@ -322,6 +369,34 @@ db.bale=[{id:'bl1',pid:'p1',worker:'Juan Dela Cruz',amount:2500,date:'2026-10-04
 if(!db.demo4){db.documents.forEach(d=>{if(!d.img)d.img=svgImg(d.id==='d1'?'Notice of Award':'Building Permit','#8f1230','#0b0b0f')});
 db.documents.push({id:'d3',title:"Mayor's Business Permit 2026",type:'Permit',date:'2026-01-15',notes:'Renewed',img:svgImg("Mayor's Permit",'#e11d2e','#5a0a18')});db.demo4=1;save()}
 if(!db.demo5){const S={b1:'Final Billing',b2:'Mobilization',b6:'First Partial Billing',b3:'Second Partial Billing',b5:'Mobilization',b4:'First Partial Billing'};db.billing.forEach(b=>{if(b.stage===undefined)b.stage=S[b.id]||''});db.demo5=1;save()}
+function genDemo(){
+let sd=20261014;const R=()=>{sd=sd+0x6D2B79F5|0;let t=Math.imul(sd^sd>>>15,1|sd);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296},ri=(x,y)=>Math.floor(R()*(y-x+1))+x,pk=A=>A[ri(0,A.length-1)];
+const NOW=new Date().toISOString().slice(0,10),ad=(s,n)=>new Date(Date.parse(s)+n*864e5).toISOString().slice(0,10),df=(a,b)=>Math.round((Date.parse(b)-Date.parse(a))/864e5),cl=(x,a,b)=>Math.max(a,Math.min(b,x));
+const TT=['Farm-to-Market Road Concreting','Public Market Rehabilitation','Two-Storey School Building','Covered Court with Stage','Drainage Canal Improvement','Bridge Approach Repair','Municipal Hall Annex','Health Center Building','Riprap Slope Protection','Warehouse Extension','Water System Upgrade','Barangay Hall Construction','Day Care Center','Subdivision Road Concreting','Flood Control Dike','Fire Station Building'];
+const LC=['Brgy. Bitas, Cabanatuan','Brgy. Sangitan, Cabanatuan','Brgy. Caalibangbangan, Cabanatuan','Gapan City','Brgy. Mangino, Gapan City','San Isidro','Talavera','Santa Rosa','Jaen'];
+const CL=['LGU Gapan','LGU San Isidro','LGU Talavera','DepEd Nueva Ecija','DOH Region III','Reyes Holdings','DPWH Region III','LGU Cabanatuan'],LI=['APC','Dalcon','APC, Dalcon'];
+const NM=['Engr. Reyes','Dindo Ramos','Engr. Bautista','Mang Ruben','Engr. Villanueva','Foreman Tony','Engr. Mercado','Jun Dela Peña','Engr. Salazar','Berting Cruz'],RL=['Project Engineer','Foreman','Site Supervisor','Safety Officer'];
+const MT=[['Portland Cement (bag)',260],['Rebar 12mm (pc)',410],['Gravel (cu.m)',1100],['Sand (cu.m)',900],['Hollow blocks (pc)',18],['Plywood (sheet)',650],['Paint (gal)',720]];
+const EX=[['Cement & aggregates','Materials'],['Formworks','Materials'],['Fuel & hauling','Equipment'],['Equipment rental','Equipment'],['Permits & fees','Other'],['Site payroll','Labor'],['Safety gear','Other'],['Electrical works','Materials']];
+const O={projects:[],billing:[],expenses:[],labor:[],delivered:[],estimated:[],leaders:[],swa:[],obligations:[],plog:[],clients:CL.map((n,i)=>({id:'gc'+i,name:n,contact:'09'+ri(10,99)+' '+ri(100,999)+' '+ri(1000,9999),email:n.toLowerCase().replace(/[^a-z]+/g,'')+'@mail.ph',address:pk(LC)}))};
+TT.forEach((title,i)=>{const id='g'+i,bid=ri(15,150)*100000,dB=ad(NOW,-ri(35,250)),dS=ad(dB,ri(12,30)),el=df(dS,NOW),du=ri(120,260),run=Math.min(el,du);
+let pr=Math.round(el/du*100);pr=pr>=97?100:Math.max(pr,6);const rate=pk([0,8,10,12,16]);
+O.projects.push({id,title,client:pk(CL),bid,location:pk(LC),dateBid:dB,dateStart:dS,license:pk(LI),progress:pr,oblRate:rate});
+const np=ri(3,5);for(let k=1;k<=np;k++)O.plog.push({pid:id,date:ad(dS,Math.round(run*k/np)),progress:Math.round(pr*k/np)});
+const mob=Math.round(bid*ri(10,15)/100),bs=[['Mobilization',ad(dS,ri(5,14)),mob]];let billed=mob;
+['First Partial Billing','Second Partial Billing','Third Partial Billing'].slice(0,Math.min(Math.floor(pr/35),3)).forEach((n,k)=>{const am=Math.round(bid*ri(18,28)/100);billed+=am;bs.push([n,ad(dS,Math.round(du*(k+1)*.3)),am])});
+if(pr>=100)bs.push(['Final Billing',ad(dS,du),Math.max(bid-billed,Math.round(bid*.05))]);
+bs.forEach((b,k)=>O.billing.push({id:'gb'+i+'_'+k,project:title,stage:b[0],amount:b[2],date:b[1]>NOW?NOW:b[1],status:k===bs.length-1&&k>0&&pr<100?'pending':'paid'}));
+for(let k=0,n=ri(3,6);k<n;k++){const e=pk(EX);O.expenses.push({id:'ge'+i+'_'+k,project:title,description:e[0],category:e[1],amount:Math.round(bid*ri(15,60)/1e5)*100,date:ad(dS,ri(3,Math.max(5,run)))})}
+for(let k=0,n=ri(1,2);k<n;k++)O.labor.push({id:'gl'+i+'_'+k,pid:id,description:pk(['Mason & laborers','Carpentry crew','Steel works crew','Concrete crew','Electrical crew']),workers:ri(4,12),days:ri(8,25),rate:pk([600,650,700,800]),date:ad(dS,ri(5,Math.max(6,run-5)))});
+[...MT].sort(()=>R()-.5).slice(0,3).forEach((m,k)=>{const eq=ri(200,1500)*(bid>8e6?2:1),dq=Math.round(eq*ri(15,pr>=100?108:60)/100);
+O.estimated.push({id:'gs'+i+'_'+k,pid:id,name:m[0],quantity:eq,unit_cost:m[1],needed:ad(dS,ri(5,Math.max(6,du-20)))});
+O.delivered.push({id:'gd'+i+'_'+k,pid:id,name:m[0],quantity:dq,unit_cost:Math.round(m[1]*ri(97,106)/100),supplier:pk(['Holcim Dealer','Steel Hub','Quarry Co.','BlockMaker','Builders Depot']),date:ad(dS,ri(4,Math.max(5,run)))})});
+for(let k=0,n=ri(1,3);k<n;k++)O.leaders.push({id:'gt'+i+'_'+k,pid:id,name:pk(NM),role:pk(RL),contact:'09'+ri(10,99)+' '+ri(100,999)+' '+ri(1000,9999),start:dS,end:ad(dS,du+ri(10,40))});
+['Mobilization & site prep','Foundation / subgrade','Main structure / pavement','Finishing & turnover'].forEach((t,k)=>O.swa.push({id:'gw'+i+'_'+k,pid:id,task:t,start:ad(dS,Math.round(du*k/4)),end:ad(dS,Math.round(du*(k+1)/4)),pct:cl(Math.round((pr-25*k)/25*100),0,100)}));
+if(rate){const tot=bid*rate/100;for(let k=0,n=ri(0,3);k<n;k++)O.obligations.push({id:'go'+i+'_'+k,pid:id,date:ad(dS,ri(10,Math.max(11,run))),amount:Math.round(tot*ri(10,30)/100/100)*100,note:'Payment'})}});
+return O}
+if(!db.demo6){const Y=genDemo();db.clients=db.clients||[];Y.clients.forEach(c=>{if(!db.clients.some(x=>x.name===c.name))db.clients.push(c)});delete Y.clients;for(const k in Y)Y[k].forEach(r=>db[k].push(r));db.demo6=1;save()}
 
 const SCHEMA={
 clients:{t:'Clients',f:[['name','Name'],['contact','Contact No.'],['email','Email','email'],['address','Address']]},
@@ -338,7 +413,7 @@ function authView(){
 $('#app').innerHTML=`<div class="auth"><div class="box"><div style="text-align:center"><img class="alogo" src="${biz().logo}"></div><h1 style="text-align:center">${esc(biz().name)}</h1><p>${authTab==='in'?'Sign in to continue':'Create your account'}</p>
 <div class="tabs"><button class="${authTab==='in'?'on':''}" onclick="authTab='in';authView()">Sign In</button><button class="${authTab==='up'?'on':''}" onclick="authTab='up';authView()">Sign Up</button></div>
 <form onsubmit="doAuth(event)">${authTab==='up'?'<label>Full name</label><input name="name" required>':''}
-<label>Email</label><input name="email" type="email" required><label>Password</label><input name="pw" type="password" minlength="6" required>
+<label>Email</label><input name="email" type="email" required value="${esc(ld('apc_last',''))}"><label>Password</label><input name="pw" type="password" minlength="6" required>
 ${authTab==='up'?'<label>Confirm password</label><input name="pw2" type="password" required>':''}
 <div class="err" id="err"></div><button class="btn" style="width:100%;margin-top:6px">${authTab==='in'?'Sign In':'Sign Up'}</button></form></div></div>`}
 async function doAuth(e){
@@ -351,8 +426,8 @@ if(authTab==='up'){
  const u=users.find(u=>u.email===email&&u.h===h);if(!u)return $('#err').textContent='Mali ang email o password.';
  {const{h:_,...ss}=u;sv('apc_session',ss)}
 }
-location.hash='#/dashboard';boot()}
-function logout(){localStorage.removeItem('apc_session');location.hash='';boot()}
+localStorage.setItem('apc_last',email);location.hash='#/dashboard';location.reload()}
+function logout(){localStorage.removeItem('apc_session');location.hash='';location.reload()}
 
 /* ---------- SHELL ---------- */
 const LOGO="data:image/png;base64,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";
@@ -365,6 +440,7 @@ applyTheme();
 function settings(){const b=biz(),m=document.createElement('div');m.className='mod';
 m.innerHTML=`<form><h3>Settings</h3><div style="text-align:center;margin:10px 0"><img class="alogo" src="${b.logo}"></div><label>Business logo</label><input type="file" name="logo" accept="image/*"><label>Business name</label><input name="name" value="${esc(b.name)}" required>
 <label>System theme color</label><div class="sw">${Object.entries(THEMES).map(([k,v])=>`<label class="swb"><input type="radio" name="color" value="${k}" ${b.color===k?'checked':''}><i style="background:${v[0]}"></i>${k[0].toUpperCase()+k.slice(1)}</label>`).join('')}<label class="swb"><input type="radio" name="color" value="custom" ${b.color==='custom'?'checked':''}>Custom <input type="color" name="custom" value="${b.custom}"></label></div>
+<label>Data &amp; backup</label><div class="bk"><button type="button" class="btn g s" onclick="backup()">⬇ Download backup</button><label class="btn g s bkl">⬆ Restore backup<input type="file" accept=".json" hidden onchange="restore(this)"></label><button type="button" class="btn g s" onclick="resetSample()">↺ Reset to sample data</button></div><p class="mut" style="margin:8px 0 0;font-size:12px">Naka-save ang data sa browser na ito, kada account. Mag-download ng backup para madala sa ibang device.</p>
 <div class="row"><button type="button" class="btn g" onclick="this.closest('.mod').remove()">Cancel</button><button class="btn">Save</button></div></form>`;
 m.querySelector('form').onsubmit=async e=>{e.preventDefault();const fd=new FormData(e.target),f=fd.get('logo'),n={name:fd.get('name').trim(),color:fd.get('color'),custom:fd.get('custom'),logo:b.logo};
 if(f&&f.size)n.logo=await shrink(f,300);sv('apc_set',n);applyTheme();m.remove();route()};document.body.appendChild(m)}
@@ -372,9 +448,14 @@ const IC={user:'<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6
 const ic=k=>`<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${IC[k]}</svg>`;
 const clk=()=>{const d=new Date();return`<span class="cd">${d.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})}</span><span class="cs">|</span><span class="ct">${d.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'})}</span>`};
 setInterval(()=>{const e=$('#clk');if(e)e.innerHTML=clk()},10000);
+function backup(){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(db)],{type:'application/json'}));a.download=`APC_backup_${iso(new Date())}.json`;a.click()}
+function restore(i){const f=i.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const d=JSON.parse(r.result);if(!d.projects)throw 0;if(!confirm('Papalitan nito ang lahat ng data sa account na ito. Tuloy?'))return;db=d;save();location.reload()}catch(e){alert('Hindi valid na backup file.')}};r.readAsText(f)}
+function resetSample(){if(confirm('Ibabalik sa sample data ang lahat? Mabubura ang mga idinagdag mo.')){localStorage.setItem('apc_legacy','reset');localStorage.removeItem(DBK);location.reload()}}
 const closeM=()=>document.querySelectorAll('.pm.show').forEach(x=>x.classList.remove('show'));
 const dlMenu=x=>`<div class="dd"><button class="btn g s" onclick="const m=this.nextElementSibling,o=m.classList.contains('show');closeM();if(!o)m.classList.add('show')">⬇ Download</button><div class="pm"><a onclick="closeM();dl('pdf')">Download as PDF</a><a onclick="closeM();dl('img')">Download as Image (PNG)</a>${x?`<a onclick="closeM();${x}">Download as Excel (.xlsx)</a>`:''}</div></div>`;
-function dl(k){if(k==='pdf'){const t=document.title;document.title=biz().name+' - '+$('.top h2').textContent;print();document.title=t}else shot()}
+async function dl(k){const old=JSON.stringify(PG),y=scrollY;Object.values(PG).forEach(g=>g.n=0);route();
+try{if(k==='pdf'){const t=document.title;document.title=biz().name+' - '+$('.top h2').textContent;print();document.title=t}else await shot()}
+finally{const b=JSON.parse(old);for(const x in PG){if(b[x])PG[x]=b[x];else delete PG[x]}route();scrollTo(0,y)}}
 async function xlX(){await lib('XLSX',XL);const wb=XLSX.utils.book_new(),P=db.projects.filter(p=>xp==='all'||p.id===xp);
 sheet(wb,'Cost per Project',P.map(p=>{const c=costs(p);return{Project:p.title,'Bid Amount':p.bid,Expenses:c.exp,'Delivered Materials':c.dv,'Labor Cost':c.lab,Obligations:c.obl,'Total Cost':c.t}}));
 sheet(wb,'Expenses',db.expenses.filter(e=>P.some(p=>p.title===e.project)).map(({id,...r})=>r));XLSX.writeFile(wb,`Expenses_${iso(new Date())}.xlsx`)}
@@ -402,8 +483,8 @@ m.innerHTML=`<form><h3>My Profile</h3><div style="text-align:center;margin:10px 
 m.querySelector('form').onsubmit=async e=>{e.preventDefault();const fd=new FormData(e.target),f=fd.get('photo');
 const n={...u,name:fd.get('name'),email:fd.get('email').toLowerCase().trim(),phone:fd.get('phone'),role:fd.get('role')};
 if(f&&f.size)n.photo=await shrink(f,240);
-const us=ld('apc_users',[]),i=us.findIndex(x=>x.email===u.email);if(i>-1)us[i]={...us[i],name:n.name,email:n.email,phone:n.phone,role:n.role,photo:n.photo};
-sv('apc_users',us);sv('apc_session',n);m.remove();route()};
+const us=ld('apc_users',[]),i=us.findIndex(x=>x.email===u.email);if(n.email!==u.email&&us.some(x=>x.email===n.email))return alert('May account na gamit ang email na ito.');if(i>-1)us[i]={...us[i],name:n.name,email:n.email,phone:n.phone,role:n.role,photo:n.photo};
+if(n.email!==u.email){const d=localStorage.getItem(DBK);if(d){localStorage.setItem('apc_db:'+n.email,d);localStorage.removeItem(DBK)}}sv('apc_users',us);sv('apc_session',n);m.remove();n.email!==u.email?location.reload():route()};
 document.body.appendChild(m)}
 
 /* ---------- DASHBOARD ---------- */
@@ -455,8 +536,7 @@ ${ongCard}<div class="grid g4" style="margin-top:14px">${stat(peso(m.billed),'Bi
 <div class="grid g2" style="margin-top:14px"><div class="c"><h3>Billing vs Expenses (6 months) <span class="mut">· % = share of 6-month total</span></h3><div class="chart">${months.map((x,i)=>`<div class="col"><div class="bars"><div><small>${sh(SA[i])}<br>${pct(SA[i],tA)}%</small><i style="height:calc((100% - 30px)*${SA[i]/mx});background:var(--o)"></i></div><div><small>${sh(SB[i])}<br>${pct(SB[i],tB)}%</small><i style="height:calc((100% - 30px)*${SB[i]/mx});background:var(--blue)"></i></div></div><small class="lbl" style="--lh:116px"><b>${new Date(x+'-02').toLocaleString('en',{month:'short'})}</b><br>Exp ${pct(SB[i],SA[i])}%<br>${A[i].length} bills · ${B[i].length} exp${i?`<br>${dtr(SA[i],SA[i-1],'var(--o)')}<br>${dtr(SB[i],SB[i-1],'var(--blue)')}`:''}</small></div>`).join('')}</div>
 <div class="leg"><i style="background:var(--o)"></i>Billing ${peso(tA)} (${sum(A,a=>a.length)} bills)<i style="background:var(--blue)"></i>Expenses ${peso(tB)} (${sum(B,a=>a.length)}) · ${pct(tB,tA)}% of billing</div></div>
 <div class="c"><h3>Expense Breakdown</h3><div class="donut" style="background:conic-gradient(${grad})"><span class="dl2"><b>${sh(m.exp)}</b><small>Expenses</small></span></div>${cats.map(x=>`<div class="dl"><span><i style="background:${x.col}"></i>${x.c} (${x.n})</span><b>${pct(x.v,m.exp)}%</b></div>`).join('')}</div></div>
-<div class="c" style="margin-top:14px"><div class="sh"><h3>Project Progress (${fmtD(dr.from)} → ${fmtD(dr.to)})</h3><a href="#/reports" class="btn s">Monthly Report</a></div><div class="wrap"><table><tr><th>PROJECT</th><th>STATUS</th><th>PROGRESS</th><th>AS OF ${fmtD(dr.to).toUpperCase()}</th><th>GAINED IN PERIOD</th></tr>
-${m.prog.map(({p,end,gain})=>`<tr><td><a href="#/project/${p.id}"><b>${esc(p.title)}</b></a></td><td>${badge(p)}</td><td><div class="pbar"><i style="width:${end}%"></i></div></td><td>${end}%</td><td>${gain?'<b style="color:var(--grn)">+'+gain+'%</b>':'—'}</td></tr>`).join('')||'<tr><td colspan=5 class="empty">No projects</td></tr>'}</table></div></div>`,right)}
+<div class="c" style="margin-top:14px"><div class="sh"><h3>Project Progress (${fmtD(dr.from)} → ${fmtD(dr.to)})</h3><a href="#/reports" class="btn s">Monthly Report</a></div>${paged('dprog',m.prog.map(({p,end,gain})=>`<tr><td><a href="#/project/${p.id}"><b>${esc(p.title)}</b></a></td><td>${badge(p)}</td><td><div class="pbar"><i style="width:${end}%"></i></div></td><td>${end}%</td><td>${gain?'<b style="color:var(--grn)">+'+gain+'%</b>':'—'}</td></tr>`),`<tr><th>PROJECT</th><th>STATUS</th><th>PROGRESS</th><th>AS OF ${fmtD(dr.to).toUpperCase()}</th><th>GAINED IN PERIOD</th></tr>`,5,'No projects')}</div>`,right)}
 function pw(m,act,done){
 const tot=db.projects.length,avg=tot?Math.round(sum(m.prog,x=>x.end)/tot):0,loc=p=>(p.location||'No location').split(',').pop().trim().toLowerCase().replace(/\b\w/g,c=>c.toUpperCase()),L={};
 m.prog.forEach(x=>(L[loc(x.p)]=L[loc(x.p)]||[]).push(x.end));
@@ -466,7 +546,7 @@ const ms=[2,1,0].map(i=>{const e=new Date(t.getFullYear(),t.getMonth()-i+1,0),v=
 const tl=[[tot,'Total','var(--o)'],[act,'Ongoing','var(--mar)'],[done,'Done','var(--fu)'],[locs.length,'Locations','#3a3a46']];
 return`<div class="c pw" style="margin-top:14px"><div><h3>Percent</h3><span class="mut">Overall project progress</span><div class="ring" style="background:conic-gradient(var(--fu) 0,var(--o) ${avg}%,var(--line) 0)"><div>${avg}%<small class="mut">${tot} projects</small></div></div><div class="leg" style="text-align:center">0% ———— 100%</div><div style="text-align:center;margin-top:8px">${trendPts(ms[2].g)} <span class="mut">this month</span></div></div>
 <div><h3>Last <span style="color:var(--o)">3</span> Month</h3><span class="mut">Avg progress vs gained</span><div class="mbars">${ms.map(x=>`<div style="text-align:center"><div class="mb"><i style="height:${x.v}%;background:var(--fu)" title="Avg ${x.v}%"></i><i style="height:${x.g}%;background:var(--o)" title="Gained ${x.g}%"></i></div><b>${x.l}</b><div class="mut">${x.v}% avg</div><div>${trendPts(x.g)}</div></div>`).join('')}</div><div class="leg"><i style="background:var(--fu)"></i>Avg progress<i style="background:var(--o)"></i>Gained</div></div>
-<div><h3>Progress per Location</h3><span class="mut">Live information</span><div style="margin-top:12px">${locs.map(l=>`<div class="lv"><div class="h"><span>${esc(l.n)} · ${l.c} project${l.c>1?'s':''}</span><b>${l.v}%</b></div><div class="pbar"><i style="width:${l.v}%;background:linear-gradient(90deg,var(--fu),var(--o))"></i></div></div>`).join('')||'<div class="empty">No projects</div>'}</div>
+<div><h3>Progress per Location</h3><span class="mut">Live information</span><div class="scr" style="margin-top:12px">${locs.map(l=>`<div class="lv"><div class="h"><span>${esc(l.n)} · ${l.c} project${l.c>1?'s':''}</span><b>${l.v}%</b></div><div class="pbar"><i style="width:${l.v}%;background:linear-gradient(90deg,var(--fu),var(--o))"></i></div></div>`).join('')||'<div class="empty">No projects</div>'}</div>
 <div class="tiles">${tl.map(x=>`<div><b style="background:${x[2]}">${x[0]}</b><small>${x[1]}</small></div>`).join('')}</div></div></div>`}
 const badge=p=>p.progress>=100?'<span class="pill green">Completed</span>':`<span class="pill blue">Ongoing ${p.progress}%</span>`;
 async function shot(){const ex=$('#export');
@@ -491,7 +571,7 @@ sheet(wb,'Project Progress',m.prog.map(x=>({Project:x.p.title,Progress:x.end,Gai
 let pq='',py='all',pf='all';
 const projSort=(a,b)=>((a.progress>=100)-(b.progress>=100))||(b.dateBid||'').localeCompare(a.dateBid||'');
 function ongGraph(){const o=db.projects.filter(p=>p.progress<100).sort((a,b)=>b.progress-a.progress);if(!o.length)return'';const avg=Math.round(sum(o,p=>p.progress)/o.length);
-return`<div class="c og"><div class="ogr"><h3>Ongoing Projects Progress</h3><div class="ring ring-s" style="background:conic-gradient(var(--fu) 0,var(--o) ${avg}%,var(--line) 0)"><div>${avg}%<small class="mut">${o.length} ongoing</small></div></div><div class="leg" style="text-align:center">Average progress</div></div><div class="ogb">${o.map(p=>`<div class="lv"><div class="h"><span><a href="#/project/${p.id}"><b>${esc(p.title)}</b></a> · <span class="mut">${esc(p.location)}</span></span><b>${p.progress}%</b></div><div class="pbar big"><i style="width:${p.progress}%;background:linear-gradient(90deg,var(--fu),var(--o))"></i></div></div>`).join('')}</div></div>`}
+return`<div class="c og"><div class="ogr"><h3>Ongoing Projects Progress</h3><div class="ring ring-s" style="background:conic-gradient(var(--fu) 0,var(--o) ${avg}%,var(--line) 0)"><div>${avg}%<small class="mut">${o.length} ongoing</small></div></div><div class="leg" style="text-align:center">Average progress</div></div><div class="ogb scr">${o.map(p=>`<div class="lv"><div class="h"><span><a href="#/project/${p.id}"><b>${esc(p.title)}</b></a> · <span class="mut">${esc(p.location)}</span></span><b>${p.progress}%</b></div><div class="pbar big"><i style="width:${p.progress}%;background:linear-gradient(90deg,var(--fu),var(--o))"></i></div></div>`).join('')}</div></div>`}
 function projects(){
 const years=[...new Set(db.projects.map(p=>(p.dateBid||'').slice(0,4)).filter(Boolean))].sort().reverse();
 const list=db.projects.filter(p=>(py==='all'||(p.dateBid||'').startsWith(py))&&(p.title+p.location+p.client+p.license).toLowerCase().includes(pq.toLowerCase())&&(pf==='all'||(pf==='ongoing'?p.progress<100:p.progress>=100))).sort(projSort);
@@ -528,8 +608,9 @@ const btns=(k,id)=>`<td class="act"><button class="btn g s" onclick="openForm('$
 function module(k){
 const s=SCHEMA[k];let rows=db[k];
 if(k==='billing'||k==='expenses'||k==='documents')rows=[...rows].sort((a,b)=>(b.date||'').localeCompare(a.date||''));
-shell(k,s.t,biz().name,`<div class="c"><div class="wrap"><table><tr>${s.f.map(f=>`<th>${f[1].toUpperCase()}</th>`).join('')}${k==='materials'?'<th>TOTAL</th>':''}<th></th></tr>
-${rows.map(r=>`<tr>${s.f.map(f=>`<td>${cell(f,r)}</td>`).join('')}${k==='materials'?`<td>${peso(r.quantity*r.unit_cost)}</td>`:''}${btns(k,r.id)}</tr>`).join('')||'<tr><td colspan=9 class="empty">Wala pang laman.</td></tr>'}</table></div></div>`,
+const head=`<tr>${s.f.map(f=>`<th>${f[1].toUpperCase()}</th>`).join('')}${k==='materials'?'<th>TOTAL</th>':''}<th></th></tr>`;
+const rh=rows.map(r=>`<tr>${s.f.map(f=>`<td>${cell(f,r)}</td>`).join('')}${k==='materials'?`<td>${peso(r.quantity*r.unit_cost)}</td>`:''}${btns(k,r.id)}</tr>`);
+shell(k,s.t,biz().name,`<div class="c">${paged('m_'+k,rh,head,9,'Wala pang laman.')}</div>`,
 `<button class="btn" onclick="openForm('${k}')">+ Add ${s.t.replace(/s$/,'')}</button>`)}
 
 const POS=['Project Engineer','Foreman','Site Supervisor','Safety Officer','Timekeeper'];
@@ -588,15 +669,16 @@ function gantt(rows){rows=rows.filter(r=>r.start&&r.end);if(!rows.length)return'
 const t=d=>new Date(d).getTime(),mn=Math.min(...rows.map(r=>t(r.start))),mx=Math.max(...rows.map(r=>t(r.end))),sp=Math.max(mx-mn,864e5);
 return`<div class="gantt">${rows.map(r=>{const l=(t(r.start)-mn)/sp*100,w=Math.max((t(r.end)-t(r.start))/sp*100,2);return`<div class="gr"><div class="gl">${esc(r.task)}</div><div class="gt"><div class="gb" style="left:${l}%;width:${w}%"><i style="width:${r.pct}%"></i><span>${r.pct}%</span></div></div></div>`}).join('')}<div class="gax"><span>${new Date(mn).toLocaleDateString()}</span><span>${new Date(mx).toLocaleDateString()}</span></div></div>`}
 function subTable(k,p,pre=''){const s=SC(k),rows=rowsOf(k,p),T=s.tot,TF=T||(k==='expenses'||k==='bale'?r=>r.amount:null);
-return`<div class="c"><div class="sh"><h3>${s.t}</h3><button class="btn s" onclick="openForm('${k}',null,'${p.id}')">+ Add</button></div>${pre}<div class="wrap"><table><tr>${s.f.map(f=>`<th>${f[1].toUpperCase()}</th>`).join('')}${T?'<th>TOTAL</th>':''}<th></th></tr>
-${rows.map(r=>`<tr>${s.f.map(f=>`<td>${cell(f,r)}</td>`).join('')}${T?`<td>${peso(T(r))}</td>`:''}${btns(k,r.id)}</tr>`).join('')||'<tr><td colspan=9 class="empty">Wala pang laman.</td></tr>'}</table></div>${TF&&rows.length?`<p class="tt">Total: <b>${peso(sum(rows,TF))}</b></p>`:''}</div>`}
+const head=`<tr>${s.f.map(f=>`<th>${f[1].toUpperCase()}</th>`).join('')}${T?'<th>TOTAL</th>':''}<th></th></tr>`;
+const rh=rows.map(r=>`<tr>${s.f.map(f=>`<td>${cell(f,r)}</td>`).join('')}${T?`<td>${peso(T(r))}</td>`:''}${btns(k,r.id)}</tr>`);
+return`<div class="c"><div class="sh"><h3>${s.t}</h3><button class="btn s" onclick="openForm('${k}',null,'${p.id}')">+ Add</button></div>${pre}${paged('s_'+k+'_'+p.id,rh,head,9,'Wala pang laman.')}${TF&&rows.length?`<p class="tt">Total: <b>${peso(sum(rows,TF))}</b></p>`:''}</div>`}
 function oblSection(p){
 const rate=p.oblRate??0,tot=Math.round(p.bid*rate/100);let bal=tot;
 const rows=rowsOf('obligations',p).sort((a,b)=>(a.date||'').localeCompare(b.date||''));
+const rh=[`<tr><td class="mut">Start</td><td>—</td><td><b>${peso(tot)}</b></td><td></td></tr>`,...rows.map(r=>{bal-=r.amount;return`<tr><td>${fmtD(r.date)}</td><td>${peso(r.amount)}</td><td><b>${peso(bal)}</b></td>${btns('obligations',r.id)}</tr>`})];
 return`<div class="c"><div class="sh"><h3>Obligations (Passbook)</h3><button class="btn s" onclick="openForm('obligations',null,'${p.id}')">+ Add payment</button></div>
 <div class="obl"><label>Rate (%)</label><input type="number" min="0" step="any" value="${rate}" onchange="setRate('${p.id}',this.value)"><div>${peso(p.bid)} × ${rate}% = <b>Total obligation ${peso(tot)}</b></div></div>
-<div class="wrap"><table><tr><th>DATE</th><th>AMOUNT</th><th>BALANCE</th><th></th></tr><tr><td class="mut">Start</td><td>—</td><td><b>${peso(tot)}</b></td><td></td></tr>
-${rows.map(r=>{bal-=r.amount;return`<tr><td>${fmtD(r.date)}</td><td>${peso(r.amount)}</td><td><b>${peso(bal)}</b></td>${btns('obligations',r.id)}</tr>`}).join('')}</table></div>
+${paged('obl_'+p.id,rh,'<tr><th>DATE</th><th>AMOUNT</th><th>BALANCE</th><th></th></tr>',4)}
 <p class="tt">Paid: <b>${peso(tot-bal)}</b> (${pct(tot-bal,tot)}%) · Remaining: <b>${peso(bal)}</b></p></div>`}
 function setRate(id,v){db.projects.find(x=>x.id===id).oblRate=Number(v)||0;save();projectView(id)}
 function expView(p,v){
@@ -614,18 +696,17 @@ return`<div class="grid g4">${stat(peso(te),'Estimated Cost','var(--mar)',L.leng
 <div class="cmp">${L.map(x=>`<div class="cr"><div class="h"><b>${esc(x.n)}</b><span class="mut">${x.dq} of ${x.eq} delivered · ${pct(x.dq,x.eq)}%</span></div>
 <div class="cb"><span>Estimated</span><div class="pbar big"><i style="width:${x.ec/mx*100}%;background:var(--mar)"></i></div><b>${sh(x.ec)}</b></div>
 <div class="cb"><span>Delivered</span><div class="pbar big"><i style="width:${x.dc/mx*100}%;background:linear-gradient(90deg,var(--fu),var(--o))"></i></div><b>${sh(x.dc)}</b></div></div>`).join('')}</div>
-<div class="wrap"><table><tr><th>MATERIAL</th><th>EST. QTY</th><th>DELIVERED QTY</th><th>REMAINING QTY</th><th>% DELIVERED</th><th>EST. COST</th><th>DELIVERED COST</th><th>VARIANCE</th></tr>
-${L.map(x=>{const v=x.ec-x.dc;return`<tr><td>${esc(x.n)}</td><td>${x.eq}</td><td>${x.dq}</td><td>${x.eq-x.dq}</td><td>${pct(x.dq,x.eq)}%</td><td>${peso(x.ec)}</td><td>${peso(x.dc)}</td><td><b style="color:${v<0?'#dc2626':'#16a34a'}">${v<0?'▼ Over '+peso(-v):'▲ Under '+peso(v)}</b></td></tr>`}).join('')}</table></div></div>`}
+${paged('mat_'+p.id,L.map(x=>{const v=x.ec-x.dc;return`<tr><td>${esc(x.n)}</td><td>${x.eq}</td><td>${x.dq}</td><td>${x.eq-x.dq}</td><td>${pct(x.dq,x.eq)}%</td><td>${peso(x.ec)}</td><td>${peso(x.dc)}</td><td><span style="font-weight:600;color:${v<0?'#dc2626':'#16a34a'}">${v<0?'▼ Over '+peso(-v):'▲ Under '+peso(v)}</span></td></tr>`}),'<tr><th>MATERIAL</th><th>EST. QTY</th><th>DELIVERED QTY</th><th>REMAINING QTY</th><th>% DELIVERED</th><th>EST. COST</th><th>DELIVERED COST</th><th>VARIANCE</th></tr>',8)}</div>`}
 function collSection(p){
 const rows=rowsOf('billing',p).sort((a,b)=>(a.date||'').localeCompare(b.date||'')),bid=p.bid||0,lo=Math.round(bid*.1),hi=Math.round(bid*.15),dl=p.dateStart?addD(p.dateStart,15):'',nd=iso(new Date());
 const f=n=>rows.find(r=>r.stage===n),mob=f('Mobilization'),fp=f('First Partial Billing'),fin=f('Final Billing');
 const card=(no,t,sub,r,note='')=>`<div class="ck ${r?'ok':''}"><div class="n">${r?'✓':no}</div><div><b>${t}</b><small>${sub}</small>${r?`<div class="v">${peso(r.amount)} · ${pct(r.amount,bid)}% of bid · ${fmtD(r.date)}</div>`:'<div class="v mut">Wala pang naka-record</div>'}${note}</div></div>`;
 let mn='';if(mob){const bad=pct(mob.amount,bid)<10||pct(mob.amount,bid)>15,late=dl&&mob.date>dl;mn=`<small class="${bad?'bad':'good'}">${bad?'⚠ Wala sa 10–15% ng contract':'✓ Nasa 10–15% ng contract'}</small><small class="${late?'bad':'good'}">${late?'⚠ Lampas sa 15 araw':'✓ Within 15 days'}</small>`}else if(dl&&nd>dl)mn='<small class="bad">⚠ Overdue — lampas na sa 15 araw</small>';
-let run=0;const tr=rows.map(r=>{run+=r.amount;return`<tr><td>${esc(r.stage)||'—'}</td><td>${fmtD(r.date)}</td><td>${peso(r.amount)}</td><td>${pct(r.amount,bid)}%</td><td><span class="pill ${r.status==='paid'?'green':'yellow'}">${esc(r.status)}</span></td><td>${peso(run)}</td><td><b>${peso(bid-run)}</b></td>${btns('billing',r.id)}</tr>`}).join('');
+let run=0;const tr=rows.map(r=>{run+=r.amount;return`<tr><td>${esc(r.stage)||'—'}</td><td>${fmtD(r.date)}</td><td>${peso(r.amount)}</td><td>${pct(r.amount,bid)}%</td><td><span class="pill ${r.status==='paid'?'green':'yellow'}">${esc(r.status)}</span></td><td>${peso(run)}</td><td><b>${peso(bid-run)}</b></td>${btns('billing',r.id)}</tr>`});
 const col=sum(rows.filter(r=>r.status==='paid'),r=>r.amount);
 return`<div class="c"><div class="sh"><h3>Collection-Billing (Running)</h3><button class="btn s" onclick="openForm('billing',null,'${p.id}')">+ Add billing</button></div>
 <div class="cks">${card(1,'Mobilization','Within 15 days'+(dl?' (hanggang '+fmtD(dl)+')':'')+' · 10–15% = '+peso(lo)+' – '+peso(hi),mob,mn)}${card(2,'First Partial Billing','with date and amount',fp)}${card(3,'Final Billing','with date and amount',fin)}</div>
-<div class="wrap"><table><tr><th>STAGE</th><th>DATE</th><th>AMOUNT</th><th>% OF BID</th><th>STATUS</th><th>RUNNING TOTAL</th><th>BALANCE</th><th></th></tr>${tr||'<tr><td colspan=8 class="empty">Wala pang billing. Pindutin ang “+ Add billing”.</td></tr>'}</table></div>
+${paged('coll_'+p.id,tr,'<tr><th>STAGE</th><th>DATE</th><th>AMOUNT</th><th>% OF BID</th><th>STATUS</th><th>RUNNING TOTAL</th><th>BALANCE</th><th></th></tr>',8,'Wala pang billing. Pindutin ang “+ Add billing”.')}
 <p class="tt">Total billed: <b>${peso(run)}</b> (${pct(run,bid)}%) · Collected: <b>${peso(col)}</b> · Remaining: <b>${peso(bid-run)}</b></p></div>`}
 function projectView(id){
 const p=db.projects.find(x=>x.id===id);if(!p){location.hash='#/projects';return}
@@ -641,7 +722,7 @@ else if(ptab==='report')c=projReport(p);
 else if(ptab==='expenses')c=expView(p,{exp,lab,dv,obl,rate,paid,bale});
 else if(ptab==='photos')c=`<div class="c"><div class="sh"><h3>Project Photos</h3><button class="btn s" onclick="openForm('photos',null,'${p.id}')">+ Upload photo</button></div><div class="ph">${R('photos').map(r=>`<figure><img src="${r.img}" onclick="view('${r.id}')"><figcaption>${esc(r.caption)}<small>${fmtD(r.date)}</small><div class="act" style="text-align:left;margin-top:6px"><button class="btn g s" onclick="openForm('photos','${r.id}')">Edit</button> <button class="btn g s" onclick="del('photos','${r.id}')">Delete</button></div></figcaption></figure>`).join('')||'<div class="empty">Wala pang photos.</div>'}</div></div>`;
 else c=subTable(ptab,p);
-shell('projects',esc(p.title),`${esc(p.client)||'—'} · ${esc(p.location)} · Progress ${p.progress}%`,`<div class="ptabs">${TABS.map(([k,l])=>`<button class="${k===ptab?'on':''}" onclick="ptab='${k}';projectView('${id}')">${l}</button>`).join('')}</div>${c}${ptab==='swa'?pgantt(p):''}`,
+shell('projects',esc(p.title),`${esc(p.client)||'—'} · ${esc(p.location)} · Progress ${p.progress}%`,`<div class="psel"><label>Section</label><select onchange="ptab=this.value;projectView('${id}')">${TABS.map(([k,l])=>`<option value="${k}" ${k===ptab?'selected':''}>${l}</option>`).join('')}</select></div>${c}${ptab==='swa'?pgantt(p):''}`,
 `<a class="btn g" href="#/projects">← Projects</a>${dlMenu("xlP('"+id+"')")}`)}
 async function xlP(id){const p=db.projects.find(x=>x.id===id);await lib('XLSX',XL);const wb=XLSX.utils.book_new();
 sheet(wb,'Project',[{Title:p.title,Client:p.client,Bid:p.bid,Location:p.location,'Date Bidded':p.dateBid,'Date Started':p.dateStart,License:p.license,Progress:p.progress}]);
@@ -666,7 +747,7 @@ document.addEventListener('click',e=>{if(!e.target.closest('.srch'))$('#gres')&&
 /* ---------- EXPENSES (per project, with analytics) ---------- */
 let xp='all';
 const costs=p=>{const exp=sum(rowsOf('expenses',p),r=>r.amount),dv=sum(rowsOf('delivered',p),SUB.delivered.tot),lab=sum(rowsOf('labor',p),SUB.labor.tot),obl=Math.round(p.bid*(p.oblRate??0)/100);return{exp,dv,lab,obl,t:exp+dv+lab+obl}};
-const xrows=rows=>`<div class="wrap"><table><tr><th>DESCRIPTION</th><th>CATEGORY</th><th>AMOUNT</th><th>DATE</th><th></th></tr>${[...rows].sort((a,b)=>(b.date||'').localeCompare(a.date||'')).map(r=>`<tr><td>${esc(r.description)}</td><td>${esc(r.category)}</td><td>${peso(r.amount)}</td><td>${fmtD(r.date)}</td>${btns('expenses',r.id)}</tr>`).join('')||'<tr><td colspan=5 class="empty">Wala pang expense.</td></tr>'}</table></div>`;
+const xrows=(rows,key)=>paged(key,[...rows].sort((a,b)=>(b.date||'').localeCompare(a.date||'')).map(r=>`<tr><td>${esc(r.description)}</td><td>${esc(r.category)}</td><td>${peso(r.amount)}</td><td>${fmtD(r.date)}</td>${btns('expenses',r.id)}</tr>`),'<tr><th>DESCRIPTION</th><th>CATEGORY</th><th>AMOUNT</th><th>DATE</th><th></th></tr>',5,'Wala pang expense.');
 function expensesPage(){
 const C=db.projects.filter(p=>xp==='all'||p.id===xp).map(p=>({p,c:costs(p)})),tt=k=>sum(C,x=>x.c[k]),T=tt('t');
 const cats=[['Expenses','exp','var(--o)'],['Delivered Materials','dv','var(--mar)'],['Labor Cost','lab','var(--fu)'],['Obligations','obl','#3a3a46']];
@@ -675,14 +756,14 @@ const months=[...Array(6)].map((_,i)=>{const d=new Date();d.setDate(1);d.setMont
 const MS=months.map(m=>sum(db.expenses.filter(e=>ti.includes(e.project)&&(e.date||'').startsWith(m)),e=>e.amount)),mx=Math.max(1,...MS);
 const un=xp==='all'?db.expenses.filter(e=>!db.projects.some(p=>p.title===e.project)):[];
 shell('expenses','Total Expenses of All Projects',biz().name+' · hiwalay ang bawat project',`
-<div class="ptabs"><button class="${xp==='all'?'on':''}" onclick="xp='all';expensesPage()">All Projects</button>${db.projects.map(p=>`<button class="${xp===p.id?'on':''}" onclick="xp='${p.id}';expensesPage()">${esc(p.title)}</button>`).join('')}</div>
+<div class="psel"><label>Project</label><select onchange="xp=this.value;expensesPage()"><option value="all" ${xp==='all'?'selected':''}>All Projects</option>${db.projects.map(p=>`<option value="${p.id}" ${xp===p.id?'selected':''}>${esc(p.title)}</option>`).join('')}</select></div>
 <div class="grid g4">${stat(peso(T),'Total Project Costs','var(--o)',C.length+' project'+(C.length>1?'s':''))}${cats.map(c=>stat(peso(tt(c[1])),c[0],c[2],pct(tt(c[1]),T)+'% of total')).join('')}</div>
 <div class="grid g2" style="margin-top:14px"><div class="c"><h3>Monthly Expenses (6 months) <span class="mut">· % of total</span></h3><div class="chart">${months.map((m,i)=>`<div class="col"><div class="bars"><div style="width:55%"><small>${sh(MS[i])}<br>${pct(MS[i],sum(MS,x=>x))}%</small><i style="height:calc((100% - 30px)*${MS[i]/mx});background:var(--o)"></i></div></div><small class="lbl"><b>${new Date(m+'-02').toLocaleString('en',{month:'short'})}</b>${i?'<br>'+trend(MS[i],MS[i-1]):''}</small></div>`).join('')}</div></div>
 <div class="c"><h3>Cost Breakdown</h3><div class="donut" style="background:conic-gradient(${g})"><span class="dl2"><b>${sh(T)}</b><small>Total</small></span></div>${cats.map(c=>`<div class="dl"><span><i style="background:${c[2]}"></i>${c[0]}</span><b>${pct(tt(c[1]),T)}%</b></div>`).join('')}</div></div>
-<div class="c" style="margin-top:14px"><h3>Cost per Project</h3>${C.map(({p,c})=>`<div class="lv"><div class="h"><span>${esc(p.title)}</span><b>${peso(c.t)} · ${pct(c.t,p.bid)}% of bid</b></div><div class="pbar"><i style="width:${Math.min(100,pct(c.t,p.bid))}%;background:linear-gradient(90deg,var(--fu),var(--o))"></i></div></div>`).join('')||'<div class="empty">No projects</div>'}</div>
+<div class="c" style="margin-top:14px"><h3>Cost per Project</h3><div class="scr">${C.map(({p,c})=>`<div class="lv"><div class="h"><span>${esc(p.title)}</span><b>${peso(c.t)} · ${pct(c.t,p.bid)}% of bid</b></div><div class="pbar"><i style="width:${Math.min(100,pct(c.t,p.bid))}%;background:linear-gradient(90deg,var(--fu),var(--o))"></i></div></div>`).join('')||'<div class="empty">No projects</div>'}</div></div>
 ${C.map(({p,c})=>`<div class="c" style="margin-top:14px"><div class="sh"><h3><a href="#/project/${p.id}">${esc(p.title)}</a></h3></div>
-<p class="mut" style="margin:0 0 10px">Expenses ${peso(c.exp)} · Materials ${peso(c.dv)} · Labor ${peso(c.lab)} · Obligations ${peso(c.obl)} · <b>Total ${peso(c.t)}</b></p>${xrows(rowsOf('expenses',p))}<p class="tt">Subtotal: <b>${peso(c.exp)}</b></p></div>`).join('')}
-${un.length?`<div class="c" style="margin-top:14px"><h3>Unassigned</h3>${xrows(un)}</div>`:''}
+<p class="mut" style="margin:0 0 10px">Expenses ${peso(c.exp)} · Materials ${peso(c.dv)} · Labor ${peso(c.lab)} · Obligations ${peso(c.obl)} · <b>Total ${peso(c.t)}</b></p>${xrows(rowsOf('expenses',p),'x_'+p.id)}<p class="tt">Subtotal: <b>${peso(c.exp)}</b></p></div>`).join('')}
+${un.length?`<div class="c" style="margin-top:14px"><h3>Unassigned</h3>${xrows(un,'x_un')}</div>`:''}
 <div class="c" style="margin-top:14px;text-align:right;font-size:18px">TOTAL: <b>${peso(tt('exp')+sum(un,e=>e.amount))}</b> <span class="mut">(listed expenses)</span></div>`,
 dlMenu('xlX()'))}
 
@@ -697,7 +778,7 @@ return`<div class="dc"><div class="dt">${im?`<img src="${src}" onclick="view('${
 function documentsPage(){
 const types=['All','Permit','Business Paper','Contract','Plan','Receipt','Other'],all=db.documents.filter(d=>dt==='All'||d.type===dt).sort((a,b)=>(b.added||b.date||'').localeCompare(a.added||a.date||''));
 const isI=d=>(d.doc||d.img||'').startsWith('data:image'),pics=all.filter(isI),files=all.filter(d=>!isI(d));
-shell('documents','Documents','Permits at iba pang papeles ng negosyo — pictures, PDF, Word, Excel',`<div class="ptabs">${types.map(t=>`<button class="${t===dt?'on':''}" onclick="dt='${t}';documentsPage()">${t}${t==='All'?' ('+db.documents.length+')':''}</button>`).join('')}</div>
+shell('documents','Documents','Permits at iba pang papeles ng negosyo — pictures, PDF, Word, Excel',`<div class="psel"><label>Type</label><select onchange="dt=this.value;documentsPage()">${types.map(t=>`<option value="${t}" ${t===dt?'selected':''}>${t}${t==='All'?' ('+db.documents.length+')':' ('+db.documents.filter(d=>d.type===t).length+')'}</option>`).join('')}</select></div>
 <div class="sh"><h3>Pictures <span class="mut">(${pics.length})</span></h3></div><div class="dg2">${pics.map(dcard).join('')||'<div class="empty c" style="grid-column:1/-1">Wala pang pictures.</div>'}</div>
 <div class="sh" style="margin-top:24px"><h3>Files <span class="mut">(${files.length})</span></h3></div><div class="dg2">${files.map(dcard).join('')||'<div class="empty c" style="grid-column:1/-1">Wala pang files.</div>'}</div>`,
 `<button class="btn" onclick="openForm('documents')">+ Add Document</button>`)}
@@ -720,16 +801,19 @@ const ds=[...db.billing.filter(x=>x.project===p.title),...db.expenses.filter(x=>
 if(!ds.length)return'<div class="c empty">Wala pang data para sa monthly report ng project na ito.</div>';
 ds.sort();const cur=iso(new Date()).slice(0,7),mxm=ds[ds.length-1].slice(0,7),end=mxm>cur?mxm:cur,ms=[];
 for(let d=new Date(ds[0].slice(0,7)+'-01T00:00:00');iso(d).slice(0,7)<=end&&ms.length<36;d=new Date(d.getFullYear(),d.getMonth()+1,1))ms.unshift(iso(d).slice(0,7));
-let tb=0,tc=0,te=0;const rows=ms.map((m,i)=>{const x=PM(p,m),y=ms[i+1]?PM(p,ms[i+1]):null;tb+=x.b;tc+=x.c;te+=x.e;return`<tr><td>${lab2(m)}</td><td>${peso(x.b)}${y?'<br>'+trend(x.b,y.b):''}</td><td>${peso(x.c)}</td><td>${peso(x.e)}${y?'<br>'+trend(x.e,y.e):''}</td><td><b style="color:${x.c-x.e<0?'#d33':'#1e7a1e'}">${peso(x.c-x.e)}</b></td></tr>`}).join('');
-return`<div class="grid g4">${stat(peso(tb),'Total Billed','var(--o)')}${stat(peso(tc),'Total Collected','var(--mar)',pct(tc,tb)+'% of billed')}${stat(peso(te),'Total Expenses','var(--fu)',pct(te,p.bid)+'% of bid')}${stat(peso(tc-te),'Net (Collected − Expenses)',tc-te<0?'#d33':'#3da63d')}</div>${lineChart(ms,p)}<div class="c" style="margin-top:14px"><h3>Monthly Report · ${esc(p.title)}</h3><div class="wrap"><table><tr><th>MONTH</th><th>BILLED</th><th>COLLECTED</th><th>EXPENSES</th><th>NET</th></tr>${rows}</table></div></div>`}
+let tb=0,tc=0,te=0;const rows=ms.map((m,i)=>{const x=PM(p,m),y=ms[i+1]?PM(p,ms[i+1]):null;tb+=x.b;tc+=x.c;te+=x.e;const f=o=>o&&{...o,n:o.c-o.e};return rptRow(lab2(m),f(x),f(y))});
+return`<div class="grid g4">${stat(peso(tb),'Total Billed','var(--o)')}${stat(peso(tc),'Total Collected','var(--mar)',pct(tc,tb)+'% of billed')}${stat(peso(te),'Total Expenses','var(--fu)',pct(te,p.bid)+'% of bid')}${stat(peso(tc-te),'Net (Collected − Expenses)',tc-te<0?'#d33':'#3da63d')}</div>${lineChart(ms,p)}<div class="c" style="margin-top:14px"><h3>Monthly Report · ${esc(p.title)}</h3>${paged('rep_'+p.id,rows,'<tr><th>MONTH</th><th class="num">BILLED</th><th class="num">COLLECTED</th><th class="num">EXPENSES</th><th class="num">NET</th></tr>',5,'No data','rpt')}</div>`}
+const rptRow=(label,cur,prev)=>{const T=(k)=>`<div class="trl">${prev?trend(cur[k],prev[k]):'&nbsp;'}</div>`,net=cur.c-cur.e;
+return`<tr><td>${label}</td><td class="num">${peso(cur.b)}${T('b')}</td><td class="num">${peso(cur.c)}${T('c')}</td><td class="num">${peso(cur.e)}${T('e')}</td><td class="num"><span style="font-weight:600;color:${net<0?'#d33':'#1e7a1e'}">${peso(net)}</span>${T('n')}</td></tr>`};
 const lab2=m=>new Date(m+'-02').toLocaleString('en',{month:'short',year:'numeric'});
 function reports(){
 const ms=[...new Set([...db.billing.map(b=>b.date.slice(0,7)),...db.expenses.map(e=>e.date.slice(0,7))])].sort().reverse();
 let tb=0,tc=0,te=0;
-const MB=m=>sum(db.billing.filter(x=>x.date.startsWith(m)),x=>x.amount),ME=m=>sum(db.expenses.filter(x=>x.date.startsWith(m)),x=>x.amount);const rows=ms.map((m,ix)=>{const pm_=ms[ix+1];const b=sum(db.billing.filter(x=>x.date.startsWith(m)),x=>x.amount),c=sum(db.billing.filter(x=>x.date.startsWith(m)&&x.status==='paid'),x=>x.amount),e=sum(db.expenses.filter(x=>x.date.startsWith(m)),x=>x.amount);tb+=b;tc+=c;te+=e;
-return`<tr><td>${new Date(m+'-02').toLocaleString('en',{month:'long',year:'numeric'})}</td><td>${peso(b)}${pm_?'<br>'+trend(b,MB(pm_)):''}</td><td>${peso(c)}</td><td>${peso(e)}${pm_?'<br>'+trend(e,ME(pm_)):''}</td><td><b style="color:${c-e<0?'#d33':'#1e7a1e'}">${peso(c-e)}</b></td></tr>`}).join('');
+const MV=m=>({b:sum(db.billing.filter(x=>x.date.startsWith(m)),x=>x.amount),c:sum(db.billing.filter(x=>x.date.startsWith(m)&&x.status==='paid'),x=>x.amount),e:sum(db.expenses.filter(x=>x.date.startsWith(m)),x=>x.amount)}),FN=o=>({...o,n:o.c-o.e});
+const rows=ms.map((m,ix)=>{const cu=FN(MV(m)),pv=ms[ix+1]?FN(MV(ms[ix+1])):null;tb+=cu.b;tc+=cu.c;te+=cu.e;
+return rptRow(new Date(m+'-02').toLocaleString('en',{month:'long',year:'numeric'}),cu,pv)});
 shell('reports','Monthly Report','Billing, collections and expenses per month',`<div class="grid g4">${stat(peso(tb),'Total Billed','var(--o)')}${stat(peso(tc),'Total Collected','#4b4b57')}${stat(peso(te),'Total Expenses','var(--fu)')}${stat(peso(tc-te),'Net (Collected − Expenses)','#3da63d')}</div>
-${lineChart(ms)}<div class="c" style="margin-top:14px"><div class="wrap"><table><tr><th>MONTH</th><th>BILLED</th><th>COLLECTED</th><th>EXPENSES</th><th>NET</th></tr>${rows||'<tr><td colspan=5 class="empty">No data</td></tr>'}</table></div></div>`,
+${lineChart(ms)}<div class="c" style="margin-top:14px">${paged('rep_all',rows,'<tr><th>MONTH</th><th class="num">BILLED</th><th class="num">COLLECTED</th><th class="num">EXPENSES</th><th class="num">NET</th></tr>',5,'No data','rpt')}</div>`,
 dlMenu(''))}
 
 /* ---------- ROUTER ---------- */
